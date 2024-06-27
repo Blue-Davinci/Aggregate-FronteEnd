@@ -1,20 +1,29 @@
 <script>
       import { Button } from "$lib/components/ui/button";
+      import Intro from "$lib/components/layouts/intro.svelte";
+      import Productivity from "$lib/components/layouts/productivity.svelte";
+      import Reviews from "$lib/components/layouts/reviews.svelte";
+      import Footer from "$lib/components/layouts/footer.svelte";
     </script>
     
-    <style>
-      .centered-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        text-align: center;
-      }
-    </style>
-    
-    <div class="centered-container">
-      <Button>Click me</Button>
-      <h1>Welcome to SvelteKit</h1>
-      <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-    </div>
+<svelte:head>
+  <title>Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/favicon-32x32.png"
+  />
+  <link
+  href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Raleway:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/home.css" />
+</svelte:head>
+
+<Intro />
+<Productivity />
+<Reviews />
+<Footer />

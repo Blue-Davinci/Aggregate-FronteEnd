@@ -1,0 +1,375 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Raleway:wght@400;700&display=swap"); */
+
+body {
+  background-color: var(--main-bg);
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  font-size: 2rem;
+  text-align: center;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  margin: 20px;
+}
+
+p {
+  line-height: 1.5rem;
+}
+
+button {
+  padding: 15px 0px;
+  font-size: 1rem;
+  color: #fff;
+  background: linear-gradient(to right, var(--cyan), var(--blue));
+  border: none;
+  border-radius: 150px;
+  cursor: pointer;
+  width: 220px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+nav {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-intro-email-bg);
+}
+nav .logo {
+  width: 120px;
+  height: auto;
+}
+nav ul {
+  display: flex;
+}
+nav li {
+  list-style: none;
+  margin: 10px;
+  font-family: "Raleway", sans-serif;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+}
+
+section.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--primary-intro-email-bg);
+  background-image: url(/bg-curvy-desktop.png);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+}
+
+section.intro p {
+  font-size: 1rem;
+}
+section.intro img {
+  width: 520px;
+}
+
+section.intro button {
+  margin-top: 10px;
+  margin-bottom: 200px;
+}
+
+section.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section.features .item-container {
+  max-width: 370px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 50px;
+}
+
+h2 {
+  font-family: "Raleway", sans-serif;
+}
+section.features h2,
+section.features p {
+  margin: 0;
+  margin-top: 5px;
+}
+
+section.features img {
+  margin: 15px;
+  height: auto;
+}
+
+section.productive {
+  display: flex;
+  justify-content: center;
+  text-align: left;
+  align-items: center;
+}
+
+section.productive header {
+  text-align: left;
+  margin-left: 0;
+}
+
+section.productive .info {
+  margin: 50px;
+  max-width: 500px;
+}
+section.productive a {
+  color: var(--cyan);
+  text-decoration: none;
+  border-bottom: 1px solid var(--cyan);
+  padding-bottom: 5px;
+}
+section.productive a img {
+  height: 15px;
+  transform: translateY(3px);
+}
+
+/* Reviews styles  */
+section.reviews {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+}
+
+section.reviews .card:nth-child(1) {
+  position: relative;
+}
+section.reviews .card > img {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  left: -10px;
+  top: -32px;
+  z-index: -1;
+}
+
+section.reviews .card {
+  width: 350px;
+  /* height: 180px; */
+  background-color: var(--tetimonials-bg);
+  margin: 25px;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.card img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.card .user-info {
+  display: flex;
+  align-items: center;
+}
+.card .user-info p {
+  margin: 0px;
+  line-height: 1rem;
+}
+
+.user-info .about {
+  font-size: 0.6rem;
+}
+
+.user-info .name {
+  font-size: 0.8rem;
+}
+
+footer {
+  background-color: var(--footer-bg);
+  margin-top: 300px;
+  padding-bottom: 20px;
+}
+.footer .logo img {
+  width: 180px; /* Further reduced from 100px to 80px */
+}
+
+footer .early-access {
+  padding: 25px 40px;
+  padding-bottom: 40px;
+  background-color: var(--primary-intro-email-bg);
+  border-radius: 5px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.555);
+  max-width: 950px;
+  box-sizing: border-box;
+  text-align: center;
+  transform: translate(50%, -50%);
+  position: absolute;
+  right: 50%;
+}
+
+footer .early-access input {
+  padding: 15px 25px;
+  border-radius: 150px;
+  width: 300px;
+  margin-bottom: 10px;
+  border: none;
+  font-family: "Open Sans", sans-serif;
+  margin-right: 20px;
+  background-color: transparent;
+}
+
+footer .info img {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.early-access p {
+  padding: 10px 75px;
+}
+
+footer .footer {
+  margin: 0px 80px;
+  padding-top: 250px;
+}
+
+footer .footer .info {
+  display: flex;
+  justify-content: space-between;
+}
+.footer .horizontal {
+  margin: 0px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+footer .horizontal div {
+  margin: 10px;
+}
+footer .address {
+  max-width: 300px;
+  display: flex;
+  align-items: flex-start;
+}
+
+footer .address p {
+  margin: 0;
+  margin-left: 10px;
+}
+
+footer .logo {
+  margin: 20px;
+}
+
+.footer a {
+  text-decoration: none;
+  margin: 10px;
+}
+
+footer .social img {
+  filter: invert(1);
+  text-align: center;
+  margin: 0;
+}
+
+footer .social {
+  display: flex;
+}
+footer .social div {
+  border-radius: 50px;
+  border: 1px solid #fff;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  nav .logo {
+    width: 120px;
+  }
+  img {
+    max-width: 80vw;
+  }
+  section.intro img {
+    width: 300px;
+    height: auto;
+  }
+  section.intro header {
+    font-size: 1.6rem;
+  }
+
+  section.intro p {
+    max-width: 85vw;
+  }
+  br {
+    display: none;
+  }
+
+  section.features .item-container {
+    margin: 30px 50px;
+  }
+
+  section.reviews,
+  .footer,
+  .footer .info,
+  section.productive {
+    flex-direction: column;
+  }
+  section.productive {
+    margin-top: 100px;
+  }
+  .early-access p {
+    padding: 5px;
+  }
+  .early-access header {
+    font-size: 1.2rem;
+  }
+
+  .early-access {
+    width: 90vw;
+  }
+
+  footer .early-access input {
+    width: 240px;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  .early-access button {
+    width: 290px;
+  }
+
+  footer .footer {
+    margin: 0;
+  }
+  footer .social {
+    justify-content: center;
+  }
+  footer {
+    max-height: 80%;
+  }
+
+  .logo img {
+    width: 100px;
+  }
+  nav .logo {
+    width: 80px;
+  }
+}
