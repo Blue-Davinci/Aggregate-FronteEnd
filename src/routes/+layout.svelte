@@ -51,9 +51,11 @@
 			<span class="tooltip">Home</span>
 		</li>
 		<li>
-			<a href="/feeds">
+			<a href="/feeds"
+			data-sveltekit-preload-data
+			>
 				<i class="bx bx-news"></i>
-				<span class="nav-item">Feeds</span>
+				<span class="nav-item" >Feeds</span>
 			</a>
 			<span class="tooltip">Feeds</span>
 		</li>
@@ -90,7 +92,7 @@
 				<span class="tooltip">Logout</span>
 			</li>
 			<li>
-				<a href="#a">
+				<a href="/login">
 					<i class="bx bxs-log-in-circle"></i>
 					<span class="nav-item">Login</span>
 				</a>

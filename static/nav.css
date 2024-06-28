@@ -128,7 +128,7 @@
 
 .sidebar ul li .tooltip {
     position: absolute;
-    left: 150%; /* Adjust this value to position the tooltip right of the icon */
+    left: 130%; /* Adjust this value to position the tooltip right of the icon */
     top: 0; /* Align with the top of the icon */
     transform: translate(0, -50%); /* Adjust vertically centered to the icon */
     transition: opacity 0.2s ease; /* Smooth transition for showing tooltip */

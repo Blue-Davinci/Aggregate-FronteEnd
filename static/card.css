@@ -22,7 +22,7 @@
     transition: box-shadow 0.3s ease-in-out;
     flex-direction: column;
     justify-content: space-around;
-    height: 600px;
+    max-height: 600px;
     overflow: hidden;
     padding: 1rem;
     padding-bottom: 0.4rem;
