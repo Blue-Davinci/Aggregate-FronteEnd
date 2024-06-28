@@ -4,8 +4,7 @@
       <p>
         I’ve been using Aggregate to keep track of my favorite news sources, blogs, and podcasts. 
         The feed aggregation feature is a game-changer! Instead of visiting multiple websites, 
-        I get all the updates in one place. Plus, the clean and intuitive interface makes navigation a breeze. 
-        Highly recommended!
+        I get all the updates in one place. Plus, the clean and intuitive interface makes navigation a breeze.
       </p>
       <div class="user-info">
         <img src="/profile-1.jpg" alt="user pic" />

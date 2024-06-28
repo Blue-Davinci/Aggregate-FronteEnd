@@ -1,13 +1,5 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Raleway:wght@400;700&display=swap"); */
 
-body {
-  background-color: var(--main-bg);
-  font-size: 14px;
-  font-family: "Open Sans", sans-serif;
-  color: #ffffff;
-  margin: 0;
-  padding: 0;
-}
 
 header {
   font-size: 2rem;
@@ -24,7 +16,6 @@ p {
 button {
   padding: 15px 0px;
   font-size: 1rem;
-  color: #fff;
   background: linear-gradient(to right, var(--cyan), var(--blue));
   border: none;
   border-radius: 150px;
@@ -77,6 +68,7 @@ section.intro {
 
 section.intro p {
   font-size: 1rem;
+  font-family: "Roboto", sans-serif; 
 }
 section.intro img {
   width: 520px;
@@ -106,7 +98,7 @@ section.features .item-container {
 }
 
 h2 {
-  font-family: "Raleway", sans-serif;
+  font-family: "Roboto", sans-serif; 
 }
 section.features h2,
 section.features p {
@@ -190,6 +182,7 @@ section.reviews .card {
 .card .user-info p {
   margin: 0px;
   line-height: 1rem;
+  font-family: "Roboto", sans-serif; 
 }
 
 .user-info .about {
@@ -228,7 +221,7 @@ footer .early-access input {
   border-radius: 150px;
   width: 300px;
   margin-bottom: 10px;
-  border: none;
+  border:1px solid hsl(143, 51%, 35%);
   font-family: "Open Sans", sans-serif;
   margin-right: 20px;
   background-color: transparent;
@@ -242,6 +235,7 @@ footer .info img {
 
 .early-access p {
   padding: 10px 75px;
+  font-family: "Roboto", sans-serif; 
 }
 
 footer .footer {
@@ -271,6 +265,7 @@ footer .address {
 footer .address p {
   margin: 0;
   margin-left: 10px;
+  font-family: "Roboto", sans-serif; 
 }
 
 footer .logo {

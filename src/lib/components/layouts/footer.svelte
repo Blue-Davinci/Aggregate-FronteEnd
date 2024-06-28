@@ -27,9 +27,8 @@
           <div class="address">
             <img src="/icon-location.png" alt="icon location" />
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Expedita recusandae laborum cum totam rem ex. Dicta beatae nulla
-              consequuntur delectus
+              The aggregate project is located in Nairobi, Kenya
+              and operates under <b>ALX Africa.</b>
             </p>
           </div>
         </div>
@@ -37,11 +36,11 @@
         <div class="horizontal">
           <div>
             <img src="/icon-phone.png" alt="icon phone" />
-            <a href="tel:+1-543-123-4567"> +1-543-123-4567 </a>
+            <a href="tel:+1-543-123-4567"> +254-700-000-000 </a>
           </div>
           <div>
             <img src="/icon-email.png" alt="icon email" />
-            <a href="mailto:example@fylo.com"> example@fylo.com </a>
+            <a href="mailto:example@fylo.com"> admin@aggregate.com </a>
           </div>
         </div>
         <!-- about -->
