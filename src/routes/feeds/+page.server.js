@@ -1,9 +1,9 @@
 import { error } from '@sveltejs/kit';
-import {VITE_API_BASE_URL} from '$env/static/private';
+import {VITE_API_BASE_URL_FEEDS} from '$env/static/private';
 
 export const load = async ({fetch}) => {
-    let url = `${VITE_API_BASE_URL}/feeds`;
-    const res = await fetch(`${url}`, {
+    let feed_url = `${VITE_API_BASE_URL_FEEDS}`;
+    const res = await fetch(`${feed_url}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

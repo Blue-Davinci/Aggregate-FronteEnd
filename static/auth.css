@@ -1,0 +1,15 @@
+.error-list {
+    display: grid;
+    justify-items: start;
+    align-items: center;
+    padding: 0;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 4px;
+}
+.error-message {
+    color: #a94442;
+    font-size: 0.8em;
+    margin: 4px 0;
+    list-style-type: circle;
+}

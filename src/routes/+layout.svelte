@@ -7,6 +7,7 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import { toggleMode } from 'mode-watcher';
 	import { fly, slide } from 'svelte/transition';
+	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 
 	onMount(() => {
 		const btn = document.getElementById('btn');
@@ -22,10 +23,12 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Home | Aggregate</title>
+	<title>Home • Aggregate</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/nav.css" />
+	<link rel="stylesheet" href="/toast.css" />
+	<!--<link rel="stylesheet" href="/loader.css" />-->
 </svelte:head>
 <div class="sidebar">
 	<div class="top">
@@ -38,8 +41,8 @@
 	<div class="user">
 		<img src="/user.jpg" alt="user" class="user-img" />
 		<div>
-			<p class="bold">Davinci</p>
-			<p>Admin</p>
+			<p class="bold">Sign In</p>
+			<p>Aggregate</p>
 		</div>
 	</div>
 	<ul>
@@ -122,6 +125,16 @@
 			<span class="sr-only">Toggle theme</span>
 		</Button>
 		<ModeWatcher />
+		<div class="wrap">
+			<SvelteToast
+				target="new"
+				options={{
+					initial: 1,
+					intro: { y: -64 },
+					dismissable: false
+				}}
+			/>
+		</div>
 		<slot />
 	</div>
 </div>
