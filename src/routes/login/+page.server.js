@@ -6,7 +6,7 @@ import  {registrationSchema, saveAuthentication} from '$lib/utilities/auth.js';
 // from or to the dashboard page (about page for the debugging)
 function successfulAuth(url){
     const urlpath = url.searchParams.get('redirectTo');
-    const redirectTo =  urlpath ? urlpath: '/about';
+    const redirectTo =  urlpath ? urlpath: '/dashboard';
     console.log("[page.server.js LOGIN Url Path: ", redirectTo);
     return redirect(303, redirectTo);
 }

@@ -32,7 +32,7 @@ function checkAuthentication(cookies){
     let user = cookies.get('authtoken');
     if (!user || user === null) {
         return {status: false};
-    }else{
+    }else{   
         return {status: true, user: user};
     }
 }
@@ -49,5 +49,21 @@ function saveAuthentication(cookies, apikey){
     }
 
 }
+function deleteAuthentication(cookies){
+    try{
+        cookies.delete('authtoken', {path:'/'});
+        return true
+    }catch(err){
+        console.log("Error logging out", err);
+        return false
+    }
+}
 
-export {checkAuthentication, saveAuthentication, tokenSchema, passwordSchema, registrationSchema};
+export {
+    checkAuthentication,
+    deleteAuthentication, 
+    saveAuthentication, 
+    tokenSchema, 
+    passwordSchema, 
+    registrationSchema
+};

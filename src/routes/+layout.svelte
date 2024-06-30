@@ -8,7 +8,11 @@
 	import { toggleMode } from 'mode-watcher';
 	import { fly, slide } from 'svelte/transition';
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
-
+	// get the current authentication state
+	export let data;
+	let isAuthenticated;
+	$: if (data) isAuthenticated = data.props.user;
+	//$:console.log("| isAuthenticated:",isAuthenticated);
 	onMount(() => {
 		const btn = document.getElementById('btn');
 		const sidebar = document.querySelector('.sidebar');
@@ -17,6 +21,10 @@
 			sidebar.classList.toggle('active');
 		};
 	});
+	function logout(){
+		console.log("logging out");
+	}
+
 </script>
 
 <svelte:head>
@@ -47,6 +55,13 @@
 	</div>
 	<ul>
 		<li>
+			<a href="/dashboard">
+				<i class="bx bxs-grid-alt"></i>
+				<span class="nav-item">Dashboard</span>
+			</a>
+			<span class="tooltip">Dashboard</span>
+		</li>
+		<li>
 			<a href="/">
 				<i class="bx bx-home-circle"></i>
 				<span class="nav-item">Home</span>
@@ -69,31 +84,10 @@
 			</a>
 			<span class="tooltip">About</span>
 		</li>
-		<!-- Probably a <hr \> here-->
-		<li>
-			<a href="#a">
-				<i class="bx bxs-grid-alt"></i>
-				<span class="nav-item">Dashboard</span>
-			</a>
-			<span class="tooltip">Dashboard</span>
-		</li>
-		<li>
-			<a href="#a">
-				<i class="bx bx-id-card"></i>
-				<span class="nav-item">Account</span>
-			</a>
-			<span class="tooltip">Account</span>
-		</li>
 		<hr />
 		<!-- AUTHS -->
 		<div class="auth-links">
-			<li>
-				<a href="#a">
-					<i class="bx bxs-log-out"></i>
-					<span class="nav-item">Logout</span>
-				</a>
-				<span class="tooltip">Logout</span>
-			</li>
+			{#if !isAuthenticated || isAuthenticated === null || isAuthenticated === undefined}
 			<li>
 				<a href="/login">
 					<i class="bx bxs-log-in-circle"></i>
@@ -108,6 +102,15 @@
 				</a>
 				<span class="tooltip">Signup</span>
 			</li>
+			{:else}
+			<li>
+				<a href="/logout">
+					<i class="bx bxs-log-out"></i>
+					<span class="nav-item">Logout</span>
+				</a>
+				<span class="tooltip">Logout</span>
+			</li>
+			{/if}
 		</div>
 	</ul>
 </div>
