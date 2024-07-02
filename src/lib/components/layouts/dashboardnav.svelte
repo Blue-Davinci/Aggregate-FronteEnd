@@ -1,6 +1,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
-	import {LayoutDashboard,Codesandbox, Share, Rss, House} from 'lucide-svelte';
+	import * as Dialog from "$lib/components/ui/dialog";
+	import {LayoutDashboard,Codesandbox, Share, Rss, House, SquarePlus} from 'lucide-svelte';
 	export let messages = {
 		"id": "message"	
 	};
@@ -69,7 +70,7 @@
 			  <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 			  <a href="#a" class="flex items-center space-x-2 rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page"><LayoutDashboard class="h-5 w-5 mr-2"/>Dashboard</a>
 			  <a href="/" class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"><House class="h-5 w-5 mr-2"/>Home</a>
-			  <a href="#share" class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"><Share class="h-5 w-5 mr-2"/>Share</a>
+			  <a href="#share" class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"><SquarePlus class="h-5 w-5 mr-2"/>Add Feed</a>
 			  <a href="#follows" class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"><Rss class="h-5 w-5 mr-2"/>My Follows</a>
 			</div>
 		  </div>

@@ -33,8 +33,8 @@ export  const handle =  async({ event, resolve }) =>{
 	} else if(credentials.status && credentials.user) {
 		// otherwise if logged in and trying to access safelisted paths eg login or signup then
 		// we redirect them to the home page
-		console.log("Redirecting! Autheneticated user but trying to acces login");
 		if (isSafelist) {
+			console.log("Redirecting! Autheneticated user but trying to acces login");
 			redirect(303, `/`);
 		}
 		// proceed with writting the locals

@@ -8,8 +8,8 @@
 	import { Label } from '$lib/components/ui/label';
 	import { checkForHTMLTags } from '$lib/utilities/utils.js';
 	import { Separator } from '$lib/components/ui/separator';
-    import {postDetail} from '$lib/store/postDetailStore.js';
 	import {saveSessionData} from '$lib/store/sessionStore.js';
+	import { postDetail } from '$lib/store/postDetailStore.js';
 	export let post;
 
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
@@ -30,9 +30,9 @@
                 "info": post,
                 "htmlstatus": isHTMLDescription
             }
-        postDetail.set(
+        /*postDetail.set(
             postData
-        );
+        );*/
 		//save session data
 		saveSessionData('rssFeed', postData);
 		goto('/dashboard/post');

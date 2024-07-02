@@ -24,6 +24,31 @@ const registrationSchema = z.object({
 	.max(32, {message: "Password must be less than 32 characters"})
 	.trim(),
 });
+const feedSchema = z.object({
+    name: z
+    .string({required_error: "Post Name is required"})
+    .min(1, {message: "Post Name is required"})
+    .max(500, {message: "Post Name must be less than 500 characters"})
+    .trim(),
+    url: z
+    .string({required_error: "Post URL is required"})
+    .min(1, {message: "Post URL is required"})
+    .trim(),
+    img_url: z
+    .string({required_error: "Post Image URL is required"})
+    .min(1, {message: "Post Image URL is required"})
+    .trim(),
+    feed_type: z
+    .string({required_error: "Post Type is required"})
+    .min(1, {message: "Post Type is required"})
+    .max(50, {message: "Post Type must be less than 50 characters"})
+    .trim(),
+    feed_description: z
+    .string({required_error: "Post Description is required"})
+    .min(1, {message: "Post Description is required"})
+    .max(500, {message: "Post Description must be less than 500 characters"})
+    .trim(),
+});
     
 function checkAuthentication(cookies){
     //we check if the user has a cookie;
@@ -65,5 +90,6 @@ export {
     saveAuthentication, 
     tokenSchema, 
     passwordSchema, 
-    registrationSchema
+    registrationSchema,
+    feedSchema
 };
