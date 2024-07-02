@@ -1,7 +1,6 @@
 :global(.feed-card *) {
     font-family: "Roboto", sans-serif;
-  }
-
+}
 
 .fixed-size-img {
     width: 100%;
@@ -12,28 +11,46 @@
     margin-bottom: 1rem;
     max-width: 500px;
 }
+
 .custom-card-content {
     padding-top: 0.1rem; /* Reduced from p-3 to specifically reduce top padding */
-    max-height: 200px; 
-  }
+    max-height: 200px;
+    overflow: hidden;
+}
 
 .feed-card {
     display: flex;
-    transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out; /* Include border transition */
     flex-direction: column;
-    justify-content: space-around;
-    max-height: 600px;
-    overflow: hidden;
+    justify-content: space-between; /* Ensure spacing between elements */
+    height: 650px; /* Fixed height for the card */
     padding: 1rem;
-    padding-bottom: 0.4rem;
+    padding-bottom: 1rem;
     max-width: 430px; /* Set a max-width for the card */
-    margin: 0 auto; /* Center the card horizontally */
+    margin: 1rem auto; /* Center the card horizontally and add margin between cards */
+    overflow: hidden; /* Hide overflowing content */
+    border-radius: 1rem; /* Match the card's border-radius */
+    border: 2px solid transparent; /* Add transparent border by default */
 }
+
 .feed-card:hover {
-    box-shadow: 0 0 3px rgb(255, 123, 0); /* add this line */
+    box-shadow: 0 0 3px #00c6a7; /* Add box shadow on hover */
+    border-color: #00c6a7; /* Change border color on hover */
 }
 
 .custom-card-content {
     max-height: 200px; /* Adjust based on your preference */
     overflow: auto; /* Adds scrollbar if content exceeds max-height */
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Remove the truncate class for the description */
+.custom-card-content p:not(.truncate) {
+    white-space: normal; /* Allow for multiple lines */
+    overflow: visible; /* Ensure overflow is visible */
 }

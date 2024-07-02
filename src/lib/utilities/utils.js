@@ -22,4 +22,9 @@ function setToast(status, message, duration = 4000) {
 		});
 	}
 }
-export { setToast };
+
+function checkForHTMLTags(str) {
+	const htmlTagPattern = /<\/?[a-z][\s\S]*>/i;
+	return htmlTagPattern.test(str);
+}
+export { setToast, checkForHTMLTags };

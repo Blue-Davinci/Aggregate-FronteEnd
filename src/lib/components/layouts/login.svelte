@@ -1,4 +1,5 @@
 <script>
+	import {goto} from '$app/navigation';
 	import { Button } from '$lib/components/ui/button';
 	import { Label } from '$lib/components/ui/label';
 	import { Input } from '$lib/components/ui/input';

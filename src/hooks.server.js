@@ -6,12 +6,14 @@ import { checkAuthentication } from '$lib/utilities/auth.js';
 // it will redirect the user accordingly.
 export  const handle =  async({ event, resolve }) =>{
 	// authenticated endpoints
-	const authenticatedPaths = ['/dashboard', '/logout', '/profile', '/settings'];
+	const authenticatedPaths = ['/dashboard', '/logout', '/account'];
 	const safelistPaths = ['/login', '/signup'];
 	const requestedPath = event.url.pathname;
 	let credentials = checkAuthentication(event.cookies);
+	console.log("Credentials Hook: ", credentials);
+	console.log("Enumeration: ", !credentials.status && !credentials.user)
 	// Attempt to get the client address directly
-	let clientAddress = event.getClientAddress();
+	let clientAddress = event?.getClientAddress();
 
 	// Fallback to checking the 'X-Forwarded-For' header if direct access fails
 	if (!clientAddress) {
@@ -22,13 +24,16 @@ export  const handle =  async({ event, resolve }) =>{
 	console.log('[H.S.J] Received connection from: ', clientAddress);
 	// Check if the requested path requires authentication or route is safef listed 
 	const requiresAuth = authenticatedPaths.some((path) => requestedPath.includes(path));
+	console.log("Auth Path: ", requiresAuth);
     const isSafelist = safelistPaths.some((path) => requestedPath.includes(path));
 	// Check if user is authenticated for every request and accessing specified paths
 	if (!credentials.status && !credentials.user && requiresAuth) {
+		console.log("Redirecting! User is not authenticated");
 		redirect(303, `/login?redirectTo=${requestedPath}`);
-	} else {
+	} else if(credentials.status && credentials.user) {
 		// otherwise if logged in and trying to access safelisted paths eg login or signup then
 		// we redirect them to the home page
+		console.log("Redirecting! Autheneticated user but trying to acces login");
 		if (isSafelist) {
 			redirect(303, `/`);
 		}
