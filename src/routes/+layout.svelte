@@ -10,8 +10,7 @@
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 	// get the current authentication state
 	export let data;
-	let isAuthenticated;
-	$: if (data) isAuthenticated = data.props.user;
+	$: isAuthenticated = data.props.user;
 	//$:console.log("| isAuthenticated:",isAuthenticated);
 	onMount(() => {
 		const btn = document.getElementById('btn');
@@ -21,10 +20,9 @@
 			sidebar.classList.toggle('active');
 		};
 	});
-	function logout(){
-		console.log("logging out");
+	function logout() {
+		console.log('logging out');
 	}
-
 </script>
 
 <svelte:head>
@@ -32,7 +30,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Home • Aggregate</title>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+		rel="stylesheet"
+	/>
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/nav.css" />
 	<link rel="stylesheet" href="/toast.css" />
@@ -54,13 +55,15 @@
 		</div>
 	</div>
 	<ul>
-		<li>
-			<a href="/dashboard">
-				<i class="bx bxs-grid-alt"></i>
-				<span class="nav-item">Dashboard</span>
-			</a>
-			<span class="tooltip">Dashboard</span>
-		</li>
+		{#if isAuthenticated}
+			<li>
+				<a href="/dashboard" data-sveltekit-preload-data>
+					<i class="bx bxs-grid-alt"></i>
+					<span class="nav-item">Dashboard</span>
+				</a>
+				<span class="tooltip">Dashboard</span>
+			</li>
+		{/if}
 		<li>
 			<a href="/">
 				<i class="bx bx-home-circle"></i>
@@ -69,11 +72,9 @@
 			<span class="tooltip">Home</span>
 		</li>
 		<li>
-			<a href="/feeds"
-			data-sveltekit-preload-data
-			>
+			<a href="/feeds" data-sveltekit-preload-data>
 				<i class="bx bx-news"></i>
-				<span class="nav-item" >Feeds</span>
+				<span class="nav-item">Feeds</span>
 			</a>
 			<span class="tooltip">Feeds</span>
 		</li>
@@ -88,36 +89,34 @@
 		<!-- AUTHS -->
 		<div class="auth-links">
 			{#if !isAuthenticated || isAuthenticated === null || isAuthenticated === undefined}
-			<li>
-				<a href="/login">
-					<i class="bx bxs-log-in-circle"></i>
-					<span class="nav-item">Login</span>
-				</a>
-				<span class="tooltip">Login</span>
-			</li>
-			<li>
-				<a href="#a">
-					<i class="bx bxs-user-plus"></i>
-					<span class="nav-item">Signup</span>
-				</a>
-				<span class="tooltip">Signup</span>
-			</li>
+				<li>
+					<a href="/login">
+						<i class="bx bxs-log-in-circle"></i>
+						<span class="nav-item">Login</span>
+					</a>
+					<span class="tooltip">Login</span>
+				</li>
+				<li>
+					<a href="#a">
+						<i class="bx bxs-user-plus"></i>
+						<span class="nav-item">Signup</span>
+					</a>
+					<span class="tooltip">Signup</span>
+				</li>
 			{:else}
-			<li>
-				<a href="/logout">
-					<i class="bx bxs-log-out"></i>
-					<span class="nav-item">Logout</span>
-				</a>
-				<span class="tooltip">Logout</span>
-			</li>
+				<li>
+					<a href="/logout">
+						<i class="bx bxs-log-out"></i>
+						<span class="nav-item">Logout</span>
+					</a>
+					<span class="tooltip">Logout</span>
+				</li>
 			{/if}
 		</div>
 	</ul>
 </div>
 <div class="main-content">
-	<div class="container"
-	in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 600 }}
-	>
+	<div class="container" in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 600 }}>
 		<Button on:click={toggleMode} variant="outline" size="icon">
 			<Sun
 				class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"

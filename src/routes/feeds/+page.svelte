@@ -1,28 +1,29 @@
 <script>
-import FeedsCard from "$lib/components/layouts/feedscard.svelte";
-import { fly, slide } from 'svelte/transition';
-export let data;
-let feeds = data.feeds;
+    import FeedsCard from "$lib/components/layouts/feedscard.svelte";
+    import { fly, slide } from 'svelte/transition';
+
+    export let data;
+    let feeds = data.feeds;
 </script>
-<p>
-    In Feeds
-</p>
+
+<p>In Feeds</p>
+
 <div class="feeds-container"
-in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 600 }}
+    in:fly={{ x: -200, duration: 1000 }}
+    out:slide={{ duration: 600 }}
 >
     {#each feeds as feed (feed.id)}
-        <FeedsCard {feed}/>
+        <FeedsCard {feed}/> <!-- Set width to 1/2 for 2 per row -->
     {/each}
 </div>
 
 <style>
     .feeds-container {
-        display: flex;
-        flex-direction: row; /* Explicitly set the flex direction */
-        flex-wrap: wrap;
-        gap: 10px; /* Adjust based on your design */
-        justify-content: flex-start; /* Centers the cards in the container */
-        align-items: flex-start; /* Align items at the start of the container */
-        align-content: flex-start;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+        gap: 2rem; /* Adjust based on your design */
+        justify-items: center; /* Center items horizontally */
     }
 </style>

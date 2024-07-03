@@ -1,17 +1,62 @@
 <script>
-
 	import Star from 'lucide-svelte/icons/star';
 	import { Toggle } from '$lib/components/ui/toggle';
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
-	import { Label } from "$lib/components/ui/label";
+	import { Label } from '$lib/components/ui/label';
+	import { sendData } from '$lib/dataservice/feedfollowDataService';
+	import { setToast } from '$lib/utilities/utils';
+
 	export let feed;
 
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
 	let imageUrl;
-	let isFollowed = false;
+	let isFollowed = feed?.isFollowed === true;
+
+	async function followFeed() {
+		try {
+			const data = await sendData('POST', feed.id);
+			if (data?.error) {
+				handleError(data.error);
+			} else {
+				setToast(true, 'Feed followed successfully');
+				isFollowed = true;
+			}
+		} catch (err) {
+			setToast(false, 'An error occurred while following the feed.');
+		}
+	}
+
+	async function unfollowFeed() {
+		try {
+			const data = await sendData('DELETE', feed.id);
+			if (data?.error) {
+				handleError(data.error);
+			} else {
+				setToast(true, 'Feed unfollowed successfully');
+				isFollowed = false;
+			}
+		} catch (err) {
+			setToast(false, 'An error occurred while unfollowing the feed.');
+		}
+	}
+
+	function handleError(error) {
+		if (error.follow === 'cannot follow the same feed twice') {
+			setToast(false, 'Cannot follow the same feed twice.');
+		} else if (error.status === 401) {
+			setToast(false, 'You need to login to follow feeds');
+		} else {
+			setToast(false, 'An error occurred while following the feed.');
+		}
+	}
+
+	function toggleFollow() {
+		isFollowed ? unfollowFeed() : followFeed();
+	}
+
 	try {
 		new URL(feed.img_url);
 		imageUrl = feed.img_url;
@@ -21,39 +66,52 @@
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="/card.css" />
+	<link rel="stylesheet" href="/feedcard.css" />
 </svelte:head>
-
-<div class="feed-card">
-	<Card.Root class="w-[400px] space-y-3">
-		<Card.Header>
-			<Card.Title>{feed.name}</Card.Title>
-			<a href="/feeds">
-				<img src="{imageUrl}" alt="Feed" class="fixed-size-img mx-auto my-1" />
-			</a>
-			<hr />
-		</Card.Header>
-		<Card.Content class="custom-card-content p-3">
-			<p class="mb-4">
-				{feed.name}
-			</p>
-			<p>Updated at: 	{feed.updated_at}</p>
-			<Label for="feed-type" class="mt-4">Description:</Label>
-			<p>{feed.feed_description.length > 100 ? `${feed.feed_description.slice(0, 100)}...` : feed.feed_description}</p>
-		</Card.Content>
-		<Card.Footer class="flex justify-center gap-10 p-4">
-			<Button on:click={() => goto('/feeds')}>{feed.feed_type}</Button>
-			<Tooltip.Root>
-				<Tooltip.Trigger>
-					<Toggle variant="outline" aria-label="Toggle favorite" class="mr-10" bind:pressed={isFollowed}>
-						<Star class="h-4 w-4" />
-					</Toggle>
-				</Tooltip.Trigger>
-				<Tooltip.Content>
-					<p>{isFollowed ? 'Unfollow feed' : 'Follow feed'}</p>
-				</Tooltip.Content>
-			</Tooltip.Root>
-		</Card.Footer>
+<div
+	class="feed-card mx-auto flex max-w-3xl flex-col rounded-lg p-4 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+>
+	<Card.Root class="flex h-full w-full flex-row space-x-4">
+		<img src={imageUrl} alt="Feed" class="feed-image self-start rounded-full object-cover" />
+		<div class="flex flex-grow flex-col justify-between">
+			<div class="flex-grow overflow-hidden">
+				<Card.Title class="mb-2 mt-2 text-xl font-semibold">{feed.name}</Card.Title>
+				<p class="mb-2 text-sm italic">
+					Created at: {new Date(feed.created_at).toLocaleDateString()}
+				</p>
+				<p class="mb-2 text-sm">Updated at: {new Date(feed.updated_at).toLocaleDateString()}</p>
+				<hr class="mb-2 border-gray-300" style="width: 90%;" />
+				<Label for="feed-type" class="mb-1 mt-5 block text-sm font-medium">Description:</Label>
+				<p class="mb-2 mr-2 overflow-hidden text-ellipsis text-sm">
+					{feed.feed_description.length > 100
+						? `${feed.feed_description.slice(0, 100)}...`
+						: feed.feed_description}
+				</p>
+			</div>
+			<div class="mt-2 flex items-center justify-between">
+				<Button
+					on:click={() => goto('/feeds')}
+					class="mb-2 bg-blue-500 text-white transition-colors hover:bg-blue-600"
+				>
+					{feed.feed_type}
+				</Button>
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<Toggle
+							variant="outline"
+							aria-label="Toggle favorite"
+							class="mr-2 toggle-button"
+							pressed={isFollowed}
+							on:click={toggleFollow}
+						>
+							<Star class="h-4 w-4" /> {isFollowed ? 'Unfollow feed' : 'Follow feed'}
+						</Toggle>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p class="text-xs">{isFollowed ? 'Unfollow feed' : 'Follow feed'}</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
+			</div>
+		</div>
 	</Card.Root>
 </div>
-

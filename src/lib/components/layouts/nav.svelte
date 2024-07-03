@@ -39,21 +39,21 @@
 	</div>
 	<ul>
 		<li>
-			<a href="#a">
+			<a href="/">
 				<i class="bx bx-home-circle"></i>
 				<span class="nav-item">Home</span>
 			</a>
 			<span class="tooltip">Home</span>
 		</li>
 		<li>
-			<a href="#a">
+			<a href="/feeds" data-sveltekit-preload-data>
 				<i class="bx bx-news"></i>
 				<span class="nav-item">Feeds</span>
 			</a>
 			<span class="tooltip">Feeds</span>
 		</li>
 		<li>
-			<a href="#a">
+			<a href="/about">
 				<i class="bx bxs-news"></i>
 				<span class="nav-item">About</span>
 			</a>
@@ -61,14 +61,14 @@
 		</li>
 		<!-- Probably a <hr \> here-->
 		<li>
-			<a href="#a">
+			<a href="/dashboard" data-sveltekit-preload-data>
 				<i class="bx bxs-grid-alt"></i>
 				<span class="nav-item">Dashboard</span>
 			</a>
 			<span class="tooltip">Dashboard</span>
 		</li>
 		<li>
-			<a href="#a">
+			<a href="/account">
 				<i class="bx bx-id-card"></i>
 				<span class="nav-item">Account</span>
 			</a>
@@ -78,21 +78,21 @@
 		<!-- AUTHS -->
 		<div class="auth-links">
 			<li>
-				<a href="#a">
+				<a href="/logout">
 					<i class="bx bxs-log-out"></i>
 					<span class="nav-item">Logout</span>
 				</a>
 				<span class="tooltip">Logout</span>
 			</li>
 			<li>
-				<a href="#a">
+				<a href="/login">
 					<i class="bx bxs-log-in-circle"></i>
 					<span class="nav-item">Login</span>
 				</a>
 				<span class="tooltip">Login</span>
 			</li>
 			<li>
-				<a href="#a">
+				<a href="/signup">
 					<i class="bx bxs-user-plus"></i>
 					<span class="nav-item">Signup</span>
 				</a>

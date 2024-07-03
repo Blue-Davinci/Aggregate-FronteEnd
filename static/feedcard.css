@@ -1,0 +1,54 @@
+.feed-card {
+	width: calc(100% - 1rem);
+	margin: 0.1rem;
+	height: 320px; /* Fixed height for uniform size */
+	overflow: hidden; /* Ensure overflow is handled */
+	transition:
+		transform 0.3s ease,
+		box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.feed-card:hover {
+	transform: scale(1.02); /* Slightly scale up the card */
+	box-shadow: 0 8px 16px rgba(3, 125, 107, 0.712); /* Add shadow effect */
+}
+
+.feed-image {
+	margin-top: 5px;
+	margin-left: 5px;
+	width: 128px; /* Increased width */
+	height: 128px; /* Increased height */
+	padding: 2px; /* Padding around the image */
+	border-radius: 50%; /* Ensure the image remains circular */
+	object-fit: cover; /* Ensure the image covers the element */
+}
+
+.feed-card p {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.toggle-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid currentColor;
+	border-radius: 0.375rem;
+	padding: 0.5rem 1rem;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+/* Followed state: green background, white text */
+.toggle-button[aria-pressed="true"] {
+	background-color: #4caf50; /* Green background for followed state */
+	color: white; /* White text for followed state */
+}
+
+/* Unfollowed state: dark background, light text */
+.toggle-button[aria-pressed="false"] {
+	background-color: #333; /* Dark background for unfollowed state */
+	color: #ccc; /* Light text for unfollowed state */
+}
