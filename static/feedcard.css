@@ -35,7 +35,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 2px solid currentColor;
+	border: 2px solid transparent;
 	border-radius: 0.375rem;
 	padding: 0.5rem 1rem;
 	transition: background-color 0.3s, color 0.3s;

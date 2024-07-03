@@ -1,7 +1,7 @@
 <script>
 	import DashboardNav from '$lib/components/layouts/dashboardnav.svelte';
 	import { goto } from '$app/navigation';
-	import { fly, slide } from 'svelte/transition';
+	import { fly, slide, fade } from 'svelte/transition';
 	import PostsCard from '$lib/components/layouts/postscard.svelte';
 	import { Plus } from 'lucide-svelte'; // Importing the Plus icon
 	import * as Dialog from '$lib/components/ui/dialog'; // Importing Dialog components
@@ -89,7 +89,7 @@
 <svelte:head>
 	<link rel="stylesheet" href="/auth.css" />
 </svelte:head>
-<div in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 600 }}>
+<div in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 400 }}>
 	<DashboardNav />
 	<h1>
 		<strong>Dashboard</strong>
@@ -97,7 +97,7 @@
 	<p>This is a protected page. You can only access this page if you are logged in.</p>
 </div>
 
-<div class="feeds-container" in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 600 }}>
+<div class="feeds-container" in:fly={{ x: 200, duration: 1000 }} out:fade>
 	{#each posts as post (post.id)}
 		<PostsCard {post} />
 	{/each}

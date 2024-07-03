@@ -1,6 +1,6 @@
 <script>
     import FeedsCard from "$lib/components/layouts/feedscard.svelte";
-    import { fly, slide } from 'svelte/transition';
+    import { fly, slide, fade } from 'svelte/transition';
 
     export let data;
     let feeds = data.feeds;
@@ -9,7 +9,7 @@
 <p>In Feeds</p>
 
 <div class="feeds-container"
-    in:fly={{ x: -200, duration: 1000 }}
+    in:fly={{ y: 200, duration: 1000 }}
     out:slide={{ duration: 600 }}
 >
     {#each feeds as feed (feed.id)}

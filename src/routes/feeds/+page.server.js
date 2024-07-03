@@ -21,6 +21,12 @@ export const load = async ({ fetch, cookies }) => {
         if (allfeeds.feeds && Array.isArray(allfeeds.feeds) && followed.feed_follows) {
             allfeeds.feeds = allfeeds.feeds.map(feed => {
                 feed.isFollowed = followed.feed_follows.some(f => f.feed_id === feed.id);
+                if (feed.isFollowed) {
+                    const followedFeed = followed.feed_follows.find(f => f.feed_id === feed.id);
+                    feed.follow_id = followedFeed.id; // we obtaine the ID tag in followed feed
+                } else {
+                    feed.follow_id = null; // otherwise set to null
+                }
                 return feed;
             });
         } else {
