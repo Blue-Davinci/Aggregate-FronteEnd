@@ -1,8 +1,9 @@
 <script>
   import { postDetail } from '$lib/store/postDetailStore.js';
+  import {Undo2} from 'lucide-svelte/icons';
   import { onMount } from 'svelte';
   import { getSessionPostData } from '$lib/store/sessionStore.js';
-  import { fade } from "svelte/transition";
+  import { fly, slide, fade } from 'svelte/transition';
   import { Separator } from '$lib/components/ui/separator';
 
   let post;
@@ -20,9 +21,14 @@
 <svelte:head>
   <link rel="stylesheet" href="/loader.css" />
 </svelte:head>
-<a href="/dashboard" class="text-blue-500 hover:underline block mb-4">Go Back</a>
+<a href="/dashboard" class="mt-10 flex items-center text-white bg-blue-500 hover:bg-blue-700 transition-colors duration-300 px-4 py-2 rounded-md"
+in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 400 }}
+>
+    <Undo2 class="mr-2 h-5 w-5" />
+    <span class="font-medium">Go Back</span>
+</a>
 
-<div class="container mx-auto p-4" in:fade={{ duration: 300 }}>
+<div class="container mx-auto p-4" in:fly={{ x: 200, duration: 1000 }} out:fade>
   <h1 class="text-2xl font-bold mb-4">Post Details</h1>
 
   {#if isLoading}

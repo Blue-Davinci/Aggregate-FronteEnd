@@ -68,10 +68,10 @@
 		  <div class="hidden sm:ml-6 sm:block">
 			<div class="flex space-x-4">
 			  <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-			  <a href="#a" class="flex items-center space-x-2 rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page"><LayoutDashboard class="h-5 w-5 mr-2"/>Dashboard</a>
+			  <a href="/dashboard" class="flex items-center space-x-2 rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page"><LayoutDashboard class="h-5 w-5 mr-2"/>Dashboard</a>
 			  <a href="/" class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"><House class="h-5 w-5 mr-2"/>Home</a>
 			  <a href="#share" class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"><SquarePlus class="h-5 w-5 mr-2"/>Add Feed</a>
-			  <a href="#follows" class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"><Rss class="h-5 w-5 mr-2"/>My Follows</a>
+			  <a href="/dashboard/follows" class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"><Rss class="h-5 w-5 mr-2"/>My Follows</a>
 			</div>
 		  </div>
 		</div>
@@ -129,7 +129,7 @@
 		<div class="space-y-1 px-2 pb-3 pt-2">
 			<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 			<a
-				href="#a"
+				href="/dashboard"
 				class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
 				aria-current="page">Dashboard</a
 			>
@@ -145,7 +145,7 @@
 				Share</a
 			>
 			<a
-				href="#a"
+				href="/dashboard/follows"
 				class="flex items-center space-x-2 block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
 				>My Follows</a
 			>

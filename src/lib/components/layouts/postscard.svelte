@@ -15,8 +15,9 @@
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
 	let imageUrl;
 	// check if the description is html content
-	const descriptionLength = 140;
+	const descriptionLength = 100;
 	let itemDescription = post.Channel.Item[0].Description;
+	let itemTitle = post.Channel.Item[0].Title;
 	let isHTMLDescription = checkForHTMLTags(itemDescription);
 
 	function format(str) {
@@ -53,14 +54,14 @@
 	<Card.Root class="h-full w-full space-y-4 overflow-hidden p-6 shadow-lg rounded-2xl transition-transform transform hover:scale-105">
 		<Card.Header class="flex flex-col items-center">
 			<Card.Title class="w-full text-center text-xl font-semibold">
-				Feed: {post.Channel.Title}
+				Feed: {itemTitle.slice(0, 50)}...
 			</Card.Title>
 			<a href="/dashboard/post" on:click={() => handleCardClick()} class="rounded-lg overflow-hidden">
 				<img src={imageUrl} alt="Post" class="fixed-size-img mx-auto my-4 rounded-lg shadow-md hover:shadow-lg transition-shadow" />
 			</a>
 		</Card.Header>
 		<Card.Content class="custom-card-content p-4">
-			<p class="mb-4 truncate font-medium">
+			<p class="mb-4 truncate font-small">
 				{post.Channel.Item[0].Title}
 			</p>
 			<p class="text-sm">Published: {post.Channel.Item[0].PubDate}</p>

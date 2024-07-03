@@ -6,12 +6,12 @@ import { checkAuthentication } from '$lib/utilities/auth.js';
 // it will redirect the user accordingly.
 export  const handle =  async({ event, resolve }) =>{
 	// authenticated endpoints
-	const authenticatedPaths = ['/dashboard', '/logout', '/account'];
+	const authenticatedPaths = ['/dashboard', '/logout', '/account', '/api'];
 	const safelistPaths = ['/login', '/signup'];
 	const requestedPath = event.url.pathname;
 	let credentials = checkAuthentication(event.cookies);
-	console.log("Credentials Hook: ", credentials);
-	console.log("Enumeration: ", !credentials.status && !credentials.user)
+	//console.log("Credentials Hook: ", credentials);
+	//console.log("Enumeration: ", !credentials.status && !credentials.user)
 	// Attempt to get the client address directly
 	let clientAddress = event?.getClientAddress();
 

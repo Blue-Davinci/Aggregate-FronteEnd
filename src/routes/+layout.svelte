@@ -117,7 +117,7 @@
 </div>
 <div class="main-content">
 	<div class="container" in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 600 }}>
-		<Button on:click={toggleMode} variant="outline" size="icon">
+		<Button class="mb-2" on:click={toggleMode} variant="outline" size="icon">
 			<Sun
 				class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
 			/>

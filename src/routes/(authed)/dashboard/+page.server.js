@@ -18,7 +18,7 @@ export const load = async ({ fetch, cookies }) => {
 
     if (!response.success) {
         console.log("Error: ", response.error);
-        throw error(response.status, {
+         error(response.status, {
             title: "Error Loading Posts",
             message: `Something happened and we could not load any posts.`,
             info: "It's not you, it's us. Please try again later."
