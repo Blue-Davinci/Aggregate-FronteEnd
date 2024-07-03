@@ -25,6 +25,7 @@
 				setToast(true, 'Feed followed successfully');
                 //update the feed's details
 				isFollowed = true;
+                feed.isFollowed = true;
 			}
 		} catch (err) {
 			setToast(false, 'An error occurred while following the feed.');
@@ -49,6 +50,7 @@
 				setToast(true, 'Feed unfollowed successfully');
                 //update the feed's details
 				isFollowed = false;
+                feed.isFollowed = false;
                 feed.follow_id = null;
 			}
 		} catch (err) {
