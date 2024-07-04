@@ -33,7 +33,6 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--primary-intro-email-bg);
 }
 nav .logo {
   width: 120px;
@@ -45,12 +44,11 @@ nav ul {
 nav li {
   list-style: none;
   margin: 10px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 nav a {
   text-decoration: none;
-  color: #fff;
 }
 
 section.intro {

@@ -1,31 +1,31 @@
 .feed-card {
 	width: calc(100% - 1rem);
 	margin: 0.1rem;
-	height: auto; /* Adjust height to auto for better layout flexibility */
-	overflow: hidden; /* Ensure overflow is handled */
-	transition:
-		transform 0.3s ease,
-		box-shadow 0.3s ease; /* Smooth transition */
+	height: auto; /* Removed fixed height for flexibility */
+	overflow: hidden;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feed-card:hover {
-	transform: scale(1.02); /* Slightly scale up the card */
-	box-shadow: 0 8px 16px rgba(3, 125, 107, 0.712); /* Add shadow effect */
+	transform: scale(1.02);
+	box-shadow: 0 8px 16px rgba(3, 125, 107, 0.712);
 }
 
 .feed-image {
-	width: 128px; /* Increased width */
-	height: 128px; /* Increased height */
-	border-radius: 50%; /* Ensure the image remains circular */
-	object-fit: cover; /* Ensure the image covers the element */
+	width: 128px;
+	height: 128px;
+	padding: 2px;
+	object-fit: cover;
 }
 
-.feed-card p {
-	display: -webkit-box;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.top-section {
+	background-color: #f3f4f6; /* Light background color */
+	color: #1f2937; /* Dark text color */
+}
+
+.dark .top-section {
+	background-color: #1f2937; /* Dark background color */
+	color: #f3f4f6; /* Light text color */
 }
 
 .toggle-button {
@@ -33,20 +33,17 @@
 	align-items: center;
 	justify-content: center;
 	border: 2px solid transparent;
-	margin-bottom: 5px;
 	border-radius: 0.375rem;
 	padding: 0.5rem 1rem;
 	transition: background-color 0.3s, color 0.3s;
 }
 
-/* Followed state: green background, white text */
 .toggle-button[aria-pressed="true"] {
-	background-color: #4caf50; /* Green background for followed state */
-	color: white; /* White text for followed state */
+	background-color: #4caf50;
+	color: white;
 }
 
-/* Unfollowed state: dark background, light text */
 .toggle-button[aria-pressed="false"] {
-	background-color: #333; /* Dark background for unfollowed state */
-	color: #ccc; /* Light text for unfollowed state */
+	background-color: #333;
+	color: #ccc;
 }

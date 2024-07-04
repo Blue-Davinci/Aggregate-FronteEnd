@@ -6,10 +6,12 @@
 
 export const load =  async({locals}) =>{
     let user = locals.user;
+    let username = locals.username
     console.log("[L.S.J] Root User:",user);
     return{
         props: {
-            user
+            user,
+            username
         }
     }
 }; 

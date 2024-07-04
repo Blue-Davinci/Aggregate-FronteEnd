@@ -22,9 +22,17 @@ function setToast(status, message, duration = 4000) {
 		});
 	}
 }
-
+function toTitleCase(str) {
+	if (str) {
+		return str.replace(/\w\S*/g, function (txt) {
+			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+		});
+	} else {
+		return str;
+	}
+}
 function checkForHTMLTags(str) {
 	const htmlTagPattern = /<\/?[a-z][\s\S]*>/i;
 	return htmlTagPattern.test(str);
 }
-export { setToast, checkForHTMLTags };
+export { setToast, checkForHTMLTags, toTitleCase };

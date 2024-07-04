@@ -173,3 +173,14 @@
 .sidebar ul li a i:hover + .tooltip {
     opacity: 1; /* Show tooltip on icon hover */
 }
+
+.sidebar ul li.logout-button a i {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.sidebar.minimized .logout-button {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px; /* Move the button out of the visible area */
+}

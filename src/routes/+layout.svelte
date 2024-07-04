@@ -1,6 +1,7 @@
 <script>
 	import '../app.css';
 	import { Button } from '$lib/components/ui/button';
+	import { Separator } from '$lib/components/ui/separator';
 	import { onMount } from 'svelte';
 	import Sun from 'lucide-svelte/icons/sun';
 	import Moon from 'lucide-svelte/icons/moon';
@@ -8,9 +9,11 @@
 	import { toggleMode } from 'mode-watcher';
 	import { fly, slide } from 'svelte/transition';
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+	import {toTitleCase} from '$lib/utilities/utils'
 	// get the current authentication state
 	export let data;
 	$: isAuthenticated = data.props.user;
+	$: username = toTitleCase(data.props.username);
 	//$:console.log("| isAuthenticated:",isAuthenticated);
 	onMount(() => {
 		const btn = document.getElementById('btn');
@@ -50,23 +53,20 @@
 	<div class="user">
 		<img src="/user.jpg" alt="user" class="user-img" />
 		<div>
-			<p class="bold">Sign In</p>
+			<p class="bold">
+				{#if username}
+					{username}
+				{:else}
+					Sign In
+				{/if}
+			</p>
 			<p>Aggregate</p>
 		</div>
 	</div>
 	<ul>
-		{#if isAuthenticated}
-			<li>
-				<a href="/dashboard" data-sveltekit-preload-data>
-					<i class="bx bxs-grid-alt"></i>
-					<span class="nav-item">Dashboard</span>
-				</a>
-				<span class="tooltip">Dashboard</span>
-			</li>
-		{/if}
 		<li>
 			<a href="/">
-				<i class="bx bx-home-circle"></i>
+				<i class="bx bxs-castle"></i>
 				<span class="nav-item">Home</span>
 			</a>
 			<span class="tooltip">Home</span>
@@ -85,7 +85,17 @@
 			</a>
 			<span class="tooltip">About</span>
 		</li>
-		<hr />
+		{#if isAuthenticated}
+		<Separator />
+			<li>
+				<a href="/dashboard" data-sveltekit-preload-data>
+					<i class="bx bxs-grid-alt"></i>
+					<span class="nav-item">Dashboard</span>
+				</a>
+				<span class="tooltip">Dashboard</span>
+			</li>
+		{/if}
+		<Separator />
 		<!-- AUTHS -->
 		<div class="auth-links">
 			{#if !isAuthenticated || isAuthenticated === null || isAuthenticated === undefined}
@@ -105,11 +115,12 @@
 				</li>
 			{:else}
 				<li>
-					<a href="/logout">
-						<i class="bx bxs-log-out"></i>
-						<span class="nav-item">Logout</span>
-					</a>
-					<span class="tooltip">Logout</span>
+					<form id="logoutForm" method="POST" action="/logout">
+						<a href="/logout" onclick="document.getElementById('logoutForm').submit(); return false;">
+							<i class="bx bxs-log-out"></i>
+							<span class="nav-item ml-2">Logout</span>
+						</a>
+					</form>
 				</li>
 			{/if}
 		</div>

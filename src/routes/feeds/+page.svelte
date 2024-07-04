@@ -22,7 +22,7 @@
         max-width: 1200px;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+        grid-template-columns: repeat(3, 1fr); /* Two columns per row */
         gap: 2rem; /* Adjust based on your design */
         justify-items: center; /* Center items horizontally */
     }

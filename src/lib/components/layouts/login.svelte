@@ -6,6 +6,7 @@
 	import { enhance } from '$app/forms';
     import {setToast} from '$lib/utilities/utils'
 	import ValidationMessage from '$lib/components/layouts/authvalidation_message.svelte';
+	import {toTitleCase} from '$lib/utilities/utils'
 	// error
 	export let form;
 	//<UserAuthForm />
@@ -13,6 +14,7 @@
 	//binding for the form data
 	let email = '';
 	let password = '';
+	$: username = toTitleCase(email.split('@')[0]);
 	function wait() {
 		setTimeout(() => {
 			isLoading = false;
@@ -37,7 +39,7 @@
 				if (result.type === 'redirect') {
 					const urlParams = new URLSearchParams(window.location.search);
 					const redirectTo = urlParams.get('redirectTo') ?? '/movies';
-					setToast(true, 'Succesfully Logged In.', 3000);
+					setToast(true, `Succesfully Logged In. Welcome, ${username}`, 3000);
 					await update();
 					await goto(result.location);
 				}

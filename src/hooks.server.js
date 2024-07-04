@@ -40,6 +40,7 @@ export  const handle =  async({ event, resolve }) =>{
 		// proceed with writting the locals
 		// what we will do is simply set the locals to true rather than do write the
 		event.locals.user = true;
+		event.locals.username = credentials.username;
 	}
 	console.log('[H.S.J] Event Locals User:', event.locals.user);
 	const response = await resolve(event);

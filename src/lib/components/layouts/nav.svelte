@@ -78,10 +78,9 @@
 		<!-- AUTHS -->
 		<div class="auth-links">
 			<li>
-				<a href="/logout">
-					<i class="bx bxs-log-out"></i>
-					<span class="nav-item">Logout</span>
-				</a>
+				<form method="POST" action="/logout">
+					<button class="nav-item bx bxs-log-out">log out</button>
+				</form>
 				<span class="tooltip">Logout</span>
 			</li>
 			<li>

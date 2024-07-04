@@ -44,7 +44,7 @@ export const actions ={
             // get response
             let result = await res.json();
             //save authentication for the user
-            let isSuccesfulAuth = saveAuthentication(cookies, result.api_key);
+            let isSuccesfulAuth = saveAuthentication(cookies, result.api_key, email);
             if (isSuccesfulAuth){
                 successfulAuth(url);
             }else{

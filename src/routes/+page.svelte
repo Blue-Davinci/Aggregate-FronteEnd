@@ -1,5 +1,6 @@
 <script>
       import { Button } from "$lib/components/ui/button";
+      import LandingNav from "$lib/components/layouts/landingnav.svelte";
       import Intro from "$lib/components/layouts/intro.svelte";
       import Productivity from "$lib/components/layouts/productivity.svelte";
       import Reviews from "$lib/components/layouts/reviews.svelte";
@@ -23,7 +24,8 @@
 <link rel="stylesheet" href="/home.css" />
 </svelte:head>
 
-<Intro />
-<Productivity />
-<Reviews />
+<LandingNav />
+<div id="intro"><Intro /></div>
+<div id="productivity"><Productivity /></div>
+<div id="reviews"><Reviews /></div>
 <Footer />

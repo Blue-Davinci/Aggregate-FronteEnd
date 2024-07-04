@@ -34,6 +34,7 @@
 			setToast(false, 'Feed is not followed');
 			return;
 		}
+		console.log('Unfollowing feed: ', feed.id, " || Follow ID", feed.follow_id);
 		try {
 			const data = await unfollowFollowedFeed(feed.follow_id);
 			if (data?.error) {
@@ -75,42 +76,46 @@
 	<link rel="stylesheet" href="/feedcard.css" />
 </svelte:head>
 
-<div class="feed-card mx-auto max-w-3xl rounded-lg p-4 shadow-lg transition-shadow duration-300 hover:shadow-xl">
-	<Card.Root class="flex h-full w-full flex-col items-center space-y-4">
-		<Card.Title class="text-xl font-semibold text-center">{feed.name}</Card.Title>
-		<img src={imageUrl} alt="Feed" class="feed-image rounded-full object-cover" />
-		<div class="flex flex-col items-center text-sm">
-			<span class="inline-block rounded bg-blue-500 px-2.5 py-0.5 text-sm font-semibold text-white">
+<div class="feed-card mx-auto max-w-3xl rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl">
+	<Card.Root class="flex h-full w-full flex-col">
+		<div class="top-section flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-4">
+			<img src={imageUrl} alt="Feed" class="feed-image rounded-full object-cover" />
+			<Card.Title class="mt-2 text-xl font-semibold text-center">{feed.name}</Card.Title>
+		</div>
+		<div class="content-section flex flex-grow flex-col p-4">
+			<div class="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
+				<p>Created: {new Date(feed.created_at).toLocaleDateString()}</p>
+				<p>Updated: {new Date(feed.updated_at).toLocaleDateString()}</p>
+			</div>
+			<span class="inline-block rounded bg-blue-500 px-2.5 py-0.5 text-sm font-semibold text-white mb-2">
 				{feed.feed_type}
 			</span>
-			<p class="italic">Created at: {new Date(feed.created_at).toLocaleDateString()}</p>
-			<p>Updated at: {new Date(feed.updated_at).toLocaleDateString()}</p>
-		</div>
-		<hr class="border-gray-500" style="width:90%;" />
-		<Label for="feed-type" class="block text-sm font-medium text-center">Description:</Label>
-		<p class="text-sm text-center">
-			{feed.feed_description.length > 100
-				? `${feed.feed_description.slice(0, 100)}...`
-				: feed.feed_description}
-		</p>
-		<div class="flex items-center justify-center mt-2">
-			<Tooltip.Root>
-				<Tooltip.Trigger>
-					<Toggle
-						variant="outline"
-						aria-label="Toggle favorite"
-						class="toggle-button"
-						pressed={isFollowed}
-						on:click={toggleFollow}
-					>
-						<Star class="h-4 w-4" />
-						{isFollowed ? 'Unfollow feed' : 'Follow feed'}
-					</Toggle>
-				</Tooltip.Trigger>
-				<Tooltip.Content>
-					<p class="text-xs">{isFollowed ? 'Unfollow feed' : 'Follow feed'}</p>
-				</Tooltip.Content>
-			</Tooltip.Root>
+			<hr class="mb-2 border-gray-300" />
+			<Label for="feed-type" class="mb-1 block text-sm font-medium">Description:</Label>
+			<p class="overflow-hidden text-ellipsis text-sm mb-2">
+				{feed.feed_description.length > 100
+					? `${feed.feed_description.slice(0, 100)}...`
+					: feed.feed_description}
+			</p>
+			<div class="mt-2 flex items-center justify-center">
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<Toggle
+							variant="outline"
+							aria-label="Toggle favorite"
+							class="toggle-button"
+							pressed={isFollowed}
+							on:click={toggleFollow}
+						>
+							<Star class="h-4 w-4" />
+							{isFollowed ? 'Unfollow feed' : 'Follow feed'}
+						</Toggle>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p class="text-xs">{isFollowed ? 'Unfollow feed' : 'Follow feed'}</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
+			</div>
 		</div>
 	</Card.Root>
 </div>

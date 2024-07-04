@@ -55,28 +55,43 @@ function checkAuthentication(cookies){
     //if the user has a cookie and it's valid we return an object {status: true, user: user}
     //otherwise we return {status: false}
     let user = cookies.get('authtoken');
+    let username = cookies.get('username');
     if (!user || user === null) {
         return {status: false};
     }else{   
-        return {status: true, user: user};
+        return {status: true, user: user, username: username};
     }
 }
-function saveAuthentication(cookies, apikey){
+function saveAuthentication(cookies, apikey, email){
     try{
+        // save a special auth cookie for the user
         cookies.set('authtoken', apikey.token, {
+            path: '/',
+            expires: new Date(apikey.expiry)
+        });
+        // save the user's name as a cookie too.
+        // ToDo change this to original name!
+        cookies.set('username', extractUsername(email), { // Corrected the placement of the closing parenthesis
             path: '/',
             expires: new Date(apikey.expiry)
         });
         return true;
     }catch(err){
         console.log("Error saving authentication: ", err);
-        return false
+        return false;
     }
-
 }
+// Simple function to extract the username from the email
+function extractUsername(email){
+    console.log("getting email: ", email);
+    return email.split('@')[0];
+}
+
+// Delete authentication cookies
 function deleteAuthentication(cookies){
     try{
         cookies.delete('authtoken', {path:'/'});
+        cookies.delete('username',{path:'/'} );
         return true
     }catch(err){
         console.log("Error logging out", err);
