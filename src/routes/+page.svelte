@@ -1,5 +1,6 @@
 <script>
       import { Button } from "$lib/components/ui/button";
+      import { fly, slide, fade } from 'svelte/transition';
       import LandingNav from "$lib/components/layouts/landingnav.svelte";
       import Intro from "$lib/components/layouts/intro.svelte";
       import Productivity from "$lib/components/layouts/productivity.svelte";
@@ -23,9 +24,10 @@
 />
 <link rel="stylesheet" href="/home.css" />
 </svelte:head>
-
-<LandingNav />
-<div id="intro"><Intro /></div>
-<div id="productivity"><Productivity /></div>
-<div id="reviews"><Reviews /></div>
-<Footer />
+<div in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 400 }}><LandingNav /></div>
+<div in:fly={{ x: 200, duration: 1000 }} out:fade>
+  <div id="intro" ><Intro /></div>
+  <div id="productivity"><Productivity /></div>
+  <div id="reviews"><Reviews /></div>
+  <Footer />
+</div>

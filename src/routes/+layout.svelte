@@ -66,7 +66,7 @@
 	<ul>
 		<li>
 			<a href="/">
-				<i class="bx bxs-castle"></i>
+				<i class="bx bxs-home"></i>
 				<span class="nav-item">Home</span>
 			</a>
 			<span class="tooltip">Home</span>
@@ -107,7 +107,7 @@
 					<span class="tooltip">Login</span>
 				</li>
 				<li>
-					<a href="#a">
+					<a href="/signup">
 						<i class="bx bxs-user-plus"></i>
 						<span class="nav-item">Signup</span>
 					</a>

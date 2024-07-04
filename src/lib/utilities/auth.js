@@ -3,7 +3,7 @@ import {z} from 'zod';
 const tokenSchema = z
     .string({required_error: "A Token is required"})
     .min(26, {message: "A Valid Token is required"})
-    .max(30, {message: "The Token is Invalid"})
+    .max(32, {message: "The Token is Invalid"})
     .refine(value => value.trim().length > 0, {message: "Token cannot be only whitespace"});
 
 const passwordSchema = z
@@ -24,6 +24,46 @@ const registrationSchema = z.object({
 	.max(32, {message: "Password must be less than 32 characters"})
 	.trim(),
 });
+
+const signupSchema = z.object({
+    name: z
+    .string({required_error: "Your name is required"})
+	.min(1, {message: "Your name is required"})
+	.max(64, {message: "Email must be less than 64 characters"}),
+
+	email: z
+	.string({required_error: "Email is required"})
+	.min(1, {message: "Email is required"})
+	.max(64, {message: "Email must be less than 64 characters"}).
+	email({message: "Email must be a valid email address"}),
+
+	password: z
+	.string({required_error:"Passord is required"})
+	.min(8, {message: "Password must be at least 8 characters"})
+	.max(32, {message: "Password must be less than 32 characters"})
+	.trim(),
+
+    confirmpassword : z
+    .string({required_error:"Confirmation Passord is required"})
+	.min(8, {message: "Confirmation Password must be at least 8 characters"})
+	.max(32, {message: "Confirmation Password must be less than 32 characters"})
+	.trim(),
+})
+.superRefine(({ confirmpassword, password }, ctx) => {
+    if (confirmpassword !== password) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Password and Confirm Password must match',
+            path: ['password']
+        });
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Password and Confirm Password must match',
+            path: ['confirmpassword']
+        });
+    }
+});
+
 const feedSchema = z.object({
     name: z
     .string({required_error: "Post Name is required"})
@@ -106,5 +146,6 @@ export {
     tokenSchema, 
     passwordSchema, 
     registrationSchema,
-    feedSchema
+    feedSchema,
+    signupSchema
 };

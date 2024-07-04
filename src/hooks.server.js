@@ -10,7 +10,7 @@ export  const handle =  async({ event, resolve }) =>{
 	const safelistPaths = ['/login', '/signup'];
 	const requestedPath = event.url.pathname;
 	let credentials = checkAuthentication(event.cookies);
-	//console.log("Credentials Hook: ", credentials);
+	console.log("Credentials Hook: ", credentials);
 	//console.log("Enumeration: ", !credentials.status && !credentials.user)
 	// Attempt to get the client address directly
 	let clientAddress = event?.getClientAddress();

@@ -16,7 +16,9 @@
           id=""
           placeholder="email@example.com"
         />
-        <Button type="submit">Get Started For Free</Button>
+        <Button type="submit"
+        class=" py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
+        >Get Started For Free</Button>
       </form>
     </div>
     <div class="footer">

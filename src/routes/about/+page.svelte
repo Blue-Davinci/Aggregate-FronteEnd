@@ -1,52 +1,46 @@
 <script>
-    import * as Card from "$lib/components/ui/card";
-    import { Button } from "$lib/components/ui/button";
-    import { fly, slide } from 'svelte/transition';
-    import { goto } from '$app/navigation';
-    import Star from "lucide-svelte/icons/star"; 
-      import { Toggle } from "$lib/components/ui/toggle";
-       import * as Tooltip from "$lib/components/ui/tooltip";
-    //import { quintOut } from 'svelte/easing';
-    //  transition:fly={{ delay: 250, duration: 300, x: 100, y: 500, opacity: 0.5, easing: quintOut }}
-  </script>
-  
-  <style>
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: 'Roboto', sans-serif; /* Changed to Roboto */
-    }
-  </style>
-  
-  <div 
-  class="center" 	
-  in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 600 }}
-  >
-    <Card.Root class="w-[550px] space-y-4">
-      <Card.Header>
-        <Card.Title>About Aggregate</Card.Title>
-        <img src="/agglogo.png" alt="Aggregate Logo" class="mx-auto my-1" style="max-width: 250px;"/>
-        <hr />
-      </Card.Header>
-      <Card.Content class="p-3">
-        <p class="mb-4">Aggregate is a project aimed at simplifying the development process by providing a unified platform for managing various web development frameworks.</p>
-        <p>Whether you're working with SvelteKit, Next.js, Astro, or Nuxt.js, Aggregate streamlines your workflow for a more efficient project deployment.</p>
-      </Card.Content>
-      <Card.Footer class="flex justify-center p-4 gap-10">
-        <Button on:click={() => goto('/')}>Learn More</Button>
-        <Tooltip.Root>
-            <Tooltip.Trigger>
-              <Toggle variant="outline" aria-label="Toggle favorite" class="mr-10">
-                  <Star class="h-4 w-4" /> <!-- Use the Star icon inside the Toggle -->
-                </Toggle>
-            </Tooltip.Trigger>
-            <Tooltip.Content>
-              <p>Add to library</p>
-            </Tooltip.Content>
-          </Tooltip.Root>
-      </Card.Footer>
-    </Card.Root>
-  </div>
+  import {Separator} from '$lib/components/ui/separator';
+  import { Github, Twitter, Linkedin, Undo2 } from 'lucide-svelte/icons';
+  import { fly, slide, fade } from 'svelte/transition';
+  import { page } from '$app/stores';
 
+  let params = $page.url.searchParams.get('redirectTo')? $page.url.searchParams.get('redirectTo'): '/';
+  //console.log("Params: ", params);
+</script>
+<svelte:head>
+  <link rel="stylesheet" href="/about.css" />
+</svelte:head>
+
+<a href={params} class="mt-10 flex items-center text-white bg-blue-500 hover:bg-blue-700 transition-colors duration-300 px-4 py-2 rounded-md">
+  <Undo2 class="mr-2 h-5 w-5" />
+  <span class="font-medium">Go Back</span>
+</a>
+<section class="about-section" in:fly={{ x: 200, duration: 1000 }} out:fade>
+  <div class="about-content">
+    <img src="/agglogo.png" alt="Aggregate Logo" class="mx-auto my-8" style="max-width: 250px;" />
+    <Separator class="mt-4 mb-4" />
+    <h2 class="text-3xl font-bold mb-4">About Aggregate</h2>
+
+    <div class="about-description" in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 400 }}>
+      <p in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 400 }}>
+        Aggregate is a project born out of my passion for staying updated with my favorite RSS feeds. As an avid consumer of news and updates, I found myself constantly navigating multiple sources. Aggregate aims to simplify this process by providing a unified platform where users can aggregate, follow, and manage their feeds effortlessly.
+      </p>
+      <br />
+      <p in:fly={{ x: 200, duration: 1000 }} out:fade>
+        Whether you're passionate about staying updated or need a reliable tool for work, Aggregate offers a secure and user-friendly interface. Explore your interests without missing a beat!
+      </p>
+    </div>
+    <Separator class="mt-6 mb-4" />
+    <div class="social-icons">
+      <a href="https://github.com/Blue-Davinci/Aggregate-FronteEnd" target="_blank" rel="noopener noreferrer">
+        <Github class="h-8 w-8 hover:text-gray-700" />
+      </a>
+      <a href="https://www.linkedin.com/in/yourlinkedinprofile" target="_blank" rel="noopener noreferrer">
+        <Linkedin class="h-8 w-8 hover:text-gray-700" />
+      </a>
+      <a href="https://twitter.com/yourtwitterprofile" target="_blank" rel="noopener noreferrer">
+        <Twitter class="h-8 w-8 hover:text-gray-700" />
+      </a>
+    </div>
+  </div>
+</section>

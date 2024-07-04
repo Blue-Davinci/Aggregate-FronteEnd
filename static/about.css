@@ -1,0 +1,33 @@
+ .about-section {
+    padding: 4rem 2rem;
+  }
+
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .about-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .social-icons a {
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .social-icons a:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+  }

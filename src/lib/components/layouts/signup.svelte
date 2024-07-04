@@ -14,23 +14,13 @@
 	//binding for the form data
 	let email = '';
 	let password = '';
-	$: username = toTitleCase(email.split('@')[0]);
+    let confirmpassword = '';
+	let name = '';
 	function wait() {
 		setTimeout(() => {
 			isLoading = false;
 		}, 3000);
 	}
-	// we make a reactive function that will check for a rejection specific
-    // error message and display it. Since we know an invalid credential error
-    // will be a string, we will just check if our form.error is a string, if it is
-    // we output the message as a fail toast
-    function invalidLogin(){
-        if (form.error && typeof form.error === 'string') {
-            console.log("wrong password");
-            setToast(false, form.error, 3000);
-        }
-    }
-    $: if (form) invalidLogin();
     
 	function enhanceForm() {
 		isLoading = true;
@@ -39,7 +29,7 @@
 				if (result.type === 'redirect') {
 					const urlParams = new URLSearchParams(window.location.search);
 					const redirectTo = urlParams.get('redirectTo') ?? '/movies';
-					setToast(true, `Succesfully Logged In. Welcome, ${username}`, 3000);
+					setToast(true, `Signup was Successful. Welcome ${name}, please check your email for further instructions.`, 3000);
 					await update();
 					await goto(result.location);
 				}
@@ -49,6 +39,7 @@
 				// Handle error
 			} finally {
 				password = '';
+                confirmpassword='';
 				isLoading = false;
 			}
 		};
@@ -58,8 +49,8 @@
 <div
 	class="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
 >
-	<Button href="/signup" variant="ghost" class="absolute right-4 top-4 md:right-8 md:top-8">
-		Don't have an account? Signup
+	<Button href="/login" variant="ghost" class="absolute right-4 top-4 md:right-8 md:top-8">
+		Have an account? Login
 	</Button>
 	<div
 		class="relative z-[-1] hidden h-full flex-col bg-muted bg-transparent p-10 text-white dark:border-r lg:flex"
@@ -85,22 +76,37 @@
 	<div class="lg:p-8">
 		<div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
 			<div class="flex flex-col space-y-2 text-center">
-				<h1 class="text-2xl font-semibold tracking-tight">Login To Your account</h1>
+				<h1 class="text-2xl font-semibold tracking-tight">Create an account</h1>
 				<p class="text-sm text-muted-foreground">
-					Enter your email and Password below to login to your account
+					Enter your name, email and Password below to sign-up and get an account
+                    on <strong>Aggregate!</strong>
 				</p>
 			</div>
 			<div>
-				<form method="POST" action="?/login" use:enhance={enhanceForm}>
+				<form method="POST" action="?/signup" use:enhance={enhanceForm}>
 					<div class="grid gap-2">
 						<div class="grid gap-1">
-							<Label class="sr-only" for="email">Email</Label>
+                            <Label class="" for="name">Username</Label>
+							<Input
+								id="name"
+								class="mb-2.5 mt-2.5 border p-2 {form?.error?.email ? 'border-red-500' : ''}"
+								name="name"
+								placeholder="JohnDoe"
+								type="text"
+								autocapitalize="none"
+								autocomplete="name"
+								autocorrect="off"
+								disabled={isLoading}
+                                bind:value={name}
+							/>
+							<ValidationMessage error={form?.error?.email} />
+							<Label class="mt-2" for="email">Email</Label>
 							<Input
 								id="email"
-								class="border p-2 {form?.error?.email ? 'border-red-500' : ''}"
-								name="email"
-								placeholder="name@example.com"
+								class="mb-2.5 mt-2.5 border p-2 {form?.error?.email ? 'border-red-500' : ''}"
 								type="email"
+                                name="email"
+								placeholder="name@example.com"
 								autocapitalize="none"
 								autocomplete="email"
 								autocorrect="off"
@@ -108,6 +114,7 @@
 								bind:value={email}
 							/>
 							<ValidationMessage error={form?.error?.email} />
+                            <Label class="" for="password">Password</Label>
 							<Input
 								class="password-input mb-2.5 mt-2.5 {form?.error?.password ? 'border-red-500' : ''}"
 								name="password"
@@ -116,32 +123,36 @@
 								autocapitalize="none"
 								autocomplete="current-password"
 								autocorrect="off"
+                                placeholder="Password"
 								disabled={isLoading}
 								bind:value={password}
 							/>
 							<ValidationMessage error={form?.error?.password} />
+                            <Label class="" for="password">Confirm Password</Label>
+							<Input
+								class="password-input mb-2.5 mt-2.5 {form?.error?.password ? 'border-red-500' : ''}"
+								name="confirmpassword"
+								id="confirmpassword"
+								type="password"
+								autocapitalize="none"
+								autocomplete="current-password"
+								autocorrect="off"
+                                placeholder="Confirm Password"
+								disabled={isLoading}
+								bind:value={confirmpassword}
+							/>
+							<ValidationMessage error={form?.error?.password} />
 						</div>
-						<Button type="submit" disabled={isLoading}>Log In</Button>
+						<Button type="submit" disabled={isLoading}>Sign Up</Button>
 						{#if isLoading}
 							<div class="saving-container">
 								<span class="loader"></span>
-								<span class="saving">Processing..</span>
+								<span class="saving">Signing You Up..</span>
 							</div>
 						{/if}
 					</div>
 				</form>
 			</div>
-			<p class="px-8 text-center text-sm text-muted-foreground">
-				By clicking continue, you agree to our
-				<a href="/sitedocs/terms" class="underline underline-offset-4 hover:text-primary">
-					Terms of Service
-				</a>
-				and
-				<a href="/sitedocs/privacy" class="underline underline-offset-4 hover:text-primary">
-					Privacy Policy
-				</a>
-				.
-			</p>
 		</div>
 	</div>
 </div>
