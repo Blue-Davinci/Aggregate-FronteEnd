@@ -87,6 +87,7 @@
 </script>
 
 <svelte:head>
+	<title>Dashboard • Aggregate</title>
 	<link rel="stylesheet" href="/auth.css" />
 </svelte:head>
 <div in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 400 }}>

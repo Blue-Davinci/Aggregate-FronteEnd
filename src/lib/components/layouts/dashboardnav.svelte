@@ -3,7 +3,8 @@
 	import * as Dialog from "$lib/components/ui/dialog";
 	import {LayoutDashboard,Codesandbox, Share, Rss, House, SquarePlus} from 'lucide-svelte';
 	export let messages = {
-		"id": "message"	
+		"1": "New feeds from bbc uk",
+		"2": "New feeds from reddit"	
 	};
   
 	let isProfileMenuOpen = false;

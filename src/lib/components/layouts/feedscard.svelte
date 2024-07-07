@@ -9,12 +9,18 @@
 	import { setToast } from '$lib/utilities/utils';
 
 	export let feed;
-
+	export let user;
+	//console.log(feed);
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
 	let imageUrl;
-	let isFollowed = feed?.isFollowed === true;
+	//console.log(">> User: ",user);
+	let isFollowed = feed?.isFollowed === true && user;
 
 	async function followFeed() {
+		if(!user){
+			setToast(false, 'You must be logged in to follow a feed.');
+			return;
+		}
 		try {
 			const data = await addFeedFollow(feed.id);
 			if (data?.error) {
@@ -30,7 +36,12 @@
 	}
 
 	async function unfollowFeed() {
-		if (feed?.follow_id === undefined || feed.follow_id === null) {
+		if(!user){
+			setToast(false, 'You must be logged in to unfollow a feed!.');
+			return;
+		}
+		//console.log("Feed detail: ", feed);
+		if (!feed.isFollowed) {
 			setToast(false, 'Feed is not followed');
 			return;
 		}

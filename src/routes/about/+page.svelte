@@ -8,6 +8,7 @@
   //console.log("Params: ", params);
 </script>
 <svelte:head>
+  <title>About • Aggregate</title>
   <link rel="stylesheet" href="/about.css" />
 </svelte:head>
 

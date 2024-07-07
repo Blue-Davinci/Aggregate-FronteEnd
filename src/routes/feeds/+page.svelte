@@ -3,6 +3,7 @@
     import { fly, slide, fade } from 'svelte/transition';
 
     export let data;
+    let user = data.props.user;
     let feeds = data.feeds;
 </script>
 
@@ -13,7 +14,7 @@
     out:slide={{ duration: 600 }}
 >
     {#each feeds as feed (feed.id)}
-        <FeedsCard {feed}/> <!-- Set width to 1/2 for 2 per row -->
+        <FeedsCard {feed} {user}/> <!-- Set width to 1/2 for 2 per row -->
     {/each}
 </div>
 
