@@ -38,7 +38,7 @@
 			try {
 				if (result.type === 'redirect') {
 					const urlParams = new URLSearchParams(window.location.search);
-					const redirectTo = urlParams.get('redirectTo') ?? '/movies';
+					const redirectTo = urlParams.get('redirectTo') ?? '/dashboard';
 					setToast(true, `Succesfully Logged In. Welcome, ${username}`, 3000);
 					await update();
 					await goto(result.location);
@@ -130,6 +130,9 @@
 						{/if}
 					</div>
 				</form>
+				<p class="text-center text-sm mt-4">
+					<a href="/reset" class="text-indigo-600 hover:underline dark:text-indigo-400">Forgot password?</a>
+				</p>
 			</div>
 			<p class="px-8 text-center text-sm text-muted-foreground">
 				By clicking continue, you agree to our

@@ -6,10 +6,20 @@ const tokenSchema = z
     .max(32, {message: "The Token is Invalid"})
     .refine(value => value.trim().length > 0, {message: "Token cannot be only whitespace"});
 
-const passwordSchema = z
-.string({required_error: "A Password is required"})
-.min(1, {message: "A Valid Password is required"})
-.max(30, {message: "The Password is Invalid"})
+
+const emailSchema = z
+.string({required_error: "Email is required"})
+.min(1, {message: "Email is required"})
+.max(64, {message: "Email must be less than 64 characters"}).
+email({message: "Email must be a valid email address"});
+
+const passwordSchema = z.object({
+	password: z
+	.string({required_error:"Passord is required"})
+	.min(8, {message: "Password must be at least 8 characters"})
+	.max(32, {message: "Password must be less than 32 characters"})
+	.trim(),
+})
 
 const registrationSchema = z.object({
 	email: z
@@ -147,5 +157,6 @@ export {
     passwordSchema, 
     registrationSchema,
     feedSchema,
-    signupSchema
+    signupSchema,
+    emailSchema
 };

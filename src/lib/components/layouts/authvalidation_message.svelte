@@ -2,7 +2,7 @@
 	export let error;
 </script>
 
-{#if error}
+{#if error && error !== undefined}
 	<ul class="error-list">
 		{#if typeof error === 'string'}
 			<li class="error-message">{error}</li>
