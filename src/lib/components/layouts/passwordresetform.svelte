@@ -11,9 +11,13 @@
     let password = '';
     let confirm_password = '';
     let token = data.token;
-    $: console.log(">> Error: ", form?.error);
+    //$: console.log(">> Error: ", form?.error);
     let isLoading = false;
 
+    // enhance form gets called when the form is submitted
+    // we set toasts depending on the different feedbacks, if the token is expired
+    // or invalid, we will get the "token" error from the form object sent back from
+    // the server, helping us distinguish between a good msg and a bad one.
     function enhanceForm() {
         isLoading = true;
         return async ({ result, update }) => {
@@ -38,8 +42,6 @@
 			}
 		};
     }
-
-    console.log('Pam pam:', data.token);
 </script>
 
 <div class="mx-auto my-10 flex max-w-4xl rounded-xl bg-white shadow-md dark:bg-gray-800">

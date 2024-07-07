@@ -1,9 +1,11 @@
-// This will recieve a token from the URL and load it through to our frontend 
-// code!
 import {tokenSchema} from '$lib/utilities/auth.js';
 import {passwordSchema} from '$lib/utilities/auth.js';
 import {VITE_API_BASE_URL_UPDATE_PASSWORD} from '$env/static/private';
 import { fail, redirect } from '@sveltejs/kit';
+
+// This function is called when the user clicks on the link in the email. It extracts the token from the url
+// we do not send this to the backend but rather export it as a prop to be used during
+// the update password action.
 export const load = async ({url}) => {
     const token = url.searchParams.get('token');
     console.log(">>> The token is: ", token);
@@ -28,6 +30,9 @@ export const load = async ({url}) => {
     
 }
 
+// This function gets the passwords, confirmations and  token from the form and sends it to the backend
+// for processing. If the passwords do not match, we return an error to the user. If the token is invalid
+// we return an error to the user. If the request is successful, we redirect the user to the login page.
 export const actions = {
     updatepassword: async ({request}) =>{
         console.log("Checking password");
