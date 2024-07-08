@@ -1,5 +1,6 @@
 <script>
-    import CalendarRange from 'lucide-svelte/icons/calendar-range';
+	import CalendarRange from 'lucide-svelte/icons/calendar-range';
+	import Heart from 'lucide-svelte/icons/heart';
 	import { Toggle } from '$lib/components/ui/toggle';
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import * as Card from '$lib/components/ui/card';
@@ -8,36 +9,43 @@
 	import { Label } from '$lib/components/ui/label';
 	import { checkForHTMLTags } from '$lib/utilities/utils.js';
 	import { Separator } from '$lib/components/ui/separator';
-	import {saveSessionData} from '$lib/store/sessionStore.js';
+	import { saveSessionData } from '$lib/store/sessionStore.js';
 	import { postDetail } from '$lib/store/postDetailStore.js';
 	export let post;
 
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
 	let imageUrl;
-	// check if the description is html content
 	const descriptionLength = 100;
 	let itemDescription = post.Channel.Item[0].Description;
 	let itemTitle = post.Channel.Item[0].Title;
 	let isHTMLDescription = checkForHTMLTags(itemDescription);
+	let isFavorite = post.Channel.Item[0].is_favorite;
 
+	// if the description is in HTML format, we need to convert it to plain text
 	function format(str) {
 		let convertedStr = str.replace(/<\/?[^>]+(>|$)/g, '');
 		return convertedStr.slice(0, descriptionLength) + '...';
 	}
-    function handleCardClick(){
-        //store the post in local storage passing the data and HTML status
-        console.log("Setting session data ")
+
+	// since the time will always be in the same format, we can just slice it
+	function formatTime(tdata){
+		return tdata.slice(0, 10);
+	}
+
+	function handleCardClick() {
 		const postData = {
-                "info": post,
-                "htmlstatus": isHTMLDescription
-            }
-        /*postDetail.set(
-            postData
-        );*/
-		//save session data
+			"info": post,
+			"htmlstatus": isHTMLDescription
+		};
 		saveSessionData('rssFeed', postData);
 		goto('/dashboard/post');
-    }
+	}
+
+	function toggleFavorite() {
+		isFavorite = !isFavorite;
+		// Save favorite status if needed
+	}
+	console.log("Is post favorite?: ", isFavorite);
 	try {
 		new URL(post.Channel.Item[0].ImageURL);
 		imageUrl = post.Channel.Item[0].ImageURL;
@@ -74,23 +82,38 @@
 				<p class="text-base">{itemDescription.slice(0, descriptionLength)}...</p>
 			{/if}
 		</Card.Content>
-		<Card.Footer class="flex justify-center gap-10 p-2.7">
+		<Card.Footer class="flex justify-between items-center gap-10 p-2.7">
 			<Button on:click={() => goto('/dashboard')} class="bg-blue-500 text-white hover:bg-blue-600 transition-colors">
 				{post.Channel.Language === '' ? 'English' : post.Channel.Language}
 			</Button>
-			<Tooltip.Root>
-				<Tooltip.Trigger>
-					<Toggle variant="outline" aria-label="Toggle favorite" class="mr-10">
-						<CalendarRange class="h-4 w-4 mr-2" />
-						{post.updated_at}
-					</Toggle>
-				</Tooltip.Trigger>
-				<Tooltip.Content>
-					<p class="text-xs">Created At</p>
-				</Tooltip.Content>
-			</Tooltip.Root>
+			<div class="flex items-center">
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<Toggle variant="outline" aria-label="Toggle favorite">
+							<CalendarRange class="h-4 w-4 mr-2" />
+							{formatTime(post.updated_at)}
+						</Toggle>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p class="text-xs">Created At</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<Toggle variant="outline" aria-label="Toggle favorite" class="ml-5 mr-4 " style="background-color: transparent; border: none;" on:click={toggleFavorite}>
+							<div
+								class={`heart-container flex items-center justify-center h-8 w-8 rounded-full transition-all duration-150 ease-in-out ${isFavorite ? 'bg-red-100' : 'bg-gray-200'}`}
+							>
+								<Heart class={`h-4 w-4 ${isFavorite ? 'text-red-500' : 'text-gray-800'} ${isFavorite ? 'scale-110' : 'scale-100'} transition-transform duration-150 ease-in-out`} />
+							</div>
+						</Toggle>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p class="text-xs">{isFavorite ? 'Remove from favorites' : 'Add to favorites'}</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
+			</div>
 		</Card.Footer>
+		
 	</Card.Root>
-	
-	
 </div>

@@ -51,7 +51,7 @@
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-    background: url('/bg.jpg') no-repeat;
+    background: url('https://i.ibb.co/W5xrrRN/bg.jpg') no-repeat;
     background-clip: border-box;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

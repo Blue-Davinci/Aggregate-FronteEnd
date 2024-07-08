@@ -53,7 +53,7 @@
 		font-size: 120px;
 		font-weight: 900;
 		position: relative;
-		background: url('https://i.ibb.co/ysnSFL2/bg.jpg') no-repeat;
+		background: url('https://i.ibb.co/W5xrrRN/bg.jpg') no-repeat;
 		background-clip: text;
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
