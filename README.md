@@ -134,7 +134,38 @@ Add notes about how to use the system.
 <hr />
 
 ## 🚀 Deployment <a name = "deployment"></a>
-- To be ADDED.
+
+## Docker
+Dockerfile and Docker Compose Setup:
+
+The application uses a multi-stage Dockerfile for building and running the application. The build stage uses a Node.js base image to install dependencies and build the application. The final stage prepares the runtime environment.
+The `docker-compose.yml` file orchestrates the build and deployment process, ensuring the application is containerized and runs as expected.
+
+To Build the application:
+1. Navigate to project directory:
+```bash
+cd aggregate-frontend
+```
+2. Check and verify the following file incase you want to change any configs:
+
+```bash
+docker-compose.yml
+Dockerfile
+```
+3. Run the following command to build the docker image based on the `docker-compose.yml` file:
+
+```bash
+docker compose up --build
+```
+<p align="center">
+🔍 The --build option ensures that Docker Compose rebuilds the image, which is useful for incorporating the latest changes in the source code or dependencies.
+</p>
+
+## A note:
+- The application uses different API connection strings based on the environment (development or production).
+- The settings can be found in the `.env.development` and `.env.production` files. The prod strings involve connections to & from the docker container.
+
+<b>You can replace this with your own connection strings.</b>
 
 <hr />
 
