@@ -168,7 +168,7 @@
 						>
 							{#if notifications.length === 0}
 								<span
-									class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-100"
+									class="block px-4 py-2 text-xs text-black-500 hover:bg-gray-200 hover:text-gray-900 dark:text-black dark:hover:bg-gray-600 dark:hover:text-gray-100"
 								>
 									No new messages
 								</span>
