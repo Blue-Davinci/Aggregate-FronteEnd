@@ -1,4 +1,4 @@
-import {VITE_API_BASE_URL_FEED_FOLLOW_POSTS } from '$env/static/private'
+import {VITE_API_BASE_URL_FEED_FOLLOW_POSTS, VITE_API_BASE_URL_FEEDS_FAVORITES } from '$env/static/private'
 import {checkAuthentication} from '$lib/utilities/auth.js';
 
 
@@ -34,12 +34,50 @@ const getFollowedPostsDataService = async({fetch, cookies})=>{
             error: data
         }
     }
+    // Aggregation
+    //let data = ;
+    let favoriteposts = await getFavoritePostsDataService({fetch}, auth);
+    /*
+    console.log("============================================");
+    console.log("Favorite Posts: ", favoriteposts.data);
+    console.log("Followed Posts: haloooo>>");
+    console.log("============================================");
+    */
     return {
         success: true,
         status: response.status,
-        data: await response.json()
+        data: await response.json(),
+        favorites: favoriteposts.data
     };
 }
+
+const getFavoritePostsDataService = async({fetch}, auth) => {
+    let favorites_url = `${VITE_API_BASE_URL_FEEDS_FAVORITES}`;
+    const response = await fetch(`${favorites_url}`,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `ApiKey ${auth}`
+        }
+    });
+    if (!response.ok) {
+        let data = await response.json();
+        console.log("Error: ", data.error, "URL: ", favorites_url);
+        return {
+            success: false,
+            status: response.status,
+            error: data
+        }
+    }
+    let favorites = await response.json();
+    return {
+        success: true,
+        status: response.status,
+        data: favorites
+    };
+
+}
+
 
 export {
     getFollowedPostsDataService

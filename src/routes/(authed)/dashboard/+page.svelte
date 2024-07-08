@@ -16,7 +16,7 @@
 	export let form = undefined;
 
 	let isLoading = false;
-	$: posts = data.posts.followed_rss_posts;
+	$: posts = data.posts;
 	$: notifications = data.notifications.notifications;
 
 	let isOpen = false;

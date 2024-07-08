@@ -12,7 +12,7 @@
   .notfound .notfound-404 h1,
   .notfound h2,
   .notfound p {
-    color: white; /* This sets the text color to white */
+     margin-top: 1px/* This sets the text color to white */
   }
   
   #notfound {

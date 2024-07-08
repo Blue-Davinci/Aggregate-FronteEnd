@@ -25,12 +25,19 @@ export const load = async ({ fetch, cookies }) => {
             info: "It's not you, it's us. Please try again later."
         });
     }
-//console.log(	"Notifications: ", notifications);
+    // Combine followed posts with favorite status to go
+    const favorites = followedposts_response.favorites.favorite_rss_posts.map(fav => fav.post_id);
+    const posts = followedposts_response.data.followed_rss_posts.map(post => {
+        const isFavorite = favorites.includes(post.id);
+        return { ...post, isFavorite };
+    });
+    //console.log("posts: ", posts);
     return {
-        posts: followedposts_response.data,
+        posts:posts,
         notifications: notifications
     };
 };
+
 const getNotifications = async({fetch, cookies})=>{
     const notification_response = await getPostNotificationDataService({ fetch, cookies });
     if (!notification_response.success && notification_response.status === 401) {
@@ -46,6 +53,7 @@ const getNotifications = async({fetch, cookies})=>{
     }
     return notification_response.data;
 }
+
 export const actions ={
     addfeed: async({request, fetch, cookies})=>{
         // check authentication
