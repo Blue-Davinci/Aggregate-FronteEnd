@@ -19,7 +19,7 @@
 	let itemDescription = post.Channel.Item[0].Description;
 	let itemTitle = post.Channel.Item[0].Title;
 	let isHTMLDescription = checkForHTMLTags(itemDescription);
-	let isFavorite = post.Channel.Item[0].is_favorite;
+	let isFavorite = true;
 
 	// if the description is in HTML format, we need to convert it to plain text
 	function format(str) {
