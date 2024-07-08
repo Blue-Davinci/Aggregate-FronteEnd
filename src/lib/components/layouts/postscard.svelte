@@ -10,7 +10,8 @@
 	import { checkForHTMLTags } from '$lib/utilities/utils.js';
 	import { Separator } from '$lib/components/ui/separator';
 	import { saveSessionData } from '$lib/store/sessionStore.js';
-	import { postDetail } from '$lib/store/postDetailStore.js';
+	import {addFavoritePost, removeFavoritePost} from '$lib/dataservice/postFavoriteDataService';
+	import { setToast } from '$lib/utilities/utils';
 	export let post;
 
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
@@ -40,9 +41,50 @@
 		saveSessionData('rssFeed', postData);
 		goto('/dashboard/post');
 	}
-
+	function favoritePost(){
+		console.log("Post: ", post.id, "|| Feed: ", post.feed_id);
+		try{
+			const data = addFavoritePost(post.id, post.feed_id);
+			if (data?.error){
+				handleError(data.error);
+			}else{
+				setToast(true, 'Post added to favorites successfully');
+				isFavorite = true;
+				//console.log("Favorite Post");
+			}
+		}catch(err){
+			setToast(false, 'An error occurred while following the feed.');
+		}
+		
+	}
+	function unFavoritePost(){
+		if (!isFavorite){
+			setToast(false, 'Post is not favorited');
+			return;
+		}
+		console.log("UnFavorite Post");
+		try{
+			const data = removeFavoritePost(post.id);
+			if (data?.error){
+				handleError(data.error);
+			}else{
+				setToast(true, 'Post removed from favorites successfully');
+				isFavorite = false;
+			}
+		}catch(err){
+			setToast(false, 'An error occurred while adding this post to your favorites.');
+		
+		}
+	}
+	function handleError(error) {
+		if (error.follow === 'cannot favorite a post twice') {
+			setToast(false, 'cannot favorite a post twice.');
+		} else {
+			setToast(false, 'An error occurred while following the feed.');
+		}
+	}
 	function toggleFavorite() {
-		isFavorite = !isFavorite;
+		isFavorite ? unFavoritePost() : favoritePost();
 		// Save favorite status if needed
 	}
 	try {
