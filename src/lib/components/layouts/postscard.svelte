@@ -45,7 +45,6 @@
 		isFavorite = !isFavorite;
 		// Save favorite status if needed
 	}
-	console.log("Is post favorite?: ", isFavorite);
 	try {
 		new URL(post.Channel.Item[0].ImageURL);
 		imageUrl = post.Channel.Item[0].ImageURL;

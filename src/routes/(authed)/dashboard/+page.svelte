@@ -16,7 +16,8 @@
 	export let form = undefined;
 
 	let isLoading = false;
-	$: posts = data.followed_rss_posts;
+	$: posts = data.posts.followed_rss_posts;
+	$: notifications = data.notifications.notifications;
 
 	let isOpen = false;
 
@@ -91,7 +92,7 @@
 	<link rel="stylesheet" href="/auth.css" />
 </svelte:head>
 <div in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 400 }}>
-	<DashboardNav />
+	<DashboardNav  {notifications}/>
 	<h1>
 		<strong>Dashboard</strong>
 	</h1>

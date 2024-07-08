@@ -1,6 +1,7 @@
 import {VITE_API_BASE_URL_FEEDS} from '$env/static/private';
 import {checkAuthentication} from '$lib/utilities/auth.js';
 import {getFollowedPostsDataService} from '$lib/dataservice/getFollowedPostsDataService.js';
+import {getPostNotificationDataService} from '$lib/dataservice/getPostNotificationsDataService.js';
 import  {feedSchema} from '$lib/utilities/auth.js';
 import { fail,redirect } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
@@ -10,23 +11,41 @@ import { error } from '@sveltejs/kit';
 // to /login with a redirectTo query parameter back to this page, otherwise we 
 // panic and show an error message.
 export const load = async ({ fetch, cookies }) => {
-    const response = await getFollowedPostsDataService({ fetch, cookies });
-
-    if (!response.success && response.status === 401) {
+    const followedposts_response = await getFollowedPostsDataService({ fetch, cookies });
+    const notifications = await getNotifications({fetch, cookies});
+    if (!followedposts_response.success && followedposts_response.status === 401) {
         return redirect(303, `/login?redirectTo=/dashboard`);
     }
 
-    if (!response.success) {
-        console.log("Error: ", response.error);
-         error(response.status, {
+    if (!followedposts_response.success) {
+        console.log("Error: ", followedposts_response.error);
+         error(followedposts_response.status, {
             title: "Error Loading Posts",
             message: `Something happened and we could not load any posts.`,
             info: "It's not you, it's us. Please try again later."
         });
     }
-
-    return response.data;
+//console.log(	"Notifications: ", notifications);
+    return {
+        posts: followedposts_response.data,
+        notifications: notifications
+    };
 };
+const getNotifications = async({fetch, cookies})=>{
+    const notification_response = await getPostNotificationDataService({ fetch, cookies });
+    if (!notification_response.success && notification_response.status === 401) {
+        return redirect(303, `/login?redirectTo=/dashboard`);
+    }
+    if (!notification_response.success) {
+        console.log("Error: ", notification_response.error);
+         error(notification_response.status, {
+            title: "Error Loading Notifications",
+            message: `Something happened and we could not load any notifications.`,
+            info: "It's not you, it's us. Please try again later."
+        });
+    }
+    return notification_response.data;
+}
 export const actions ={
     addfeed: async({request, fetch, cookies})=>{
         // check authentication
