@@ -21,7 +21,7 @@ Unify, Simplify, and Amplify
     <br> 
 </p>
 
-![Homepage Screenshot](./images/dashboard.png)
+![Homepage Screenshot](./images/homepage.png)
 
 ## 📝 Table of Contents
 
@@ -101,25 +101,11 @@ npm install
 npm run dev
 ```
 <b>The Aggreagte Frontend</b> should now be running on your local machine. You can access it by opening your web browser and navigating to `http://localhost:5173` (or the port number displayed in your terminal).
-## 🔧 Running the tests <a name = "tests"></a>
 
-Explain how to run the automated tests for this system.
+- After a successful startup and login, you should have something like this: 
+![Dashboard Screenshot](./images/dashboard.png)
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+<hr />
 
 ## 🎈 Usage <a name="usage"></a>
 
@@ -127,23 +113,53 @@ Add notes about how to use the system.
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-Add additional notes about how to deploy this on a live system.
+<b>The basics of the app includes:</b>
+
+1. Homepage: This is the first page for users `http://localhost:5173` and contains the landing page shown as the first image in this readme. 
+2. Feeds: This is located at  `http://localhost:5173/feeds` and contains all the feeds that a user can follow.
+3. About: This contains the project's about information,
+4. Login & Signup: They contain the links for a user to login and also create an account. They also have links to performing password resets.
+5. Dashboard: This only appears after login and is a main page. It contains posts that have been followed by the user and:
+    - Ability to favorite and unfavorite feeds
+    - Ability to view detailed info for the feeds
+    - Detailed info supports HTML content as well as videos
+    - Ability to comment on various posts
+    - Can view your followed feeds
+    - Can access your favorite posts
+    - Can add new feeds for people to view and follow as well.
+    - ~~Ratings for best followed feeds.~~
+    - Update feeds you added.
+6. Logout: You know it.
+
+## 🚀 Deployment <a name = "deployment"></a>
+- To be ADDED.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [Node.js](https://nodejs.org/en/) - Server Environment
+- [Svelte](https://svelte.dev/) - Innovative Framework for building user interfaces
+- [SvelteKit](https://kit.svelte.dev/) - Framework for building web applications with Svelte
+- [Zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference
+- [Shad-CN Svelte](https://www.shadcn-svelte.com/) - Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.
+- [Embla Carousel](https://www.embla-carousel.com/) - A lightweight carousel library with fluid motion and great swipe precision
+- [Svelte-Toast](https://zerodevx.github.io/svelte-toast/) - Toast notification library for Svelte
+- [Lucid-Svelte](https://lucide.dev/) - Beautiful &
+consistent icons
+- [Box-Icons](https://boxicons.com/) - High Quality Web Icons
+Simple Open Source icons carefully crafted for designers & developers. Made by the community.
+- Other items not mentioned.
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
+- [@Blue-Davinci](https://github.com/Blue-Davinci) - Idea & Initial work
+
+## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
 See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+Hat tip to:
+- [Official Svelte](https://learn.svelte.dev/tutorial/welcome-to-svelte)
+- [HuntaByte](https://www.youtube.com/@huntabyte)
+- Any and all people whose libraries\codes were used.
