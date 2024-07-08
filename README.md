@@ -103,6 +103,8 @@ npm run dev
 <b>The Aggreagte Frontend</b> should now be running on your local machine. You can access it by opening your web browser and navigating to `http://localhost:5173` (or the port number displayed in your terminal).
 
 - After a successful startup and login, you should have something like this: 
+
+
 ![Dashboard Screenshot](./images/dashboard.png)
 
 <hr />
@@ -110,8 +112,6 @@ npm run dev
 ## 🎈 Usage <a name="usage"></a>
 
 Add notes about how to use the system.
-
-## 🚀 Deployment <a name = "deployment"></a>
 
 <b>The basics of the app includes:</b>
 
@@ -131,8 +131,12 @@ Add notes about how to use the system.
     - Update feeds you added.
 6. Logout: You know it.
 
+<hr />
+
 ## 🚀 Deployment <a name = "deployment"></a>
 - To be ADDED.
+
+<hr />
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
@@ -148,6 +152,8 @@ consistent icons
 - [Box-Icons](https://boxicons.com/) - High Quality Web Icons
 Simple Open Source icons carefully crafted for designers & developers. Made by the community.
 - Other items not mentioned.
+
+<hr />
 
 ## ✍️ Authors <a name = "authors"></a>
 
