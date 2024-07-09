@@ -191,11 +191,9 @@ Simple Open Source icons carefully crafted for designers & developers. Made by t
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
+👥 See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
 
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-Hat tip to:
+🎩✨ Hat tip to:
 - [Official Svelte](https://learn.svelte.dev/tutorial/welcome-to-svelte)
 - [HuntaByte](https://www.youtube.com/@huntabyte)
 - Any and all people whose libraries\codes were used.
