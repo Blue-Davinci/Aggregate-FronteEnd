@@ -17,7 +17,7 @@
 ---
 
 <p align="center"> <b>Aggregate</b>
-Unify, Simplify, and Amplify
+Unify, Simplify, Aggregate!
     <br> 
 </p>
 
