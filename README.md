@@ -172,11 +172,11 @@ docker compose up --build
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [Node.js](https://nodejs.org/en/) - Server Environment
+- [Tailwind CSS](https://tailwindcss.com/) - CSS Framework
 - [Svelte](https://svelte.dev/) - Innovative Framework for building user interfaces
 - [SvelteKit](https://kit.svelte.dev/) - Framework for building web applications with Svelte
 - [Zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference
 - [Shad-CN Svelte](https://www.shadcn-svelte.com/) - Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.
-- [Embla Carousel](https://www.embla-carousel.com/) - A lightweight carousel library with fluid motion and great swipe precision
 - [Svelte-Toast](https://zerodevx.github.io/svelte-toast/) - Toast notification library for Svelte
 - [Lucid-Svelte](https://lucide.dev/) - Beautiful &
 consistent icons
