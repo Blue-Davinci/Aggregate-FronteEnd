@@ -1,8 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
-	import { BellDot } from 'lucide-svelte';
-	import * as Dialog from '$lib/components/ui/dialog';
-	import { LayoutDashboard, Codesandbox, Share, Rss, House, SquarePlus } from 'lucide-svelte';
+	import { BellDot, BookHeart, LayoutDashboard, Codesandbox, Rss, House} from 'lucide-svelte';
 	export let notifications;
 	//console.log("Notifications:", notifications);
 
@@ -112,9 +110,10 @@
 							><House class="mr-2 h-5 w-5" />Home</a
 						>
 						<a
-							href="#share"
+							href="/dashboard/favorites"
+							data-sveltekit-preload-data
 							class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-							><SquarePlus class="mr-2 h-5 w-5" />Add Feed</a
+							><BookHeart class="mr-2 h-5 w-5" />My Favorites</a
 						>
 						<a
 							href="/dashboard/follows"
@@ -263,10 +262,10 @@
 				>Home</a
 			>
 			<a
-				href="#a"
+				href="/dashboard/favorites"
 				class="block flex items-center space-x-2 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
 			>
-				Share</a
+				My Favorites</a
 			>
 			<a
 				href="/dashboard/follows"

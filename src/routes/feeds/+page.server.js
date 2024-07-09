@@ -47,7 +47,7 @@ const getAllFeeds = async ({ fetch }, feed_url) => {
     if (res.ok) {
         return await res.json();
     } else {
-        throw error(res.status, {
+        error(res.status, {
             title: 'Error loading Feeds',
             message: `Something happened and we Could not load any Feeds.`,
             info: "It's not you, it's us. Please try again later."
@@ -66,7 +66,7 @@ const getFeedFollows = async ({ fetch }, auth) => {
     if (res.ok) {
         return await res.json();
     } else {
-        throw error(res.status, {
+        error(res.status, {
             title: 'Error loading Feeds',
             message: `Something happened and we Could not load any Feeds.`,
             info: "It's not you, it's us. Please try again later."
