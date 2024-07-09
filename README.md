@@ -178,8 +178,7 @@ docker compose up --build
 - [Zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference
 - [Shad-CN Svelte](https://www.shadcn-svelte.com/) - Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.
 - [Svelte-Toast](https://zerodevx.github.io/svelte-toast/) - Toast notification library for Svelte
-- [Lucid-Svelte](https://lucide.dev/) - Beautiful &
-consistent icons
+- [Lucid-Svelte](https://lucide.dev/) - Beautiful & consistent icons
 - [Box-Icons](https://boxicons.com/) - High Quality Web Icons
 Simple Open Source icons carefully crafted for designers & developers. Made by the community.
 - Other items not mentioned.
