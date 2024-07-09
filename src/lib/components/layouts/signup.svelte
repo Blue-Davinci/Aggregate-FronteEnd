@@ -66,10 +66,10 @@
 		<div class="relative z-10 mt-auto">
 			<blockquote class="space-y-2">
 				<p class="text-lg">
-					&ldquo;Thanks to Aggregate, I can now effortlessly follow all my favorite feeds from
-					various sources.Kudos to the team behind Aggregate, Highly recommended!&rdquo;
+					&ldquo;Aggregate has transformed the way I manage my online activities, bringing everything I need into one place. 
+					A game-changer for productivity!&rdquo;
 				</p>
-				<footer class="text-sm">Sofia Davis</footer>
+				<footer class="text-sm">Savo Mabash</footer>
 			</blockquote>
 		</div>
 	</div>
