@@ -1,7 +1,7 @@
 <script>
     import { Share, Undo2 } from 'lucide-svelte';
     export let data;
-    let feeds = data.feeds;
+    let feeds = data.feed_follows;
 
     function shareFeed(url) {
         const shareUrl = 'http://localhost:4000/v1/feeds'; // Replace with your actual share URL
@@ -63,7 +63,3 @@
         </table>
     </div>
 </div>
-
-<style>
-    /* Additional styling can be applied here */
-</style>

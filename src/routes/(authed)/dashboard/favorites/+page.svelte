@@ -16,8 +16,8 @@
     <span class="font-medium">Go Back</span>
 </a>
 
-<div>
-    <Carousel {posts}/>
+<div class="w-full">
+    <Carousel {posts} />
 </div>
 <div class="feeds-container" in:fly={{ x: 200, duration: 1000 }} out:fade>
 	{#each posts as post (post.id)}
