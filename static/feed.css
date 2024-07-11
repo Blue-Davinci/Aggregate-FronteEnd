@@ -1,0 +1,31 @@
+.feeds-layout {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.feeds-container {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns per row */
+    gap: 2rem; /* Adjust based on your design */
+    justify-items: center; /* Center items horizontally */
+}
+
+@media (max-width: 1024px) {
+    .feeds-container {
+        grid-template-columns: repeat(2, 1fr); /* Two columns per row for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .feeds-layout {
+        flex-direction: column;
+    }
+
+    .feeds-container {
+        grid-template-columns: 1fr; /* One column per row for small screens */
+    }
+}

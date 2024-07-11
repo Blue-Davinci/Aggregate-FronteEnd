@@ -6,7 +6,7 @@ import { checkAuthentication } from '$lib/utilities/auth.js';
 // it will redirect the user accordingly.
 export  const handle =  async({ event, resolve }) =>{
 	// authenticated endpoints
-	const authenticatedPaths = ['/dashboard', '/logout', '/account', '/api'];
+	const authenticatedPaths = ['/dashboard', '/logout', '/account', '/api/feedfollows','/api/postfollows'];
 	const safelistPaths = ['/login', '/signup'];
 	const requestedPath = event.url.pathname;
 	let credentials = checkAuthentication(event.cookies);
@@ -29,6 +29,9 @@ export  const handle =  async({ event, resolve }) =>{
 	// Check if user is authenticated for every request and accessing specified paths
 	if (!credentials.status && !credentials.user && requiresAuth) {
 		console.log("Redirecting! User is not authenticated");
+		if (requestedPath.includes('/api')){
+			redirect(303, `/login?redirectTo=/dashboard`)
+		}
 		redirect(303, `/login?redirectTo=${requestedPath}`);
 	} else if(credentials.status && credentials.user) {
 		// otherwise if logged in and trying to access safelisted paths eg login or signup then

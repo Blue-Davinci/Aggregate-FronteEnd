@@ -1,4 +1,5 @@
 <script>
+    import { fly, slide } from 'svelte/transition';
     import { Share, Undo2 } from 'lucide-svelte';
     export let data;
     let feeds = data.feed_follows;
@@ -18,12 +19,15 @@
     <span class="font-medium">Go Back</span>
 </a>
 
-<div class="container mx-auto px-4 py-8">
+<div 
+class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-semibold mb-4">Feeds You Follow</h1>
 
     <div class="overflow-x-auto">
         <table class="min-w-full border-gray-200 shadow-md rounded-lg overflow-hidden">
-            <thead>
+            <thead
+            in:fly={{ x: 200, duration: 1000 }} out:slide={{ duration: 400 }}
+            >
                 <tr class="bg-gray-100 text-gray-800 uppercase text-sm leading-normal">
                     <th class="py-3 px-6 text-left">Name</th>
                     <th class="py-3 px-6 text-left">URL</th>
@@ -33,7 +37,9 @@
                     <th class="py-3 px-6 text-left">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody
+            in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 400 }}
+            >
                 {#each feeds as feed}
                 <tr class="border-b border-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <td class="py-3 px-6 text-left whitespace-nowrap">

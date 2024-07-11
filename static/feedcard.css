@@ -47,3 +47,12 @@
 	background-color: #333;
 	color: #ccc;
 }
+
+/* New styles added */
+.description {
+	flex-grow: 1;
+}
+
+.button-container {
+	margin-top: auto;
+}

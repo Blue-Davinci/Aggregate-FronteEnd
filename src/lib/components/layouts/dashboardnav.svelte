@@ -1,5 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
+	import { fly, slide } from 'svelte/transition';
 	import { BellDot, BookHeart, LayoutDashboard, Codesandbox, Rss, House} from 'lucide-svelte';
 	export let notifications;
 	//console.log("Notifications:", notifications);
@@ -51,7 +52,9 @@
 	});
 </script>
 
-<nav class="bg-gray-800">
+<nav 
+in:fly={{ x: -200, duration: 1000 }} out:slide
+class="bg-gray-800">
 	<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 		<div class="relative flex h-16 items-center justify-between">
 			<div class="absolute inset-y-0 left-0 flex items-center sm:hidden">

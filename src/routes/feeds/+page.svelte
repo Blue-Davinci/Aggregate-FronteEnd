@@ -1,30 +1,36 @@
 <script>
-    import FeedsCard from "$lib/components/layouts/feedscard.svelte";
-    import { fly, slide, fade } from 'svelte/transition';
+    import FeedsCard from '$lib/components/layouts/feedscard.svelte';
+    import TopFeeds from '$lib/components/layouts/topfeeds.svelte';
+    import PageHeader from '$lib/components/layouts/pageheader.svelte';
+    import { fly, slide } from 'svelte/transition';
+    import { LucideNewspaper} from 'lucide-svelte';
 
     export let data;
     let user = data.props.user;
     let feeds = data.feeds;
+    let pageInfo = { 
+        title: 'Feeds', 
+        message: 'Explore the latest feeds from the community.', 
+        icon: LucideNewspaper 
+    };
 </script>
 
-<p>In Feeds</p>
+<svelte:head>
+    <link rel="stylesheet" href="/feed.css" />
+    <link rel="stylesheet" href="/loader-tiny.css" />
+</svelte:head>
 
-<div class="feeds-container"
-    in:fly={{ y: 200, duration: 1000 }}
-    out:slide={{ duration: 600 }}
->
-    {#each feeds as feed (feed.id)}
-        <FeedsCard {feed} {user}/> <!-- Set width to 1/2 for 2 per row -->
-    {/each}
+<!-- Include PageHeader with icon prop -->
+<PageHeader title={pageInfo.title} message={pageInfo.message} icon={pageInfo.icon} />
+
+<!-- Existing Feeds Container -->
+<div class="feeds-layout">
+    <div class="feeds-container" in:fly={{ y: 200, duration: 1000 }} out:slide={{ duration: 600 }}>
+        {#each feeds as feed (feed.id)}
+            <FeedsCard {feed} {user} /> <!-- Set width to 1/2 for 2 per row -->
+        {/each}
+    </div>
+
+    <!-- Existing Top Feeds Sidebar -->
+    <TopFeeds />
 </div>
-
-<style>
-    .feeds-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Two columns per row */
-        gap: 2rem; /* Adjust based on your design */
-        justify-items: center; /* Center items horizontally */
-    }
-</style>

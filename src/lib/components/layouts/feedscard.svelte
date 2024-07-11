@@ -3,7 +3,6 @@
 	import { Toggle } from '$lib/components/ui/toggle';
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import * as Card from '$lib/components/ui/card';
-	import { goto } from '$app/navigation';
 	import { Label } from '$lib/components/ui/label';
 	import { addFeedFollow, unfollowFollowedFeed } from '$lib/dataservice/feedfollowDataService';
 	import { setToast } from '$lib/utilities/utils';
@@ -15,7 +14,7 @@
 	let imageUrl;
 	//console.log(">> User: ",user);
 	let isFollowed = feed?.isFollowed === true && user;
-
+	console.log("Is Followed: ", isFollowed);
 	async function followFeed() {
 		if(!user){
 			setToast(false, 'You must be logged in to follow a feed.');
@@ -103,12 +102,12 @@
 			</span>
 			<hr class="mb-2 border-gray-300" />
 			<Label for="feed-type" class="mb-1 block text-sm font-medium">Description:</Label>
-			<p class="overflow-hidden text-ellipsis text-sm mb-2">
+			<p class="description overflow-hidden text-ellipsis text-sm mb-2">
 				{feed.feed_description.length > 100
 					? `${feed.feed_description.slice(0, 100)}...`
 					: feed.feed_description}
 			</p>
-			<div class="mt-2 flex items-center justify-center">
+			<div class="button-container mt-auto flex items-center justify-center">
 				<Tooltip.Root>
 					<Tooltip.Trigger>
 						<Toggle
