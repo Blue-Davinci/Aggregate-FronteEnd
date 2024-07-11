@@ -118,18 +118,18 @@ Add notes about how to use the system.
 1. Homepage: This is the first page for users `http://localhost:5173` and contains the landing page shown as the first image in this readme. 
 2. Feeds: This is located at  `http://localhost:5173/feeds` and contains all the feeds that a user can follow.
     - You can also view the top feeds
-    - You can also view the top users (To Come)
+    - You can also view the top users (In the pipeline)
 3. About: This contains the project's about information,
 4. Login & Signup: They contain the links for a user to login and also create an account. They also have links to performing password resets.
 5. Dashboard: This only appears after login and is a main page. It contains posts that have been followed by the user and:
-    - Ability to favorite and unfavorite feeds
+- Ability to favorite and unfavorite feeds
     - Ability to view detailed info for the feeds
     - Detailed info supports HTML content as well as videos
-    - Ability to comment on various posts
+    - *Ability to comment on various posts (In the Pipeline)*
     - Can view your followed feeds
     - Can access your favorite posts
     - Can add new feeds for people to view and follow as well.
-    - ~~Ratings for best followed feeds.~~
+    - *Ratings for best followed feeds. (In the Pipeline)*
     - Update feeds you added.
 6. Logout: You know it.
 
