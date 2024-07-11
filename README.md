@@ -116,6 +116,7 @@ Add notes about how to use the system.
 <b>The basics of the app includes:</b>
 
 1. Homepage: This is the first page for users `http://localhost:5173` and contains the landing page shown as the first image in this readme. 
+    - Theme support boasting a smooth Dark and Light themes
 2. Feeds: This is located at  `http://localhost:5173/feeds` and contains all the feeds that a user can follow.
     - You can also view the top feeds
     - You can also view the top users (In the pipeline)
