@@ -1,4 +1,4 @@
-import { VITE_API_BASE_URL_FEED_FOLLOW } from '$env/static/private';
+import { VITE_API_BASE_URL_FEED_FOLLOW_LIST } from '$env/static/private';
 import { checkAuthentication } from '$lib/utilities/auth.js';
 import { error } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
@@ -18,7 +18,8 @@ export const load = async ({ fetch, cookies }) => {
 };
 // Fetch all followed feeds
 const getFeedFollows = async ({ fetch }, auth) => {
-	const res = await fetch(`${VITE_API_BASE_URL_FEED_FOLLOW}`, {
+	console.log("Accessing URL: ", `${VITE_API_BASE_URL_FEED_FOLLOW_LIST}`);
+	const res = await fetch(`${VITE_API_BASE_URL_FEED_FOLLOW_LIST}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',

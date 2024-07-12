@@ -2,7 +2,7 @@
     import { fly, slide } from 'svelte/transition';
     import { Share, Undo2 } from 'lucide-svelte';
     export let data;
-    let feeds = data.feed_follows;
+    let feeds = data.feeds;
 
     function shareFeed(url) {
         const shareUrl = 'http://localhost:4000/v1/feeds'; // Replace with your actual share URL
