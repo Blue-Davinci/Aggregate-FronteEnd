@@ -6,8 +6,9 @@
     import { LucideNewspaper} from 'lucide-svelte';
 
     export let data;
+    let feed_follows = data.feeds;
+    //console.log("Front End Data: ", feed_follows);
     let user = data.props.user;
-    let feeds = data.feeds;
     let pageInfo = { 
         title: 'Feeds', 
         message: 'Explore the latest feeds from the community.', 
@@ -26,8 +27,8 @@
 <!-- Existing Feeds Container -->
 <div class="feeds-layout">
     <div class="feeds-container" in:fly={{ y: 200, duration: 1000 }} out:slide={{ duration: 600 }}>
-        {#each feeds as feed (feed.id)}
-            <FeedsCard {feed} {user} /> <!-- Set width to 1/2 for 2 per row -->
+        {#each feed_follows as feeds (feeds.feed.id)}
+            <FeedsCard {feeds} {user} /> <!-- Set width to 1/2 for 2 per row -->
         {/each}
     </div>
 

@@ -1,7 +1,51 @@
 import { json } from '@sveltejs/kit';
 import {VITE_API_BASE_URL_FEED_FOLLOW} from '$env/static/private';
+import {redirect} from '@sveltejs/kit';
+import {buildFeedFollowUrl} from '$lib/utilities/utils.js';
 import {checkAuthentication} from '$lib/utilities/auth.js';
 //import { redirect } from '@sveltejs/kit';
+
+// This function will check for a parameter called name from the caller
+// if we have the name parameter we know it's a search and for our URL, we will
+// append the name parameter to the URL. We will also check for the page_size
+// and page parameters and append them to the URL if they exist.
+export const GET = async({cookies,url}) => {
+    // check for auth, if none then redirect.
+    let auth = checkAuthentication(cookies).user;
+    if (!auth) {
+        redirect(303, '/login?redirectTo=/feeds')
+    }
+    // get our parameters
+    let params = {
+        name: url.searchParams.get('name'),
+        page: url.searchParams.get('page'),
+        page_size: url.searchParams.get('page_size')
+    };
+    // pass the parameters, if any, to our query builder
+    let feedfollow_url = buildFeedFollowUrl(VITE_API_BASE_URL_FEED_FOLLOW, params);
+    console.log("Feed Follows in server URL:", feedfollow_url)
+    try{
+        let response = await fetch(feedfollow_url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `ApiKey ${auth}`
+            }
+        })
+        if (response.ok){
+            let data = await response.json();
+            return json(data);
+        }else{
+            let errorData = await response.json();
+            return json({error: errorData.error}, {status: response.status});
+        }
+    }catch(err){
+        console.log("End Point Error: ", err);
+        return json({error: "Internal Server Error"}, {status: 500});
+    }
+}
+
+
 
 /**
  * Handles POST requests to follow a feed.

@@ -38,16 +38,16 @@ class="panel overflow-y-auto rounded-lg bg-white p-6 shadow-md dark:bg-gray-800"
 			<div class="tinyloader"></div>
 		</div>
 	{:else}
-		{#each feeds as { Feed, Follow_Count } (Feed.id)}
+		{#each feeds as { feed, follow_count } (feed.id)}
 			<div
 				class="flex items-center border-b border-gray-200 py-3 transition duration-300 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700"
 			>
-				<img src={Feed.img_url} alt={Feed.name} class="mr-4 h-12 w-12 rounded-full" />
+				<img src={feed.img_url} alt={feed.name} class="mr-4 h-12 w-12 rounded-full" />
 				<div class="flex-grow">
 					<h3 class="break-all text-lg font-semibold text-gray-900 dark:text-gray-100">
-						{Feed.name}
+						{feed.name}
 					</h3>
-					<small class="text-sm text-gray-500 dark:text-gray-300">{Follow_Count} follower(s)</small>
+					<small class="text-sm text-gray-500 dark:text-gray-300">{follow_count} follower(s)</small>
 				</div>
 			</div>
 		{/each}

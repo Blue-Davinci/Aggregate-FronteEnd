@@ -31,8 +31,30 @@ function toTitleCase(str) {
 		return str;
 	}
 }
+
 function checkForHTMLTags(str) {
 	const htmlTagPattern = /<\/?[a-z][\s\S]*>/i;
 	return htmlTagPattern.test(str);
 }
-export { setToast, checkForHTMLTags, toTitleCase };
+
+function buildFeedFollowUrl(baseUrl, params) {
+    let queryParts = [];
+    // Check each parameter and add it to queryParts if it's not undefined or empty
+    if (params.name) {
+        queryParts.push(`name=${encodeURIComponent(params.name)}`);
+    }
+    if (params.page) {
+        queryParts.push(`page=${encodeURIComponent(params.page)}`);
+    }
+    if (params.page_size) {
+        queryParts.push(`page_size=${encodeURIComponent(params.page_size)}`);
+    }
+    // Only append '?' if there are query parameters
+    if (queryParts.length > 0) {
+        return `${baseUrl}?${queryParts.join('&')}`;
+    } else {
+        return baseUrl; // Return the base URL without a '?' if there are no parameters
+    }
+}
+
+export { setToast, checkForHTMLTags, toTitleCase, buildFeedFollowUrl };

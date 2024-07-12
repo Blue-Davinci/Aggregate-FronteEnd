@@ -7,16 +7,17 @@
 	import { addFeedFollow, unfollowFollowedFeed } from '$lib/dataservice/feedfollowDataService';
 	import { setToast } from '$lib/utilities/utils';
 
-	export let feed;
+	export let feeds;
+	//console.log("====== Feeds: ", feeds);
+	let feed = feeds.feed;
 	export let user;
 	//console.log(feed);
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
 	let imageUrl;
 	//console.log(">> User: ",user);
-	let isFollowed = feed?.isFollowed === true && user;
-	console.log("Is Followed: ", isFollowed);
+	$: isFollowed = feeds.is_followed;
 	async function followFeed() {
-		if(!user){
+		if (!user) {
 			setToast(false, 'You must be logged in to follow a feed.');
 			return;
 		}
@@ -26,37 +27,37 @@
 				handleError(data.error);
 			} else {
 				setToast(true, 'Feed followed successfully');
-				isFollowed = true;
-				feed.isFollowed = true;
+				feeds.is_followed = true;
 			}
 		} catch (err) {
+			isFollowed = false;
 			setToast(false, 'An error occurred while following the feed.');
 		}
 	}
-
+	//
 	async function unfollowFeed() {
-		if(!user){
+		if (!user) {
 			setToast(false, 'You must be logged in to unfollow a feed!.');
 			return;
 		}
 		//console.log("Feed detail: ", feed);
-		if (!feed.isFollowed) {
+		if (!feeds.is_followed) {
 			setToast(false, 'Feed is not followed');
 			return;
 		}
-		console.log('Unfollowing feed: ', feed.id, " || Follow ID", feed.follow_id);
+		console.log('Unfollowing feed: ', feed.id, ' || Follow ID', feeds.follow_id);
 		try {
-			const data = await unfollowFollowedFeed(feed.follow_id);
+			const data = await unfollowFollowedFeed(feeds.follow_id);
 			if (data?.error) {
 				handleError(data.error);
 			} else {
 				setToast(true, 'Feed unfollowed successfully');
-				isFollowed = false;
-				feed.isFollowed = false;
-				feed.follow_id = null;
+				feeds.is_followed= false;
+				feeds.follow_id = null;
 			}
 		} catch (err) {
-			setToast(false, 'An error occurred while unfollowing the feed.');
+			feeds.is_followed = true;
+			handleError(data.error);
 		}
 	}
 
@@ -86,23 +87,29 @@
 	<link rel="stylesheet" href="/feedcard.css" />
 </svelte:head>
 
-<div class="feed-card mx-auto max-w-3xl rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl">
+<div
+	class="feed-card mx-auto max-w-3xl rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl"
+>
 	<Card.Root class="flex h-full w-full flex-col">
-		<div class="top-section flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-800 p-4">
+		<div
+			class="top-section flex flex-col items-center justify-center bg-gray-200 p-4 dark:bg-gray-800"
+		>
 			<img src={imageUrl} alt="Feed" class="feed-image rounded-full object-cover" />
-			<Card.Title class="mt-2 text-xl font-semibold text-center">{feed.name}</Card.Title>
+			<Card.Title class="mt-2 text-center text-xl font-semibold">{feed.name}</Card.Title>
 		</div>
 		<div class="content-section flex flex-grow flex-col p-4">
-			<div class="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
+			<div class="mb-2 flex justify-between text-sm text-gray-600 dark:text-gray-400">
 				<p>Created: {new Date(feed.created_at).toLocaleDateString()}</p>
 				<p>Updated: {new Date(feed.updated_at).toLocaleDateString()}</p>
 			</div>
-			<span class="inline-block rounded bg-blue-500 px-2.5 py-0.5 text-sm font-semibold text-white mb-2">
+			<span
+				class="mb-2 inline-block rounded bg-blue-500 px-2.5 py-0.5 text-sm font-semibold text-white"
+			>
 				{feed.feed_type}
 			</span>
 			<hr class="mb-2 border-gray-300" />
 			<Label for="feed-type" class="mb-1 block text-sm font-medium">Description:</Label>
-			<p class="description overflow-hidden text-ellipsis text-sm mb-2">
+			<p class="description mb-2 overflow-hidden text-ellipsis text-sm">
 				{feed.feed_description.length > 100
 					? `${feed.feed_description.slice(0, 100)}...`
 					: feed.feed_description}
