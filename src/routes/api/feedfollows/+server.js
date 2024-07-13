@@ -38,7 +38,7 @@ export const GET = async({cookies,url}) => {
     }
     // pass the parameters, if any, to our query builder
 
-    console.log("Feed Follows in server URL:", feedfollow_url, " || Headers: ", headers);
+    //console.log("Feed Follows in server URL:", feedfollow_url, " || Headers: ", headers);
     try{
         let response = await fetch(feedfollow_url, {
             method: 'GET',

@@ -138,6 +138,8 @@ Add notes about how to use the system.
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
+![Feeds Screenshot](./images/feeds.png)
+
 ## Docker
 Dockerfile and Docker Compose Setup:
 
