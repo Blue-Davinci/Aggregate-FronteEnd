@@ -6,10 +6,6 @@
 	import { fly, slide } from 'svelte/transition';
 	import { LucideNewspaper } from 'lucide-svelte';
 	import Pagination from '$lib/components/layouts/pagination.svelte';
-	/////
-	import { tick } from 'svelte';
-	import { Confetti } from 'svelte-confetti';
-	/////
 
 	export let data;
 	$: feed_follows = data.feeds;
@@ -61,7 +57,7 @@
 	</div>
 
 	<!-- Existing Top Feeds Sidebar -->
-	<TopFeeds />
+	<TopFeeds {user} />
 </div>
 
 <!-- Pagination Component -->
