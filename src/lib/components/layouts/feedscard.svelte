@@ -80,6 +80,7 @@
 		showConfetti();
 	}
 
+	// confetti
 	let active = false;
 	async function showConfetti() {
 		active = false;
@@ -138,7 +139,7 @@
 						>
 							<Star class="h-4 w-4" />
 							{#if active}
-							<Confetti x={[0.25, 1]} y={[0, 0.5]} />
+								<Confetti x={[0.25, 1]} y={[0, 0.5]} />
 							{/if}
 							{isFollowed ? 'Unfollow feed' : 'Follow feed'}
 						</Toggle>
