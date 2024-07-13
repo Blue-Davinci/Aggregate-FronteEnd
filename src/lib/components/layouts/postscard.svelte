@@ -177,7 +177,7 @@
 									class={`h-4 w-4 ${isFavorite ? 'text-red-500' : 'text-gray-800'} ${isFavorite ? 'scale-110' : 'scale-100'} transition-transform duration-150 ease-in-out`}
 								/>
 								{#if active}
-								<Confetti x={[-0.25, 0.25]} y={[0.75, 1.5]} />
+									<Confetti x={[-0.25, 0.25]} y={[0.75, 1.5]} />
 								{/if}
 							</div>
 						</Toggle>

@@ -1,5 +1,4 @@
 <script>
-  import { postDetail } from '$lib/store/postDetailStore.js';
   import {Undo2} from 'lucide-svelte/icons';
   import { onMount } from 'svelte';
   import { getSessionPostData } from '$lib/store/sessionStore.js';
