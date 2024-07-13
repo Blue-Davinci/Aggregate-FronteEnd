@@ -2,6 +2,8 @@
 	import FeedsCard from '$lib/components/layouts/feedscard.svelte';
 	import TopFeeds from '$lib/components/layouts/topfeeds.svelte';
 	import PageHeader from '$lib/components/layouts/pageheader.svelte';
+	import SearchInput from '$lib/components/layouts/searchinput.svelte';
+
 	import { getFeedsWithFollows } from '$lib/dataservice/feedfollowDataService.js';
 	import { fly, slide } from 'svelte/transition';
 	import { LucideNewspaper } from 'lucide-svelte';
@@ -22,21 +24,31 @@
 	let totalRecords = data.metadata.total_records;
 	let totalPages = Math.ceil(totalRecords / pageSize);
 
+	// Search query:
+	let searchQuery = '';
+
 	// This will get our data per page using the same function
 	// that we used to get the initial data
 	async function fetchData(page) {
-		//console.log("Page: ", page);
-		let response = await getFeedsWithFollows({}, page, pageSize, '');
+		//console.log("Page: ", page, "Search Term: ", searchTerm);
+		let response = await getFeedsWithFollows({}, page, pageSize, searchQuery);
 		data = response;
 	}
 
-	// this acts as our event reciever for a page change from the
+	// This acts as our event reciever for a page change from the
 	// pagination component, when the page changes, we invoke fetchData
 	function handlePageChange(event) {
 		currentPage = event.detail.page;
-		fetchData(currentPage);
+		fetchData(currentPage, '');
 	}
 
+	// This function, like handlePageChange, acts as an event reciever
+	// for the search input component, when the search input changes.
+	function handleSearch(event) {
+		searchQuery = event.detail.query;
+		console.log('Search Query: ', searchQuery);
+		fetchData(currentPage, searchQuery);
+	}
 </script>
 
 <svelte:head>
@@ -47,6 +59,10 @@
 <!-- Include PageHeader with icon prop -->
 <PageHeader title={pageInfo.title} message={pageInfo.message} icon={pageInfo.icon} />
 
+<!-- Search Input Component For users-->
+<div class="search-container">
+	<SearchInput on:search={handleSearch} />
+</div>
 
 <!-- Existing Feeds Container -->
 <div class="feeds-layout">

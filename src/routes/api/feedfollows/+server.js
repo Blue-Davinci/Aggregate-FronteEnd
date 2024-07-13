@@ -1,6 +1,5 @@
 import { json } from '@sveltejs/kit';
-import {VITE_API_BASE_URL_FEED_FOLLOW} from '$env/static/private';
-import {redirect} from '@sveltejs/kit';
+import {VITE_API_BASE_URL_FEED_FOLLOW, VITE_API_BASE_URL_FEEDS} from '$env/static/private';
 import {buildFeedFollowUrl} from '$lib/utilities/utils.js';
 import {checkAuthentication} from '$lib/utilities/auth.js';
 //import { redirect } from '@sveltejs/kit';
@@ -10,27 +9,40 @@ import {checkAuthentication} from '$lib/utilities/auth.js';
 // append the name parameter to the URL. We will also check for the page_size
 // and page parameters and append them to the URL if they exist.
 export const GET = async({cookies,url}) => {
-    // check for auth, if none then redirect.
-    let auth = checkAuthentication(cookies).user;
-    if (!auth) {
-        redirect(303, '/login?redirectTo=/feeds')
-    }
-    // get our parameters
-    let params = {
-        name: url.searchParams.get('name'),
-        page: url.searchParams.get('page'),
-        page_size: url.searchParams.get('page_size')
+        // get our parameters
+        let params = {
+            name: url.searchParams.get('name'),
+            page: url.searchParams.get('page'),
+            page_size: url.searchParams.get('page_size')
+        };
+    // This will hod our URL
+    let feedfollow_url;
+    // This will hold our headers initializing a common header for both possible
+    // requests that is the conten-type
+    let headers= {
+        'Content-Type': 'application/json'
     };
+        // check for auth, if none then redirect.
+    let auth = checkAuthentication(cookies).user;
+    
+    //Since we have unified this, we set a different URL depending on the auth status
+    // if the user is not authenticated, we use the feeds URL and if authed then
+    // we use the feedfollow URL that returns aggregated data of a user follows
+    if (!auth) {
+        // If not authed we use the API header without the APIKEY
+        feedfollow_url = buildFeedFollowUrl(VITE_API_BASE_URL_FEEDS, params)
+    }else{
+        // If authed we use the API header with the APIKEY
+        headers['Authorization'] = `ApiKey ${auth}`;
+        feedfollow_url = buildFeedFollowUrl(VITE_API_BASE_URL_FEED_FOLLOW, params)
+    }
     // pass the parameters, if any, to our query builder
-    let feedfollow_url = buildFeedFollowUrl(VITE_API_BASE_URL_FEED_FOLLOW, params);
-    console.log("Feed Follows in server URL:", feedfollow_url)
+
+    console.log("Feed Follows in server URL:", feedfollow_url, " || Headers: ", headers);
     try{
         let response = await fetch(feedfollow_url, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `ApiKey ${auth}`
-            }
+            headers: headers
         })
         if (response.ok){
             let data = await response.json();
