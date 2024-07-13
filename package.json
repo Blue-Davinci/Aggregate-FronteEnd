@@ -30,7 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"bits-ui": "^0.21.11",
+		"bits-ui": "^0.21.12",
 		"clsx": "^2.1.1",
 		"embla-carousel-autoplay": "^8.1.6",
 		"embla-carousel-svelte": "^8.1.6",
