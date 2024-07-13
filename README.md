@@ -138,8 +138,6 @@ Add notes about how to use the system.
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-![Feeds Screenshot](./images/feeds.png)
-
 ## Docker
 Dockerfile and Docker Compose Setup:
 
@@ -174,6 +172,8 @@ docker compose up --build
 
 <hr />
 
+![Feeds Screenshot](./images/feeds.png)
+
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [Node.js](https://nodejs.org/en/) - Server Environment
@@ -183,6 +183,7 @@ docker compose up --build
 - [Zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference
 - [Shad-CN Svelte](https://www.shadcn-svelte.com/) - Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.
 - [Svelte-Toast](https://zerodevx.github.io/svelte-toast/) - Toast notification library for Svelte
+- [Svelte-Confetti](https://mitcheljager.github.io/svelte-confetti/) - Add a burst of fun to your Svelte applications with customizable confetti components. Open Source and easy to integrate.
 - [Lucid-Svelte](https://lucide.dev/) - Beautiful & consistent icons
 - [Box-Icons](https://boxicons.com/) - High Quality Web Icons
 Simple Open Source icons carefully crafted for designers & developers. Made by the community.
