@@ -6,6 +6,9 @@
 	import { Label } from '$lib/components/ui/label';
 	import { addFeedFollow, unfollowFollowedFeed } from '$lib/dataservice/feedfollowDataService';
 	import { setToast } from '$lib/utilities/utils';
+	// confetti
+	import { tick } from 'svelte';
+	import { Confetti } from 'svelte-confetti';
 
 	export let feeds;
 	//console.log("====== Feeds: ", feeds);
@@ -27,6 +30,7 @@
 				handleError(data.error);
 			} else {
 				setToast(true, 'Feed followed successfully');
+				feeds.follow_id = data.feed_follow.id;
 				feeds.is_followed = true;
 			}
 		} catch (err) {
@@ -52,7 +56,7 @@
 				handleError(data.error);
 			} else {
 				setToast(true, 'Feed unfollowed successfully');
-				feeds.is_followed= false;
+				feeds.is_followed = false;
 				feeds.follow_id = null;
 			}
 		} catch (err) {
@@ -73,6 +77,14 @@
 
 	function toggleFollow() {
 		isFollowed ? unfollowFeed() : followFeed();
+		showConfetti();
+	}
+
+	let active = false;
+	async function showConfetti() {
+		active = false;
+		await tick();
+		active = true;
 	}
 
 	try {
@@ -125,6 +137,9 @@
 							on:click={toggleFollow}
 						>
 							<Star class="h-4 w-4" />
+							{#if active}
+							<Confetti x={[0.25, 1]} y={[0, 0.5]} />
+							{/if}
 							{isFollowed ? 'Unfollow feed' : 'Follow feed'}
 						</Toggle>
 					</Tooltip.Trigger>
