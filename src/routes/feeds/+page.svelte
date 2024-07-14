@@ -46,7 +46,7 @@
 	// for the search input component, when the search input changes.
 	function handleSearch(event) {
 		searchQuery = event.detail.query;
-		console.log('Search Query: ', searchQuery);
+		// console.log('Search Query: ', searchQuery);
 		fetchData(currentPage, searchQuery);
 	}
 </script>
@@ -64,7 +64,7 @@
 	<SearchInput on:search={handleSearch} />
 </div>
 
-<!-- Existing Feeds Container -->
+<!-- Feeds Container -->
 <div class="feeds-layout">
 	<div class="feeds-container" in:fly={{ y: 200, duration: 1000 }} out:slide={{ duration: 600 }}>
 		{#each feed_follows as feeds (feeds.feed.id)}
@@ -72,7 +72,7 @@
 		{/each}
 	</div>
 
-	<!-- Existing Top Feeds Sidebar -->
+	<!-- Top Feeds Sidebar -->
 	<TopFeeds {user} />
 </div>
 

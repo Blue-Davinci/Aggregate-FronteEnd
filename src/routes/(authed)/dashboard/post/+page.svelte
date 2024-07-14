@@ -18,6 +18,7 @@
   });
 </script>
 <svelte:head>
+    <title>Posts • Aggregate</title>
   <link rel="stylesheet" href="/loader.css" />
 </svelte:head>
 <a href="/dashboard" class="mt-10 flex items-center text-white bg-blue-500 hover:bg-blue-700 transition-colors duration-300 px-4 py-2 rounded-md"

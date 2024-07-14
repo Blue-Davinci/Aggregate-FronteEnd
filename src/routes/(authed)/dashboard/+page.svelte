@@ -15,7 +15,8 @@
 		message: 'Your one-stop hub for aggregating, exploring, and interacting with the latest RSS feeds. Discover, like, favorite, share, and follow the content that matters most to you.',
         icon: LayoutDashboard 
     };
-	$: posts = data.posts;
+	//console.log('In Client side Data: ', data);
+	$: posts = data.posts.followed_rss_posts;
 	$: notifications = data.notifications.notifications;
 	// controls the modal for the feed addition
 
@@ -31,8 +32,8 @@
 
 
 <div class="feeds-container" in:fly={{ x: 200, duration: 1000 }} out:fade>
-	{#each posts as post (post.id)}
-		<PostsCard {post} />
+	{#each posts as rsspost (rsspost.feed.id)}
+		<PostsCard {rsspost} />
 	{/each}
 </div>
 

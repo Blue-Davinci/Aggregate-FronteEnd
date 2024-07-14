@@ -15,15 +15,17 @@
 	// confetti
 	import { tick } from 'svelte';
 	import { Confetti } from 'svelte-confetti';
-	export let post;
-
+	export let rsspost;
+	let post = rsspost.feed;
+	
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
 	let imageUrl;
 	const descriptionLength = 100;
 	let itemDescription = post.Channel.Item[0].Description;
 	let itemTitle = post.Channel.Item[0].Title;
 	let isHTMLDescription = checkForHTMLTags(itemDescription);
-	$: isFavorite = post.isFavorite;
+	// get the isFavorite tag from the main object
+	$: isFavorite = rsspost.isFavorite;
 
 	// if the description is in HTML format, we need to convert it to plain text
 	function format(str) {
@@ -52,7 +54,7 @@
 				handleError(data.error);
 			} else {
 				setToast(true, 'Post added to favorites successfully');
-				post.isFavorite = true;
+				rsspost.isFavorite = true;
 				//console.log("Favorite Post");
 			}
 		} catch (err) {
@@ -71,7 +73,7 @@
 				handleError(data.error);
 			} else {
 				setToast(true, 'Post removed from favorites successfully');
-				post.isFavorite = false;
+				rsspost.isFavorite = false;
 			}
 		} catch (err) {
 			setToast(false, 'An error occurred while adding this post to your favorites.');
@@ -177,7 +179,7 @@
 									class={`h-4 w-4 ${isFavorite ? 'text-red-500' : 'text-gray-800'} ${isFavorite ? 'scale-110' : 'scale-100'} transition-transform duration-150 ease-in-out`}
 								/>
 								{#if active}
-									<Confetti x={[-0.25, 0.25]} y={[0.75, 1.5]} />
+								<Confetti x={[-0.5, 0.5]} y={[0.25, 1]} />
 								{/if}
 							</div>
 						</Toggle>

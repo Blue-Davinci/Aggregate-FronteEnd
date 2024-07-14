@@ -16,24 +16,10 @@ export const load = async ({ fetch, cookies }) => {
     if (!followedposts_response.success && followedposts_response.status === 401) {
         return redirect(303, `/login?redirectTo=/dashboard`);
     }
-
-    if (!followedposts_response.success) {
-        console.log("Error: ", followedposts_response.error);
-         error(followedposts_response.status, {
-            title: "Error Loading Posts",
-            message: `Something happened and we could not load any posts.`,
-            info: "It's not you, it's us. Please try again later."
-        });
-    }
     // Combine followed posts with favorite status to go
-    const favorites = followedposts_response.favorites.favorite_rss_posts.map(fav => fav.post_id);
-    const posts = followedposts_response.data.followed_rss_posts.map(post => {
-        const isFavorite = favorites.includes(post.id);
-        return { ...post, isFavorite };
-    });
-    //console.log("posts: ", posts);
+    //console.log(">> posts: ", followedposts_response.data.metadata);
     return {
-        posts:posts,
+        posts:followedposts_response.data,
         notifications: notifications
     };
 };
