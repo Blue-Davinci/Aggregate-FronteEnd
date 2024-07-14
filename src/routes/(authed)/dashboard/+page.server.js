@@ -31,6 +31,7 @@ const getNotifications = async({fetch, cookies})=>{
     }
     if (!notification_response.success) {
         console.log("Error: ", notification_response.error);
+        // maybe handle this silently?
          error(notification_response.status, {
             title: "Error Loading Notifications",
             message: `Something happened and we could not load any notifications.`,

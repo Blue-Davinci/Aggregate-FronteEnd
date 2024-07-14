@@ -30,7 +30,6 @@ export const POST = async({cookies, request}) => {
         }
     }catch(err){
         console.log("End Point Error: ", err);
-        return json({error: "Internal Server Error"}, {status: 500});
     }
 }
 

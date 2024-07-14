@@ -17,7 +17,7 @@
 	import { Confetti } from 'svelte-confetti';
 	export let rsspost;
 	let post = rsspost.feed;
-	
+	//console.log("Post on client follow: ", post)
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
 	let imageUrl;
 	const descriptionLength = 100;

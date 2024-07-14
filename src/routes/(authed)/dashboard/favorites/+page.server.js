@@ -5,7 +5,7 @@ import { error } from '@sveltejs/kit';
 
 export const load = async ({ fetch, cookies }) => {
 	const favoritepost_url = `${VITE_API_BASE_URL_FEEDS_FAVORITES_POST}`;
-	// check authentication
+	// check authentication 
 	let auth = checkAuthentication(cookies).user;
 	if (!auth) {
 		redirect(303, `/login?redirectTo=/dashboard/favorites`);
@@ -19,7 +19,7 @@ export const load = async ({ fetch, cookies }) => {
 	});
 	if (response.ok) {
 		let data = await response.json();
-        //console.log("Data: ", data);
+        //console.log("--- Data: ",data.favorite_rss_posts);
 		return data;
 	} else {
 		let errorData = await response.json();

@@ -5,11 +5,9 @@
     import Carousel from '$lib/components/layouts/carousel.svelte';
 	export let data;
 	let posts = data.favorite_rss_posts;
+	//console.log("Post client: ", posts);
     // set the isfavorite field to true,
     // so that the favorite button will be displayed as filled
-    posts.forEach(post => {
-        post.isFavorite = true;
-    });
 </script>
 <a href="/dashboard" class="mt-10 flex items-center text-white bg-blue-500 hover:bg-blue-700 transition-colors duration-300 px-4 py-2 rounded-md">
     <Undo2 class="mr-2 h-5 w-5" />
@@ -20,8 +18,8 @@
     <Carousel {posts} />
 </div>
 <div class="feeds-container" in:fly={{ x: 200, duration: 1000 }} out:fade>
-	{#each posts as post (post.id)}
-		<PostsCard {post} />
+	{#each posts as rsspost (rsspost.feed.id)}
+		<PostsCard {rsspost} />
 	{/each}
 </div>
 
