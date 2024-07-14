@@ -153,7 +153,7 @@ class="bg-gray-800">
 							/>
 						</svg>
 						<!-- Notification badge -->
-						{#if Object.keys(notifications).length !== 0}
+						{#if  notifications && Object.keys(notifications).length !== 0}
 							<span
 								class="absolute right-0 top-0 inline-flex h-4 w-4 -translate-y-1/3 translate-x-1/3 transform items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white"
 								>{Object.keys(notifications).length}</span

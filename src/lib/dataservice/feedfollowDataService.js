@@ -58,7 +58,7 @@ async function getFeedsWithFollows({ fetch: customFetch } = {}, page = 0, page_s
     };
     let fetchFunc = customFetch || fetch; // Use custom fetch if provided, else use global fetch
     let endpoint_url = buildFeedFollowUrl(url, params);
-    console.log("Built url: ", endpoint_url);
+    //console.log("Built url: ", endpoint_url);
     try {
         const response = await fetchFunc(endpoint_url, {
             method: 'GET',

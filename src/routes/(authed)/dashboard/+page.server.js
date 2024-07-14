@@ -11,7 +11,7 @@ import { error } from '@sveltejs/kit';
 // to /login with a redirectTo query parameter back to this page, otherwise we 
 // panic and show an error message.
 export const load = async ({ fetch, cookies }) => {
-    const followedposts_response = await getFollowedPostsDataService({ fetch, cookies });
+    const followedposts_response = await getFollowedPostsDataService({ fetch},);
     const notifications = await getNotifications({fetch, cookies});
     if (!followedposts_response.success && followedposts_response.status === 401) {
         return redirect(303, `/login?redirectTo=/dashboard`);
