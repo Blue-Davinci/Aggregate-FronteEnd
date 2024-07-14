@@ -2,6 +2,7 @@
 	import DashboardNav from '$lib/components/layouts/dashboardnav.svelte';
 	import { Bird, Squirrel } from 'lucide-svelte';
 	import PageHeader from '$lib/components/layouts/pageheader.svelte';
+	import Pagination from '$lib/components/layouts/pagination.svelte';
 	import { fly, slide, fade } from 'svelte/transition';
 	import { LayoutDashboard } from 'lucide-svelte';
 	import PostsCard from '$lib/components/layouts/postscard.svelte';
@@ -42,6 +43,13 @@
 		};
 	}
 
+	// This acts as our event reciever for a page change from the
+	// pagination component, when the page changes, we invoke fetchData
+	function handlePageChange(event) {
+		currentPage = event.detail.page;
+		fetchData(currentPage, '');
+	}
+
 	function handleSearch(event) {
 		searchQuery = event.detail.query;
 		// console.log('Search Query: ', searchQuery);
@@ -75,13 +83,16 @@
 		{:else}
 			<Squirrel />
 			<p>
-				No posts here! Looks like your feed is on a diet. Head over to the <a href='/feeds'>Feeds</a> and follow some feeds to fatten it up!
+				No posts here! Looks like your feed is on a diet. Head over to the <a href="/feeds">Feeds</a
+				> and follow some feeds to fatten it up!
 			</p>
 		{/if}
 	</div>
 {/if}
 
 <FAB {form} {isLoading} />
+
+<Pagination {totalPages} {pageSize} {totalRecords} on:page-change={handlePageChange} />
 
 <style>
 	.feeds-container {

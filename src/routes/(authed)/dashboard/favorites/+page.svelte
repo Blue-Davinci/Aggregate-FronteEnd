@@ -14,7 +14,7 @@
     <span class="font-medium">Go Back</span>
 </a>
 
-<div class="w-full">
+<div class="w-full" in:fly={{ x: -200, duration: 1000 }} out:fade>
     <Carousel {posts} />
 </div>
 <div class="feeds-container" in:fly={{ x: 200, duration: 1000 }} out:fade>
