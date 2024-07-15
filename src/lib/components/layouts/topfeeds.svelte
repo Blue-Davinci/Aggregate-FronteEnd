@@ -24,10 +24,9 @@
 		}
 	});
 </script>
-
 <div 
 	in:fly={{ y: -200, duration: 1000 }} out:slide={{ y:200, duration: 600 }}
-	class="panel overflow-y-auto rounded-lg bg-white p-6 shadow-md dark:bg-gray-800"
+	class="panel w-full max-w-xs overflow-y-auto rounded-lg bg-white p-6 shadow-md dark:bg-gray-800"
 >
 	<div class="flex items-center justify-center mb-6">
 		<Pizza class="text-gray-800 dark:text-white w-6 h-6 mr-2"/>

@@ -9,7 +9,8 @@ export const GET= async({cookies, url})=>{
 	let params = {
 		name: url.searchParams.get('name'),
 		page: url.searchParams.get('page'),
-		page_size: url.searchParams.get('page_size')
+		page_size: url.searchParams.get('page_size'),
+        feedID: url.searchParams.get('feedID')
 	};
     let post_url = buildFeedFollowUrl(VITE_API_BASE_URL_FEED_FOLLOW_POSTS, params);
     console.log("API Post URL: ", post_url);

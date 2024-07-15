@@ -3,6 +3,7 @@
 	import TopFeeds from '$lib/components/layouts/topfeeds.svelte';
 	import PageHeader from '$lib/components/layouts/pageheader.svelte';
 	import SearchInput from '$lib/components/layouts/searchinput.svelte';
+	import Tinyloader from '$lib/components/layouts/tinyloader.svelte';
 
 	import { getFeedsWithFollows } from '$lib/dataservice/feedfollowDataService.js';
 	import { fly, slide } from 'svelte/transition';
@@ -10,9 +11,11 @@
 	import Pagination from '$lib/components/layouts/pagination.svelte';
 
 	export let data;
-	$: feed_follows = data.feeds;
+	$: feed_follows = data?.feeds ?? {};
+	//loader
+	let isFetching = false;
 	//console.log("Front End Data: ", feed_follows);
-	let user = data.props.user;
+	let user = data?.props?.user ?? false;
 	let pageInfo = {
 		title: 'Feeds',
 		message: 'Explore the latest feeds from the community.',
@@ -30,9 +33,11 @@
 	// This will get our data per page using the same function
 	// that we used to get the initial data
 	async function fetchData(page) {
-		//console.log("Page: ", page, "Search Term: ", searchTerm);
+		isFetching = true;
+		console.log("Page: ", page, "Search Term: ", searchQuery);
 		let response = await getFeedsWithFollows({}, page, pageSize, searchQuery);
 		data = response;
+		isFetching = false;
 	}
 
 	// This acts as our event reciever for a page change from the
@@ -64,16 +69,19 @@
 	<SearchInput on:search={handleSearch} />
 </div>
 
+{#if isFetching}
+    <Tinyloader message="Getting your feeds..." />
+{/if}
 <!-- Feeds Container -->
-<div class="feeds-layout">
-	<div class="feeds-container" in:fly={{ y: 200, duration: 1000 }} out:slide={{ duration: 600 }}>
-		{#each feed_follows as feeds (feeds.feed.id)}
-			<FeedsCard {feeds} {user} /> <!-- Set width to 1/2 for 2 per row -->
-		{/each}
+<div class="feeds-layout" in:fly={{ y: 200, duration: 1000 }} out:slide={{ duration: 600 }}>
+	<div class="feeds-container">
+			{#each feed_follows as feeds (feeds.feed.id)}
+				<FeedsCard {feeds} {user} /> <!-- Set width to 1/2 for 2 per row -->
+			{/each}
 	</div>
 
 	<!-- Top Feeds Sidebar -->
-	<TopFeeds {user} />
+	<TopFeeds {user}/>
 </div>
 
 <!-- Pagination Component -->

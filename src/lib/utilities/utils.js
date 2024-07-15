@@ -49,6 +49,9 @@ function buildFeedFollowUrl(baseUrl, params) {
     if (params.page_size) {
         queryParts.push(`page_size=${encodeURIComponent(params.page_size)}`);
     }
+	if (params.feedID) {
+        queryParts.push(`feedID=${encodeURIComponent(params.feedID)}`);
+    }
     // Only append '?' if there are query parameters
     if (queryParts.length > 0) {
         return `${baseUrl}?${queryParts.join('&')}`;
