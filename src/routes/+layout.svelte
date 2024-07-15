@@ -114,6 +114,13 @@
 					<span class="tooltip">Signup</span>
 				</li>
 			{:else}
+			<li>
+				<a href="/account">
+					<i class="bx bxs-user-plus"></i>
+					<span class="nav-item">TES</span>
+				</a>
+				<span class="tooltip">Signup</span>
+			</li>
 				<li>
 					<form id="logoutForm" method="POST" action="/logout">
 						<a href="/logout" onclick="document.getElementById('logoutForm').submit(); return false;">
