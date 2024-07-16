@@ -18,7 +18,7 @@
 	$: isFollowed = feeds.is_followed;
 	let isHidden = feed.is_hidden;
 
-	$: console.log("Is Hidden: ", feed.is_hidden);
+	//$: console.log('Is Hidden: ', feed.is_hidden);
 	async function followFeed() {
 		if (!user) {
 			setToast(false, 'You must be logged in to follow a feed.');
@@ -106,18 +106,22 @@
 		<div
 			class="top-section relative flex flex-col items-center justify-center bg-gray-200 p-4 dark:bg-gray-800"
 		>
-		{#if isHidden}
-		<Tooltip.Root>
-			<Tooltip.Trigger>
-				<div class="hidden-tag absolute top-2 right-2 flex items-center justify-center border border-gray-300 dark:border-gray-700 shadow-md">
-					<VenetianMask class="h-5 w-5 text-red-500 transition-transform duration-300 ease-in-out hover:scale-125" />
-				</div>
-			</Tooltip.Trigger>
-			<Tooltip.Content>
-				<p class="text-xs">Hidden Feed</p>
-			</Tooltip.Content>
-		</Tooltip.Root>
-	{/if}
+			{#if isHidden}
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<div
+							class="hidden-tag absolute right-2 top-2 flex items-center justify-center border border-gray-300 shadow-md dark:border-gray-700"
+						>
+							<VenetianMask
+								class="h-5 w-5 text-red-500 transition-transform duration-300 ease-in-out hover:scale-125"
+							/>
+						</div>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p class="text-xs">Hidden Feed</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
+			{/if}
 			<img src={imageUrl} alt="Feed" class="feed-image rounded-full object-cover" />
 			<Card.Title class="mt-2 text-center text-xl font-semibold">{feed.name}</Card.Title>
 		</div>
@@ -150,7 +154,7 @@
 						>
 							<Star class="h-4 w-4" />
 							{#if active}
-							<Confetti x={[-0.5, 0.5]} y={[0.25, 1]} />
+								<Confetti x={[-0.5, 0.5]} y={[0.25, 1]} />
 							{/if}
 							{isFollowed ? 'Unfollow feed' : 'Follow feed'}
 						</Toggle>

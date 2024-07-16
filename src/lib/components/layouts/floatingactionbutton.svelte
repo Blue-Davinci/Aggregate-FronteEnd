@@ -4,6 +4,7 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
+	import { Checkbox } from '$lib/components/ui/checkbox';
 	import ValidationMessage from '$lib/components/layouts/authvalidation_message.svelte';
 	import { enhance } from '$app/forms'; // Importing enhance from SvelteKit
 	import { setToast } from '$lib/utilities/utils';
@@ -17,23 +18,28 @@
 		url: '',
 		img_url: '',
 		feed_type: '',
-		feed_description: ''
+		feed_description: '',
+		is_hidden: false
 	};
-
+	$: console.log('Is_Hidden: ', formData.is_hidden);
 	function clearData() {
 		formData = {
 			name: '',
 			url: '',
 			img_url: '',
 			feed_type: '',
-			feed_description: ''
+			feed_description: '',
+			is_hidden: false
 		};
 		form = undefined;
 	}
 
 	function isFormDataValid() {
-		return Object.values(formData).every((value) => value.trim() !== '');
-	}
+    return Object.values(formData).every((value) => {
+        // Check if the value is a string before calling trim()
+        return typeof value === 'string' ? value.trim() !== '' : true;
+    });
+}
 
 	function enhanceForm() {
 		if (!isFormDataValid()) {
@@ -54,9 +60,9 @@
 
 				// Handle successful creation
 				if (result.data && result.data?.feed) {
-					console.log('Successfully saved');
+					//console.log('Successfully saved');
 					await update();
-					console.log('Feed added well: ', result);
+					//console.log('Feed added well: ', result);
 					setToast(true, 'Feed added successfully.', 3000);
 					isOpen = false;
 					clearData();
@@ -82,14 +88,17 @@
 
 <!-- Floating Action Button -->
 <Dialog.Root bind:open={isOpen}>
-	<Dialog.Trigger>
+	<!-- Use a div wrapper and handle the click event -->
+	<div class="fixed bottom-5 right-5">
 		<button
-			class="fixed bottom-5 right-5 flex items-center rounded-full bg-blue-500 px-4 py-2 font-bold text-white shadow-lg hover:bg-blue-700"
+			tabindex="-1"
+			class="flex items-center rounded-full bg-blue-500 px-4 py-2 font-bold text-white shadow-lg hover:bg-blue-700"
+			on:click={() => isOpen = true}
 		>
 			<Plus class="h-8 w-8" />
 			<span class="ml-2">Add Your Feed</span>
 		</button>
-	</Dialog.Trigger>
+	</div>
 	<Dialog.Content class="rounded-lg p-6 shadow-md sm:max-w-[425px]">
 		<Dialog.Header>
 			<Dialog.Title>Add New Feed</Dialog.Title>
@@ -97,6 +106,15 @@
 		</Dialog.Header>
 		<form method="post" action="?/addfeed" use:enhance={enhanceForm} class="space-y-4">
 			<div class="grid grid-cols-1 gap-4">
+				<div class="flex justify-center mb-4">
+					{#if formData.img_url}
+						<img src={formData.img_url} alt="Feed" class="rounded-full w-32 h-32 object-cover shadow-md" />
+					{:else}
+						<div class="rounded-full w-32 h-32 bg-gray-200 dark:bg-gray-700 flex items-center justify-center shadow-md">
+							<span class="text-gray-500 dark:text-gray-300">Image Preview</span>
+						</div>
+					{/if}
+				</div>
 				<div class="flex flex-col">
 					<Label for="name" class="mb-2 text-left">Name</Label>
 					<Input id="name" name="name" disabled={isLoading} bind:value={formData.name} />
@@ -142,6 +160,25 @@
 						</div>
 					{/if}
 					<ValidationMessage error={form?.error?.feed_description} />
+				</div>
+				<div class="flex flex-col">
+					<div class="flex items-center space-x-2">
+						<Checkbox
+							id="is_hidden"
+							name="is_hidden"
+							disabled={isLoading}
+							bind:checked={formData.is_hidden}
+						/>
+						<Label
+							for="is_hidden"
+							class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+						>
+							Set this feed as Hidden
+						</Label>
+						<ValidationMessage error={form?.error?.is_hidden} />
+					</div>
+					<input type="hidden" name="is_hidden" value={formData.is_hidden ? 'true' : 'false'} />
+					<p class="mt-1 text-sm text-muted-foreground">Setting this as <b>true</b> will prevent the feed from appearing on other users timeline.</p>
 				</div>
 			</div>
 			<Dialog.Footer>

@@ -4,7 +4,6 @@
 	import PageHeader from '$lib/components/layouts/pageheader.svelte';
 	import SearchInput from '$lib/components/layouts/searchinput.svelte';
 	import Tinyloader from '$lib/components/layouts/tinyloader.svelte';
-
 	import { getFeedsWithFollows } from '$lib/dataservice/feedfollowDataService.js';
 	import { fly, slide } from 'svelte/transition';
 	import { LucideNewspaper } from 'lucide-svelte';
@@ -83,6 +82,5 @@
 	<!-- Top Feeds Sidebar -->
 	<TopFeeds {user}/>
 </div>
-
 <!-- Pagination Component -->
 <Pagination {totalPages} {pageSize} {totalRecords} on:page-change={handlePageChange} />
