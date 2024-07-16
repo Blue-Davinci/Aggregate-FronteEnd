@@ -1,5 +1,6 @@
 <script>
 	import { Plus } from 'lucide-svelte'; // Importing the Plus icon
+	import Tinyloader from '$lib/components/layouts/tinyloader.svelte';
 	import * as Dialog from '$lib/components/ui/dialog'; // Importing Dialog components
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
@@ -45,11 +46,13 @@
 		if (!isFormDataValid()) {
 			setToast(false, 'Fields cannot be empty.', 3000);
 		} else {
+			isLoading = true;
 			return async ({ result, update }) => {
 				if (result.type === 'redirect') {
 					console.log('Redirecting to login page');
 					await update();
 					setToast(false, 'Sorry, you have been logged out. Please login again.', 3000);
+					isLoading = false
 					isOpen = false;
 					await goto(result.location);
 					return;
@@ -58,6 +61,7 @@
 				if (result.data && result.data?.feed) {
 					await update();
 					setToast(true, 'Feed added successfully.', 3000);
+					isLoading = false
 					isOpen = false;
 					clearData();
 					return;
@@ -66,6 +70,7 @@
 				if (result.data && result.data.status === 409) {
 					console.log('Edit conflict');
 					setToast(false, result.data.error.url, 3000);
+					isLoading = false
 					return;
 				}
 
@@ -73,11 +78,14 @@
 
 				console.log('Result', result);
 				setToast(false, result.data?.error || 'An unknown error occurred', 3000);
+				isLoading = false
 			};
 		}
 	}
 </script>
-
+<svelte:head>
+<link rel="stylesheet" href="/loader.css" />
+</svelte:head>
 <!-- Floating Action Button -->
 <Dialog.Root bind:open={isOpen}>
 	<div class="fixed fab-container">

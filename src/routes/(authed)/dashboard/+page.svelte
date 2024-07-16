@@ -35,18 +35,21 @@
 	};
 	//console.log('In Client side Data: ', data);
 	$: posts = data?.posts?.followed_rss_posts || [];
-	$: notifications = data?.notifications?.notifications ?? {};
+	$: notifications = data?.notifications?.notifications ?? [];
+	//$:console.log("Notifications: ", notifications);
 	// controls the modal for the feed addition
 	async function fetchData(page) {
 		isFetching = true;
 		//console.log('Page: ', page, 'Search Term: ', searchQuery);
-		let notificationsCopy = notifications ?? {};
+		let notificationsCopy = notifications ?? [];
 		let response = await getFollowedPostsDataService({}, page, pageSize, searchQuery, feedID);
 		// We do this to standadize the data as recieved from the server
 		// during (page.server.js) load.
 		data = {
 			posts: response.data,
-			notifications: notificationsCopy
+			notifications: {
+				notifications: notificationsCopy
+			},
 		};
 		isFetching = false;
 	}

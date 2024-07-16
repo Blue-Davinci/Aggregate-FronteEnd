@@ -25,6 +25,7 @@
 	let open = false;
 	let value = '';
 	let searchQuery = '';
+
 	const dispatch = createEventDispatcher();
 
 	$: selectedFeed = feeds.find((f) => f.feed_id === value)?.feed_name ?? 'Filter by feeds...';
@@ -41,20 +42,35 @@
 		});
 	}
 
+	// Send a filter command passing our feed_id as the value for the search
 	function handleSelect(feed_id, triggerId) {
 		value = feed_id;
 		closeAndFocusTrigger(triggerId);
 		dispatch('select', feed_id);
 	}
 
+	// Handle the reset option in the combo to return and get all posts
+	function handleReset(triggerId) {
+		value = '';
+		searchQuery = '';
+		closeAndFocusTrigger(triggerId);
+		dispatch('select', '');
+	}
+
 	/* Debugging statements
-  $: console.log("searchQuery:", searchQuery);
-  $: console.log("filteredFeeds:", filteredFeeds);
-  */
+	$: console.log("searchQuery:", searchQuery);
+	$: console.log("filteredFeeds:", filteredFeeds);
+	*/
 </script>
 
+<svelte:head>
+	<link rel="stylesheet" href="/loader-tiny.css" />
+</svelte:head>
 {#if isFetching}
-	<Tinyloader message="Loading filters.."/>
+	<div class="flex items-center space-x-2">
+		<div class="tinyloader"></div>
+		<span class="text-sm">Loading filters..</span>
+	</div>
 {:else}
 	<Popover.Root bind:open let:ids>
 		<Popover.Trigger asChild let:builder>
@@ -84,6 +100,14 @@
 					{/if}
 				</Command.Empty>
 				<Command.Group>
+					<Command.Item
+						value="Reset"
+						onSelect={() => handleReset(ids.trigger)}
+						class="px-4 py-2 transition duration-200 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700"
+					>
+						<Check class={cn('mr-2 h-4 w-4', value !== '' && 'text-transparent')} />
+						Reset
+					</Command.Item>
 					{#each filteredFeeds as feed}
 						<Command.Item
 							value={feed.feed_name}

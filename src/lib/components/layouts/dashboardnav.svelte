@@ -168,13 +168,13 @@ class="bg-gray-800">
 							aria-labelledby="notification-button"
 							tabindex="-1"
 						>
-							{#if notifications.length === 0}
+							{#if notifications && Object.keys(notifications).length === 0}
 								<span
 									class="block px-4 py-2 text-xs text-black-500 hover:bg-gray-200 hover:text-gray-900 dark:text-black dark:hover:bg-gray-600 dark:hover:text-gray-100"
 								>
 									No new messages
 								</span>
-							{:else}
+							{:else if notifications}
 								{#each notifications as { feed_name, post_count }, index}
 									<span
 										class="dark:black block flex items-center px-5 py-3 text-sm text-black transition-colors duration-200 ease-in-out hover:bg-gray-300 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-gray-100 {index !==
