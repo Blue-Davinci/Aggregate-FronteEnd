@@ -114,7 +114,7 @@
 		class="h-full w-full transform space-y-4 overflow-hidden rounded-2xl p-6 shadow-lg transition-transform hover:scale-105"
 	>
 		<Card.Header class="flex flex-col items-center">
-			<Card.Title class="w-full text-center text-xl font-semibold">
+			<Card.Title class="w-full text-center text-xl font-semibold line-clamp-2">
 				Feed: {itemTitle.slice(0, 50)}...
 			</Card.Title>
 			<a

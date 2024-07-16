@@ -98,6 +98,8 @@ const feedSchema = z.object({
     .min(1, {message: "Post Description is required"})
     .max(500, {message: "Post Description must be less than 500 characters"})
     .trim(),
+    is_hidden: z
+    .boolean({required_error: "Post Visibility is required"}),
 });
     
 function checkAuthentication(cookies){

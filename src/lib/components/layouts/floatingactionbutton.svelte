@@ -9,6 +9,7 @@
 	import { enhance } from '$app/forms'; // Importing enhance from SvelteKit
 	import { setToast } from '$lib/utilities/utils';
 	import { goto } from '$app/navigation';
+
 	export let form;
 	export let isLoading;
 
@@ -21,7 +22,7 @@
 		feed_description: '',
 		is_hidden: false
 	};
-	$: console.log('Is_Hidden: ', formData.is_hidden);
+
 	function clearData() {
 		formData = {
 			name: '',
@@ -35,20 +36,16 @@
 	}
 
 	function isFormDataValid() {
-    return Object.values(formData).every((value) => {
-        // Check if the value is a string before calling trim()
-        return typeof value === 'string' ? value.trim() !== '' : true;
-    });
-}
+		return Object.values(formData).every((value) => {
+			return typeof value === 'string' ? value.trim() !== '' : true;
+		});
+	}
 
 	function enhanceForm() {
 		if (!isFormDataValid()) {
 			setToast(false, 'Fields cannot be empty.', 3000);
 		} else {
 			return async ({ result, update }) => {
-				//console.log('Result: ', result);
-
-				// Handle redirect
 				if (result.type === 'redirect') {
 					console.log('Redirecting to login page');
 					await update();
@@ -58,25 +55,20 @@
 					return;
 				}
 
-				// Handle successful creation
 				if (result.data && result.data?.feed) {
-					//console.log('Successfully saved');
 					await update();
-					//console.log('Feed added well: ', result);
 					setToast(true, 'Feed added successfully.', 3000);
 					isOpen = false;
 					clearData();
 					return;
 				}
 
-				// Handle conflict (status 409)
 				if (result.data && result.data.status === 409) {
 					console.log('Edit conflict');
 					setToast(false, result.data.error.url, 3000);
 					return;
 				}
 
-				// Handle other errors
 				await update();
 
 				console.log('Result', result);
@@ -88,8 +80,7 @@
 
 <!-- Floating Action Button -->
 <Dialog.Root bind:open={isOpen}>
-	<!-- Use a div wrapper and handle the click event -->
-	<div class="fixed bottom-5 right-5">
+	<div class="fixed fab-container">
 		<button
 			tabindex="-1"
 			class="flex items-center rounded-full bg-blue-500 px-4 py-2 font-bold text-white shadow-lg hover:bg-blue-700"
@@ -99,7 +90,7 @@
 			<span class="ml-2">Add Your Feed</span>
 		</button>
 	</div>
-	<Dialog.Content class="rounded-lg p-6 shadow-md sm:max-w-[425px]">
+	<Dialog.Content class="rounded-lg p-6 shadow-md dialog-content">
 		<Dialog.Header>
 			<Dialog.Title>Add New Feed</Dialog.Title>
 			<Dialog.Description>Fill in the details of the new feed and click save.</Dialog.Description>
@@ -132,27 +123,12 @@
 				</div>
 				<div class="flex flex-col">
 					<Label for="feed_type" class="mb-2 text-left">Feed Type</Label>
-					<Input
-						id="feed_type"
-						name="feed_type"
-						disabled={isLoading}
-						bind:value={formData.feed_type}
-					/>
+					<Input id="feed_type" name="feed_type" disabled={isLoading} bind:value={formData.feed_type} />
 					<ValidationMessage error={form?.error?.feed_type} />
 				</div>
 				<div class="flex flex-col">
-					<Label
-						for="feed_description"
-						name="feed_description"
-						disabled={isLoading}
-						class="mb-2 text-left">Feed Description</Label
-					>
-					<Input
-						id="feed_description"
-						name="feed_description"
-						disabled={isLoading}
-						bind:value={formData.feed_description}
-					/>
+					<Label for="feed_description" name="feed_description" disabled={isLoading} class="mb-2 text-left">Feed Description</Label>
+					<Input id="feed_description" name="feed_description" disabled={isLoading} bind:value={formData.feed_description} />
 					{#if isLoading}
 						<div class="saving-container">
 							<span class="loader"></span>
@@ -163,18 +139,8 @@
 				</div>
 				<div class="flex flex-col">
 					<div class="flex items-center space-x-2">
-						<Checkbox
-							id="is_hidden"
-							name="is_hidden"
-							disabled={isLoading}
-							bind:checked={formData.is_hidden}
-						/>
-						<Label
-							for="is_hidden"
-							class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-						>
-							Set this feed as Hidden
-						</Label>
+						<Checkbox id="is_hidden" name="is_hidden" disabled={isLoading} bind:checked={formData.is_hidden} />
+						<Label for="is_hidden" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Set this feed as Hidden</Label>
 						<ValidationMessage error={form?.error?.is_hidden} />
 					</div>
 					<input type="hidden" name="is_hidden" value={formData.is_hidden ? 'true' : 'false'} />
@@ -189,7 +155,21 @@
 </Dialog.Root>
 
 <style>
-	.fixed {
-		position: fixed;
+	.fab-container {
+		bottom: 1rem;
+		right: 1rem;
+		z-index: 50;
+	}
+
+	@media (max-width: 768px) {
+		.fab-container {
+			bottom: 0.5rem;
+			right: 0.5rem;
+		}
+	}
+
+	:global(.dialog-content) {
+		max-height: 80vh; /* Limit the height to 80% of the viewport height */
+		overflow-y: auto; /* Add vertical scroll if content overflows */
 	}
 </style>
