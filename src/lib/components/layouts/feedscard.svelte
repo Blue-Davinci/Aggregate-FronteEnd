@@ -1,5 +1,5 @@
 <script>
-	import Star from 'lucide-svelte/icons/star';
+	import { VenetianMask, Star } from 'lucide-svelte';
 	import { Toggle } from '$lib/components/ui/toggle';
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import * as Card from '$lib/components/ui/card';
@@ -11,14 +11,14 @@
 	import { Confetti } from 'svelte-confetti';
 
 	export let feeds;
-	//console.log("====== Feeds: ", feeds);
-	let feed = feeds.feed;
+	let feed = feeds?.feed ?? {};
 	export let user;
-	//console.log(feed);
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
 	let imageUrl;
-	//console.log(">> User: ",user);
 	$: isFollowed = feeds.is_followed;
+	let isHidden = feed.is_hidden;
+
+	$: console.log("Is Hidden: ", feed.is_hidden);
 	async function followFeed() {
 		if (!user) {
 			setToast(false, 'You must be logged in to follow a feed.');
@@ -44,7 +44,6 @@
 			setToast(false, 'You must be logged in to unfollow a feed!.');
 			return;
 		}
-		//console.log("Feed detail: ", feed);
 		if (!feeds.is_followed) {
 			setToast(false, 'Feed is not followed');
 			return;
@@ -105,8 +104,20 @@
 >
 	<Card.Root class="flex h-full w-full flex-col">
 		<div
-			class="top-section flex flex-col items-center justify-center bg-gray-200 p-4 dark:bg-gray-800"
+			class="top-section relative flex flex-col items-center justify-center bg-gray-200 p-4 dark:bg-gray-800"
 		>
+		{#if isHidden}
+		<Tooltip.Root>
+			<Tooltip.Trigger>
+				<div class="hidden-tag absolute top-2 right-2 flex items-center justify-center border border-gray-300 dark:border-gray-700 shadow-md">
+					<VenetianMask class="h-5 w-5 text-red-500 transition-transform duration-300 ease-in-out hover:scale-125" />
+				</div>
+			</Tooltip.Trigger>
+			<Tooltip.Content>
+				<p class="text-xs">Hidden Feed</p>
+			</Tooltip.Content>
+		</Tooltip.Root>
+	{/if}
 			<img src={imageUrl} alt="Feed" class="feed-image rounded-full object-cover" />
 			<Card.Title class="mt-2 text-center text-xl font-semibold">{feed.name}</Card.Title>
 		</div>
@@ -152,3 +163,12 @@
 		</div>
 	</Card.Root>
 </div>
+
+<style>
+	.hidden-tag {
+		background-color: transparent;
+		border-radius: 50%;
+		padding: 4px;
+		transition: all 0.3s ease;
+	}
+</style>

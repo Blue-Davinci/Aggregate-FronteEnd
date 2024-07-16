@@ -26,7 +26,6 @@
 	let isHTMLDescription = checkForHTMLTags(itemDescription);
 	// get the isFavorite tag from the main object
 	$: isFavorite = rsspost.isFavorite;
-
 	// if the description is in HTML format, we need to convert it to plain text
 	function format(str) {
 		let convertedStr = str.replace(/<\/?[^>]+(>|$)/g, '');

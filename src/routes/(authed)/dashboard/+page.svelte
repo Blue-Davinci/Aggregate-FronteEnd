@@ -21,9 +21,9 @@
 	// Filter Query:
 	let feedID = '';
 	// Page details
-	let currentPage = data.posts.metadata.current_page;
-	let pageSize = data.posts.metadata.page_size;
-	let totalRecords = data.posts.metadata.total_records;
+	let currentPage = data?.posts?.metadata.current_page ?? 1;
+	let pageSize = data?.posts?.metadata.page_size ?? 1;
+	let totalRecords = data?.posts?.metadata.total_records?? 1;
 	let totalPages = Math.ceil(totalRecords / pageSize);
 	// loading
 	let isLoading = false;
@@ -34,8 +34,8 @@
 		icon: LayoutDashboard
 	};
 	//console.log('In Client side Data: ', data);
-	$: posts = data?.posts.followed_rss_posts || [];
-	$: notifications = data.notifications?.notifications ?? {};
+	$: posts = data?.posts?.followed_rss_posts || [];
+	$: notifications = data?.notifications?.notifications ?? {};
 	// controls the modal for the feed addition
 	async function fetchData(page) {
 		isFetching = true;
