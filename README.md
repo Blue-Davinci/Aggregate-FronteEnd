@@ -137,12 +137,12 @@ Add notes about how to use the system.
     - Ability to view detailed info for the feed posts
     - Detailed info supports HTML content as well as videos
     - *Ability to comment on various posts (In the Pipeline)*
-    - Can view your followed feeds
-    - Can access your favorite posts
-    - Can add new feeds for people to view and follow as well.
-    - *Ratings for best followed feeds. (In the Pipeline)*
-    - Update feeds you added.
-6. Logout: You know it.
+    - Ability to view your followed feeds
+    - Ability to access your favorite posts
+    - Ability to add new feeds for people to view and follow as well, including setting their visibility.
+    - *Ratings for best followed feeds. <b>(In the Pipeline)</b>*
+6. Admin Dashboard + Permissions: God Mode <b>*(In the pipeline)*</b>
+7. Logout: *And awaaaaaaaay, you go*.
 
 <hr />
 
