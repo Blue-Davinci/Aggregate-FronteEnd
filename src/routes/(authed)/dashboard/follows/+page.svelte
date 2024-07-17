@@ -1,5 +1,6 @@
 <script>
     import { fly, slide } from 'svelte/transition';
+    import GoBack from '$lib/components/layouts/goback.svelte';
     import { Share, Undo2 } from 'lucide-svelte';
     export let data;
     let feeds = data.feeds;
@@ -14,10 +15,7 @@
 <svelte:head>
 	<title>My Follows • Aggregate</title>
 </svelte:head>  
-<a href="/dashboard" class="mt-10 flex items-center text-white bg-blue-500 hover:bg-blue-700 transition-colors duration-300 px-4 py-2 rounded-md">
-    <Undo2 class="mr-2 h-5 w-5" />
-    <span class="font-medium">Go Back</span>
-</a>
+<GoBack />
 
 <div 
 class="container mx-auto px-4 py-8">

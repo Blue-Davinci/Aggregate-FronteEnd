@@ -1,7 +1,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { fly, slide } from 'svelte/transition';
-	import { BellDot, BookHeart, LayoutDashboard, Codesandbox, Rss, House} from 'lucide-svelte';
+	import { BellDot, BookHeart, LayoutDashboard, Codesandbox, Rss, House, FolderKanban} from 'lucide-svelte';
 	export let notifications;
 	//console.log("Notifications:", notifications);
 
@@ -123,6 +123,11 @@ class="bg-gray-800">
 							class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
 							><Rss class="mr-2 h-5 w-5" />My Follows</a
 						>
+						<a
+						href="/dashboard/feedmanager"
+						class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+						><FolderKanban class="mr-2 h-5 w-5" />Feed Manager</a
+					>
 					</div>
 				</div>
 			</div>
@@ -275,6 +280,11 @@ class="bg-gray-800">
 				class="block flex items-center space-x-2 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
 				>My Follows</a
 			>
+			<a
+			href="/dashboard/feedmanager"
+			class="block flex items-center space-x-2 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+			>Feed Manager</a
+		>
 		</div>
 	</div>
 </nav>

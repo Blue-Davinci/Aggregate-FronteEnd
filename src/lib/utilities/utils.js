@@ -60,4 +60,49 @@ function buildFeedFollowUrl(baseUrl, params) {
     }
 }
 
-export { setToast, checkForHTMLTags, toTitleCase, buildFeedFollowUrl };
+// This function returns an updatedData object and an originalData object
+function processUpdateData(formData) {
+	let updatedData = {
+		id: formData.original_id,
+		name: formData.name,
+		url: formData.url,
+		img_url: formData.img_url,
+		feed_type: formData.feed_type,
+		feed_description: formData.feed_description,
+		is_hidden: formData.is_hidden
+	};
+
+	let originalData = {
+		id: formData.original_id,
+		name: formData.original_name,
+		url: formData.original_url,
+		img_url: formData.original_img_url,
+		feed_type: formData.original_feed_type,
+		feed_description: formData.original_feed_description,
+		is_hidden: formData.original_is_hidden === 'true'
+	};
+
+	return {
+		updatedData,
+		originalData
+	};
+}
+
+// This function returns an object containing the fields that have changed
+function getChangedFields(original, updated) {
+	const changes = {};
+	for (const key in original) {
+		if (original[key] !== updated[key]) {
+				changes[key] = updated[key];
+		}
+	}
+	return changes;
+}
+export { 
+	setToast, 
+	checkForHTMLTags, 
+	toTitleCase, 
+	buildFeedFollowUrl, 
+	processUpdateData,
+	getChangedFields 
+};
