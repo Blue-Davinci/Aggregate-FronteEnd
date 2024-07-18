@@ -21,6 +21,21 @@ const passwordSchema = z.object({
 	.trim(),
 })
 
+const commentSchema = z.object({
+    post_id: z
+    .string({required_error: "Post ID is required"})
+    .min(1, {message: "Post ID is required"})
+    .trim(),
+    parent_comment_id: z
+    .string({required_error: "Parent Comment ID is required"})
+    .min(1, {message: "Parent Comment ID is required"})
+    .trim(),
+    comment_text: z
+    .string({required_error: "Comment is required"})
+    .min(1, {message: "Comment is required"})
+    .max(500, {message: "Comment must be less than 500 characters"})
+    .trim(),
+});
 const registrationSchema = z.object({
 	email: z
 	.string({required_error: "Email is required"})
@@ -160,5 +175,6 @@ export {
     registrationSchema,
     feedSchema,
     signupSchema,
-    emailSchema
+    emailSchema,
+    commentSchema
 };
