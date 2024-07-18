@@ -60,7 +60,7 @@
             setToast(false, response.error, 3000);
             return;
         }else{
-            console.log("Response Data: ", response.data.comment);
+            //console.log("Response Data: ", response.data.comment);
             setToast(true, "Your comment has been saved", 2000);
         }
         let responseComment = response.data.comment;
