@@ -74,9 +74,11 @@
 			{/each}
 			{#if postcomments.length > 0}
 				<Commentlist postID={post.info.id} comments={postcomments} />
+            {:else}
+                <Commentlist postID={post.info.id}/>
 			{/if}
 
-			<div class="text-center">
+			<div class="text-center mt-5">
 				<a href="/dashboard" class="text-blue-500 hover:underline">Go Back</a>
 			</div>
 		</div>
