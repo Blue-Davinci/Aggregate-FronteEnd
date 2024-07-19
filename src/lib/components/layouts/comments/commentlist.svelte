@@ -6,6 +6,7 @@
 	import CommentItem from '$lib/components/layouts/comments/commentitem.svelte';
 	import { MessagesSquare } from 'lucide-svelte';
 
+	export let username;
 	export let comments = [];
 	export let postID = '';
 	let organizedComments = [];
@@ -69,12 +70,12 @@
 			comment: {
 				id: responseComment.id, // Generate an id if not present
 				post_id: responseComment.post_id,
-				user_id: responseComment.user_id || '1', // Replace with actual user id
+				user_id: responseComment.user_id || '1',
 				parent_comment_id: responseComment.parent_comment_id,
 				comment_text: responseComment.comment_text,
 				created_at: responseComment.created_at
 			},
-			user_name: 'You' // Replace with actual user's name
+			user_name: username
 		};
 
 		comments = [...comments, structuredComment];

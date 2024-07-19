@@ -2,21 +2,48 @@
 	import { getCommentsForPost } from '$lib/dataservice/commentDataService.js';
 	import Commentlist from '$lib/components/layouts/comments/commentlist.svelte';
 	import { onMount, tick } from 'svelte';
-	import { getSessionPostData } from '$lib/store/sessionStore.js';
+	import { checkForHTMLTags } from '$lib/utilities/utils.js';
+	import { getSessionPostData, saveSessionData } from '$lib/store/sessionStore.js';
 	import { fly, fade } from 'svelte/transition';
 	import { Separator } from '$lib/components/ui/separator';
 
+	export let username;
+	export let fetchedData;
 	let post;
 	let htmlstatus;
 	let isLoading = true;
 	let data = {};
 	$: postcomments = data?.comments ?? [];
 
+	//for faster loading we use the session storage and display the result
+	// if there is no session storage (i.e maybe it's a shared link and a user is
+	// using it to check/view the post) we show the fetched data that we have
+	// from the server. The fetched data will always be used to update the session storage
+	// incase there is a change, which i don't think can happen, but just incase.
+	// we also store it the same waay we store it from the postcard component.
 	onMount(() => {
 		post = getSessionPostData('rssFeed');
-		fetchPostComments(post.info.id);
-		if (post) {
-			htmlstatus = post.htmlstatus;
+		try {
+			if (post) {
+				htmlstatus = post.htmlstatus;
+				// we can hide the loader here immediately, instead of waiting
+				// for the other loading shenanigans
+				isLoading = false;
+			}
+			// regardless of the session storage, we still assign the new data to the session storage
+			// incase there is a change.
+			post = {
+				info: fetchedData.feed,
+				// still check for HTML tags for different renders
+				htmlstatus: checkForHTMLTags(fetchedData.feed.Channel.Item[0].Description)
+			};
+			// save the session data
+			saveSessionData('rssFeed', post);
+			//load our comments
+			fetchPostComments(post.info.id);
+		} catch (err) {
+			console.log('Error: ', err);
+		} finally {
 			isLoading = false;
 		}
 	});
@@ -36,9 +63,9 @@
 		<div class="py-20 text-center">
 			<div class="saving-container">
 				<span class="loader"></span>
-				<span class="saving">Loading..</span>
+				<span class="saving">Loading Post..</span>
 			</div>
-			<p class="mt-2 text-gray-600">Loading...</p>
+			<p class="mt-2 text-gray-600">Loading Post...</p>
 		</div>
 	{:else if post}
 		<div class="rounded-lg p-6 shadow-md">
@@ -73,12 +100,12 @@
 				</div>
 			{/each}
 			{#if postcomments.length > 0}
-				<Commentlist postID={post.info.id} comments={postcomments} />
-            {:else}
-                <Commentlist postID={post.info.id}/>
+				<Commentlist postID={post.info.id} comments={postcomments} {username} />
+			{:else}
+				<Commentlist postID={post.info.id} {username} />
 			{/if}
 
-			<div class="text-center mt-5">
+			<div class="mt-5 text-center">
 				<a href="/dashboard" class="text-blue-500 hover:underline">Go Back</a>
 			</div>
 		</div>

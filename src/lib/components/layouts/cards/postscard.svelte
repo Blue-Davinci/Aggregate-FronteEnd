@@ -43,7 +43,7 @@
 			htmlstatus: isHTMLDescription
 		};
 		saveSessionData('rssFeed', postData);
-		goto('/dashboard/post');
+		goto(`/dashboard/${post.id}`);
 	}
 	function favoritePost() {
 		console.log('Post: ', post.id, '|| Feed: ', post.feed_id);
@@ -118,8 +118,8 @@
 				Feed: {itemTitle.slice(0, 50)}...
 			</Card.Title>
 			<a
-				href="/dashboard/post"
-				on:click={() => handleCardClick()}
+				href={`/dashboard/${post.id}`}
+				on:click={handleCardClick}
 				class="overflow-hidden rounded-lg"
 			>
 				<img

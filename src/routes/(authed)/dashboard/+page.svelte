@@ -10,7 +10,7 @@
 	import PostsCard from '$lib/components/layouts/cards/postscard.svelte';
 	import FAB from '$lib/components/layouts/general/floatingactionbutton.svelte';
 	import { getFollowedPostsDataService } from '$lib/dataservice/getFollowedPostsDataService.js';
-	import SearchInput from '$lib/components/layouts/searchinput.svelte';
+	import SearchInput from '$lib/components/layouts/search-options/searchinput.svelte';
 
 	export let data;
 	export let form = undefined;
