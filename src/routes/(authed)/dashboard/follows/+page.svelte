@@ -1,6 +1,6 @@
 <script>
     import { fly, slide } from 'svelte/transition';
-    import GoBack from '$lib/components/layouts/goback.svelte';
+    import GoBack from '$lib/components/layouts/general/goback.svelte';
     import { Share, Undo2 } from 'lucide-svelte';
     export let data;
     let feeds = data.feeds;

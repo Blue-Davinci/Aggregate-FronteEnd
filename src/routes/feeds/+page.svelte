@@ -1,13 +1,13 @@
 <script>
-	import FeedsCard from '$lib/components/layouts/feedscard.svelte';
-	import TopFeeds from '$lib/components/layouts/topfeeds.svelte';
-	import PageHeader from '$lib/components/layouts/pageheader.svelte';
+	import FeedsCard from '$lib/components/layouts/cards/feedscard.svelte';
+	import TopFeeds from '$lib/components/layouts/panels/topfeeds.svelte';
+	import PageHeader from '$lib/components/layouts/general/pageheader.svelte';
 	import SearchInput from '$lib/components/layouts/searchinput.svelte';
-	import Tinyloader from '$lib/components/layouts/tinyloader.svelte';
+	import Tinyloader from '$lib/components/layouts/general/tinyloader.svelte';
 	import { getFeedsWithFollows } from '$lib/dataservice/feedfollowDataService.js';
 	import { fly, slide } from 'svelte/transition';
 	import { LucideNewspaper } from 'lucide-svelte';
-	import Pagination from '$lib/components/layouts/pagination.svelte';
+	import Pagination from '$lib/components/layouts/general/pagination.svelte';
 
 	export let data;
 	$: feed_follows = data?.feeds ?? {};

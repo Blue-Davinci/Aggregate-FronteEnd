@@ -1,7 +1,7 @@
 <script>
-    import GoBack from '$lib/components/layouts/goback.svelte';
+    import GoBack from '$lib/components/layouts/general/goback.svelte';
 	import { FolderKanban, Squirrel } from 'lucide-svelte';
-    import PageHeader from '$lib/components/layouts/pageheader.svelte';
+    import PageHeader from '$lib/components/layouts/general/pageheader.svelte';
 	import { fly, slide } from 'svelte/transition';
 	import FeedManagerCard from '$lib/components/layouts/feedsmanager/feedmanagercard.svelte';
 

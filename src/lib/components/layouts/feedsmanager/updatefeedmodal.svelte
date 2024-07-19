@@ -4,7 +4,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import { Checkbox } from '$lib/components/ui/checkbox';
-	import ValidationMessage from '$lib/components/layouts/authvalidation_message.svelte';
+	import ValidationMessage from '$lib/components/layouts/auth/authvalidation_message.svelte';
 	import { enhance } from '$app/forms'; // Importing enhance from SvelteKit
 	import { setToast } from '$lib/utilities/utils';
 	import { goto } from '$app/navigation';

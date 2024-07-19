@@ -1,11 +1,10 @@
 <script>
-      import { Button } from "$lib/components/ui/button";
       import { fly, slide, fade } from 'svelte/transition';
-      import LandingNav from "$lib/components/layouts/landingnav.svelte";
-      import Intro from "$lib/components/layouts/intro.svelte";
-      import Productivity from "$lib/components/layouts/productivity.svelte";
-      import Reviews from "$lib/components/layouts/reviews.svelte";
-      import Footer from "$lib/components/layouts/footer.svelte";
+      import LandingNav from "$lib/components/layouts/Landing/landingnav.svelte";
+      import Intro from "$lib/components/layouts/Landing/intro.svelte";
+      import Productivity from "$lib/components/layouts/Landing/productivity.svelte";
+      import Reviews from "$lib/components/layouts/Landing/reviews.svelte";
+      import Footer from "$lib/components/layouts/Landing/footer.svelte";
     </script>
     
 <svelte:head>

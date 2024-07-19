@@ -1,6 +1,6 @@
 <script>
     import { fly, slide } from 'svelte/transition';
-    import Passwordresetinitial from '$lib/components/layouts/passwordresetinitial.svelte';
+    import Passwordresetinitial from '$lib/components/layouts/auth/passwordresetinitial.svelte';
     export let form;
 </script>
 <svelte:head>

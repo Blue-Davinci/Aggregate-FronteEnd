@@ -1,6 +1,6 @@
 <script>
     import { fly, slide } from 'svelte/transition';
-    import SignUp from '$lib/components/layouts/signup.svelte';
+    import SignUp from '$lib/components/layouts/auth/signup.svelte';
 
     export let form;
 </script>

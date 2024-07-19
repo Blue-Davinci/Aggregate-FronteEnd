@@ -1,14 +1,14 @@
 <script>
-	import DashboardNav from '$lib/components/layouts/dashboardnav.svelte';
+	import DashboardNav from '$lib/components/layouts/navs/dashboardnav.svelte';
 	import FeedsComboBox from '$lib/components/layouts/search-options/feedscombobox.svelte';
-	import Tinyloader from '$lib/components/layouts/tinyloader.svelte';
+	import Tinyloader from '$lib/components/layouts/general/tinyloader.svelte';
 	import { Bird, Squirrel, MessageCircleX } from 'lucide-svelte';
-	import PageHeader from '$lib/components/layouts/pageheader.svelte';
-	import Pagination from '$lib/components/layouts/pagination.svelte';
+	import PageHeader from '$lib/components/layouts/general/pageheader.svelte';
+	import Pagination from '$lib/components/layouts/general/pagination.svelte';
 	import { fly, slide, fade } from 'svelte/transition';
 	import { LayoutDashboard } from 'lucide-svelte';
-	import PostsCard from '$lib/components/layouts/postscard.svelte';
-	import FAB from '$lib/components/layouts/floatingactionbutton.svelte';
+	import PostsCard from '$lib/components/layouts/cards/postscard.svelte';
+	import FAB from '$lib/components/layouts/general/floatingactionbutton.svelte';
 	import { getFollowedPostsDataService } from '$lib/dataservice/getFollowedPostsDataService.js';
 	import SearchInput from '$lib/components/layouts/searchinput.svelte';
 

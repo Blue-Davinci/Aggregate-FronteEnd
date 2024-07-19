@@ -1,8 +1,8 @@
 <script>
     import { fly, slide, fade } from 'svelte/transition';
     import {Undo2} from 'lucide-svelte';
-	import PostsCard from '$lib/components/layouts/postscard.svelte';
-    import Carousel from '$lib/components/layouts/carousel.svelte';
+	import PostsCard from '$lib/components/layouts/cards/postscard.svelte';
+    import Carousel from '$lib/components/layouts/general/carousel.svelte';
 	export let data;
 	let posts = data.favorite_rss_posts;
 	//console.log("Post client: ", posts);

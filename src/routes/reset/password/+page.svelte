@@ -2,7 +2,7 @@
     import {setToast} from '$lib/utilities/utils.js'
 	import { onMount } from 'svelte';
     import {goto} from '$app/navigation';
-	import PasswordResetForm from '$lib/components/layouts/passwordresetform.svelte';
+	import PasswordResetForm from '$lib/components/layouts/auth/passwordresetform.svelte';
     export let form;
 	export let data;
 	let isLoading = true;

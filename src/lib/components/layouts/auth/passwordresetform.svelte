@@ -1,7 +1,7 @@
 <script>
     import { Input } from '$lib/components/ui/input';
     import { FilePen, KeySquare } from 'lucide-svelte/icons';
-    import ValidationMessage from '$lib/components/layouts/authvalidation_message.svelte';
+    import ValidationMessage from '$lib/components/layouts/auth/authvalidation_message.svelte';
     import {setToast} from '$lib/utilities/utils.js'
     import {goto} from '$app/navigation';
     import { enhance } from '$app/forms';

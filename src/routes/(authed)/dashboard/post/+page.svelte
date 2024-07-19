@@ -1,5 +1,5 @@
 <script>
-  import Goback from '$lib/components/layouts/goback.svelte';
+  import Goback from '$lib/components/layouts/general/goback.svelte';
   import Postcomponent from '$lib/components/layouts/post/postcomponent.svelte';
 </script>
 <svelte:head>

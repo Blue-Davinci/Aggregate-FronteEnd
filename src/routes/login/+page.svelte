@@ -1,6 +1,6 @@
 <script>
 	import { fly, slide } from 'svelte/transition';
-	import Login from '$lib/components/layouts/login.svelte';
+	import Login from '$lib/components/layouts/auth/login.svelte';
 	// export form to catch any issues surrounding action errors
 	export let form;
 </script>
