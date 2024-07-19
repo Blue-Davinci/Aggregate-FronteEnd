@@ -3,7 +3,7 @@
 	import { fly, slide } from 'svelte/transition';
 	import { BellDot, BookHeart, LayoutDashboard, Codesandbox, Rss, House, FolderKanban} from 'lucide-svelte';
 	export let notifications;
-	//console.log("Notifications:", notifications);
+	console.log("Notifications:", notifications);
 
 	let isProfileMenuOpen = false;
 	let isNotificationMenuOpen = false;
@@ -179,8 +179,8 @@ class="bg-gray-800">
 								>
 									No new messages
 								</span>
-							{:else if notifications}
-								{#each notifications as { feed_name, post_count }, index}
+							{:else if notifications.Notification && notifications.Notification.length > 0}
+								{#each notifications.Notification as { feed_name, post_count }, index}
 									<span
 										class="dark:black block flex items-center px-5 py-3 text-sm text-black transition-colors duration-200 ease-in-out hover:bg-gray-300 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-gray-100 {index !==
 										notifications.length - 1
@@ -194,6 +194,19 @@ class="bg-gray-800">
 										</span>
 									</span>
 								{/each}
+							{/if}
+							{#if notifications.CommentNotification}
+								{#each notifications.CommentNotification as { post_id, created_at }, index}
+								<a
+									href={`/dashboard/${post_id}`}
+									class="dark:black block flex items-center px-5 py-3 text-sm text-black transition-colors duration-200 ease-in-out hover:bg-gray-300 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-gray-100 {index !== notifications.CommentNotification.length - 1 ? 'border-b' : ''} border-gray-300 dark:border-gray-300"
+								>
+									<BellDot class="h-5 w-5 mr-3 text-red-500 dark:text-red-400" />
+									<span class="flex-1">
+										<span class="font-semibold">New comment</span> on your post
+									</span>
+								</a>
+							{/each}
 							{/if}
 						</div>
 					{/if}

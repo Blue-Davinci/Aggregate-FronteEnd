@@ -3,7 +3,7 @@
   
     export let parentCommentId = "00000000-0000-0000-0000-000000000000";
     export let postID = "";
-  
+    console.log("Psot Id: ", postID); 
     const dispatch = createEventDispatcher();
     let commentText = '';	
     const addComment = () => {

@@ -2,7 +2,7 @@
 	import FeedsCard from '$lib/components/layouts/cards/feedscard.svelte';
 	import TopFeeds from '$lib/components/layouts/panels/topfeeds.svelte';
 	import PageHeader from '$lib/components/layouts/general/pageheader.svelte';
-	import SearchInput from '$lib/components/layouts/searchinput.svelte';
+	import SearchInput from '$lib/components/layouts/search-options/searchinput.svelte';
 	import Tinyloader from '$lib/components/layouts/general/tinyloader.svelte';
 	import { getFeedsWithFollows } from '$lib/dataservice/feedfollowDataService.js';
 	import { fly, slide } from 'svelte/transition';

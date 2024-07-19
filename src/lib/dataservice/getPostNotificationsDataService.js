@@ -25,7 +25,7 @@ const getPostNotificationDataService = async({fetch, cookies})=>{
             Authorization: `ApiKey ${auth}`
         }
     });
-    console.log("Token in : ", auth);
+    //console.log("Token in : ", auth);
     if (!response.ok) {
         let data = await response.json();
         console.log("Error: ", data.error, "URL: ", notification_url);

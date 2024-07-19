@@ -10,6 +10,7 @@
 	export let comments = [];
 	export let postID = '';
 	let organizedComments = [];
+	//console.log("CommentList POST ID: ", postID);
 
 	onMount(() => {
 		organizedComments = organizeComments(comments);

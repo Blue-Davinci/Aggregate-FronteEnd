@@ -35,7 +35,8 @@
 	};
 	//console.log('In Client side Data: ', data);
 	$: posts = data?.posts?.followed_rss_posts || [];
-	$: notifications = data?.notifications?.notifications ?? [];
+	console.log("Dashboard Data: ", data.notifications.notification_group);
+	$: notifications = data?.notifications?.notification_group ?? [];
 	//$:console.log("Notifications: ", notifications);
 	// controls the modal for the feed addition
 	async function fetchData(page) {
