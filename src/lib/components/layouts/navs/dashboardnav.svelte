@@ -1,10 +1,23 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
+	import { clearCommentNotificationDataService } from '$lib/dataservice/commentDataService';
 	import { fly, slide } from 'svelte/transition';
-	import { BellDot, BookHeart, LayoutDashboard, Codesandbox, Rss, House, FolderKanban} from 'lucide-svelte';
+	import {
+		BellDot,
+		MessageSquareQuote,
+		BookHeart,
+		LayoutDashboard,
+		Codesandbox,
+		Rss,
+		House,
+		FolderKanban
+	} from 'lucide-svelte';
 	export let notifications;
-	console.log("Notifications:", notifications);
+	//console.log("Notifications:", notifications);
 
+	let total_notifications = notifications
+		? Object.values(notifications).reduce((total, current) => total + current.length, 0)
+		: 0;
 	let isProfileMenuOpen = false;
 	let isNotificationMenuOpen = false;
 	let buttonElement;
@@ -39,6 +52,18 @@
 		}
 	}
 
+	async function handleClearCommentNotification(notificationID) {
+		let response = await clearCommentNotificationDataService(notificationID);
+		if (!response.error) {
+			// if successful and no error, then we remove the particular ID just
+			// incase there is no re-hydration after a user navigates back.
+			notifications.CommentNotification = notifications.CommentNotification.filter(notification => notification.id !== notificationID);
+			console.log('Comment notification cleared');
+		} else {
+			console.log('We got an error clearing the notification: ', response.error);
+		}
+	}
+
 	onMount(() => {
 		if (typeof window !== 'undefined') {
 			window.addEventListener('click', handleClickOutside);
@@ -52,9 +77,7 @@
 	});
 </script>
 
-<nav 
-in:fly={{ x: -200, duration: 1000 }} out:slide
-class="bg-gray-800">
+<nav in:fly={{ x: -200, duration: 1000 }} out:slide class="bg-gray-800">
 	<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 		<div class="relative flex h-16 items-center justify-between">
 			<div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -124,10 +147,10 @@ class="bg-gray-800">
 							><Rss class="mr-2 h-5 w-5" />My Follows</a
 						>
 						<a
-						href="/dashboard/feedmanager"
-						class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-						><FolderKanban class="mr-2 h-5 w-5" />Feed Manager</a
-					>
+							href="/dashboard/feedmanager"
+							class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+							><FolderKanban class="mr-2 h-5 w-5" />Feed Manager</a
+						>
 					</div>
 				</div>
 			</div>
@@ -158,10 +181,10 @@ class="bg-gray-800">
 							/>
 						</svg>
 						<!-- Notification badge -->
-						{#if  notifications && Object.keys(notifications).length !== 0}
+						{#if total_notifications !== 0}
 							<span
 								class="absolute right-0 top-0 inline-flex h-4 w-4 -translate-y-1/3 translate-x-1/3 transform items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white"
-								>{Object.keys(notifications).length}</span
+								>{total_notifications}</span
 							>
 						{/if}
 					</button>
@@ -173,9 +196,9 @@ class="bg-gray-800">
 							aria-labelledby="notification-button"
 							tabindex="-1"
 						>
-							{#if notifications && Object.keys(notifications).length === 0}
+							{#if notifications && total_notifications === 0}
 								<span
-									class="block px-4 py-2 text-xs text-black-500 hover:bg-gray-200 hover:text-gray-900 dark:text-black dark:hover:bg-gray-600 dark:hover:text-gray-100"
+									class="text-black-500 block px-4 py-2 text-xs hover:bg-gray-200 hover:text-gray-900 dark:text-black dark:hover:bg-gray-600 dark:hover:text-gray-100"
 								>
 									No new messages
 								</span>
@@ -187,7 +210,7 @@ class="bg-gray-800">
 											? 'border-b'
 											: ''} border-gray-300 dark:border-gray-300"
 									>
-									<BellDot class="h-5 w-5 mr-3 text-red-500 dark:text-red-400"/>
+										<BellDot class="mr-3 h-5 w-5 text-red-500 dark:text-red-400" />
 										<span class="flex-1">
 											<span class="font-semibold">{feed_name}</span> has added
 											<span class="font-semibold">{post_count}</span> post(s)
@@ -195,18 +218,24 @@ class="bg-gray-800">
 									</span>
 								{/each}
 							{/if}
-							{#if notifications.CommentNotification}
-								{#each notifications.CommentNotification as { post_id, created_at }, index}
-								<a
-									href={`/dashboard/${post_id}`}
-									class="dark:black block flex items-center px-5 py-3 text-sm text-black transition-colors duration-200 ease-in-out hover:bg-gray-300 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-gray-100 {index !== notifications.CommentNotification.length - 1 ? 'border-b' : ''} border-gray-300 dark:border-gray-300"
-								>
-									<BellDot class="h-5 w-5 mr-3 text-red-500 dark:text-red-400" />
-									<span class="flex-1">
-										<span class="font-semibold">New comment</span> on your post
-									</span>
-								</a>
-							{/each}
+							{#if notifications.CommentNotification && notifications.CommentNotification.length > 0}
+								{#each notifications.CommentNotification as { id, post_id, notification_type, comment_snippet }, index}
+									<a
+										href={`/dashboard/${post_id}`}
+										on:click={handleClearCommentNotification(id)}
+										class="dark:black block flex items-center px-5 py-3 text-sm text-black transition-colors duration-200 ease-in-out hover:bg-gray-300 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-gray-100 {index !==
+										notifications.CommentNotification.length - 1
+											? 'border-b'
+											: ''} border-gray-300 dark:border-gray-300"
+									>
+										<MessageSquareQuote class="mr-3 h-5 w-5 text-green-500 dark:text-green-400" />
+										<span class="flex-1">
+											<span class="font-semibold">New {notification_type} Alert:</span> You have a
+											new {notification_type} involving
+											<em class="font-semibold">{comment_snippet}...</em>
+										</span>
+									</a>
+								{/each}
 							{/if}
 						</div>
 					{/if}
@@ -294,10 +323,10 @@ class="bg-gray-800">
 				>My Follows</a
 			>
 			<a
-			href="/dashboard/feedmanager"
-			class="block flex items-center space-x-2 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-			>Feed Manager</a
-		>
+				href="/dashboard/feedmanager"
+				class="block flex items-center space-x-2 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+				>Feed Manager</a
+			>
 		</div>
 	</div>
 </nav>

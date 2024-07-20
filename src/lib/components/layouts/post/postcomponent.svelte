@@ -1,6 +1,7 @@
 <script>
 	import { getCommentsForPost } from '$lib/dataservice/commentDataService.js';
 	import Commentlist from '$lib/components/layouts/comments/commentlist.svelte';
+	import Sharecomponent from '../general/sharecomponent.svelte';
 	import { onMount, tick } from 'svelte';
 	import { checkForHTMLTags } from '$lib/utilities/utils.js';
 	import { getSessionPostData, saveSessionData } from '$lib/store/sessionStore.js';
@@ -75,6 +76,7 @@
 			>
 			<p class="mb-6">{post.info.Channel.Description}</p>
 			<Separator class="my-4" />
+
 			{#each post.info.Channel.Item as item}
 				<div class="mb-8">
 					{#if item.ImageURL}
@@ -83,6 +85,12 @@
 						</div>
 						<Separator class="my-4" />
 					{/if}
+					<div class="flex justify-center">
+						<Sharecomponent
+							channelTitle={post.info.Channel.Title}
+							imgURL={post.info.Channel.Item[0].ImageURL}
+						/>
+					</div>
 					<div>
 						<h3 class="mb-2 text-lg font-bold">{item.Title}</h3>
 						<a href={item.Link} class="mb-2 block text-blue-500 hover:underline">{item.Link}</a>

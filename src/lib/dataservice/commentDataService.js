@@ -68,8 +68,39 @@ const savePostComment = async (comment={}) => {
     };
 }
 
+const clearCommentNotificationDataService = async(comment_id = 0)=>{
+    if (!comment_id || comment_id < 1){
+        return {
+            success: false,
+            status: 400,
+            error: {message: "Invalid Comment ID"}
+        }
+    }
+    let url = `/api/notifications?id=${comment_id}`;
+    try {
+        let response = await fetch(url, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            let data = await response.json();
+            return data
+        } else {
+            let errorData = await response.json();
+            return errorData.error
+        }
+    } catch (err) {
+        console.log('Error: ', err);
+        return {
+            success: false,
+            status: 500,
+            error: {message: "Internal Server Error"}
+        }
+    }
+
+}
 
 export{
     getCommentsForPost,
-    savePostComment
+    savePostComment,
+    clearCommentNotificationDataService
 }
