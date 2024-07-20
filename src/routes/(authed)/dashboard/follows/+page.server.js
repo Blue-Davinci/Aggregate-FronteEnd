@@ -9,8 +9,7 @@ export const load = async ({ fetch, cookies }) => {
 	// check authentication
 	let auth = checkAuthentication(cookies).user;
 	if (!auth) {
-		redirect(303, `/login?redirectTo=/dashboard/follows`);
-		return
+		return redirect(303, `/login?redirectTo=/dashboard/follows`);
 	} 
 	let followed = await getFeedFollows({ fetch }, auth);
 	//console.log(followed);

@@ -6,7 +6,7 @@ export const load = async({params, cookies}) =>{
     const postId = params.id;
     let auth = checkAuthentication(cookies).user;
     if (!auth) {
-         redirect(303, `/login?redirectTo=/dashboard/${postId}`);
+         return redirect(303, `/login?redirectTo=/dashboard/${postId}`);
     }
     console.log("Params in [id]: ", postId); 
     // do a quick check on if it actually exists, if not we redirect to the dashboard

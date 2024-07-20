@@ -17,7 +17,7 @@ export const GET= async({cookies, url})=>{
     // get our api-key
     let auth = checkAuthentication(cookies).user;
     if (!auth){
-        redirect (303, `/login?redirectTo=/dashboard`);
+        return redirect (303, `/login?redirectTo=/dashboard`);
     }
     try{
         const response = await fetch(`${post_url}`,{

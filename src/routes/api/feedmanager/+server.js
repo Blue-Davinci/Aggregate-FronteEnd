@@ -15,7 +15,7 @@ export const GET = async ({ cookies, url }) => {
 	// check for auth, if none then redirect.
 	let auth = checkAuthentication(cookies).user;
 	if (!auth) {
-		redirect(303, `/login?redirectTo=/dashboard`);
+		return redirect(303, `/login?redirectTo=/dashboard/feedmanager`);
 	}
 
 	try {

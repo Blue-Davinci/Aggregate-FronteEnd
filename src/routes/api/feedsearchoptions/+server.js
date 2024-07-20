@@ -6,7 +6,7 @@ import {json} from '@sveltejs/kit';
 export const GET = async({cookies}) => {
     let auth = checkAuthentication(cookies).user;
     if (!auth){
-        redirect (303, `/login?redirectTo=/dashboard`);
+        return redirect (303, `/login?redirectTo=/dashboard`);
     }
     let searchoption_feeds = `${VITE_API_BASE_URL_SEARCH_OPTIONS_FEEDS}`;
     try{

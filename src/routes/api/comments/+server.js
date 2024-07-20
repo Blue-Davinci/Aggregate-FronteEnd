@@ -6,14 +6,14 @@ import { checkAuthentication } from '$lib/utilities/auth.js';
 
 
 export const GET = async ({ cookies, url }) => {
-    let auth = checkAuthentication(cookies).user;
-    if (!auth){
-        redirect (303, `/login?redirectTo=/dashboard`);
-    }
     let postID = url.searchParams.get('postID');
     // If there's no postID, we have an issue
     if (!postID){
-       redirect (303,`/dashboard/post` );
+        return redirect (303,`/dashboard` );
+    }
+    let auth = checkAuthentication(cookies).user;
+    if (!auth){
+        return redirect (303, `/login?redirectTo=/dashboard/${postID}`);
     }
     let comments_url = `${VITE_API_BASE_URL_FEED_FOLLOW_POSTS_COMMENTS}/${postID}`;
     console.log("Comments Url:- ", comments_url);
@@ -41,7 +41,7 @@ export const GET = async ({ cookies, url }) => {
 export const POST = async ({ cookies, request}) => {
     let auth = checkAuthentication(cookies).user;
     if (!auth){
-        redirect (303, `/login?redirectTo=/dashboard`);
+        return redirect (303, `/login?redirectTo=/dashboard`);
     }
     // get our data
     let commentData = await request.json();

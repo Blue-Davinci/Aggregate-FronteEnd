@@ -8,7 +8,7 @@ export const load = async ({ fetch, cookies }) => {
 	// check authentication 
 	let auth = checkAuthentication(cookies).user;
 	if (!auth) {
-		redirect(303, `/login?redirectTo=/dashboard/favorites`);
+		return redirect(303, `/login?redirectTo=/dashboard/favorites`);
 	}
 	const response = await fetch(favoritepost_url, {
 		method: 'GET',
