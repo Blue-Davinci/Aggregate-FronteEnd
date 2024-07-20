@@ -4,16 +4,16 @@ import {VITE_API_BASE_URL_FEED_FOLLOW_POSTS_COMMENTS} from '$env/static/private'
 
 
 export const DELETE = async ({ cookies, url }) => {
-    let comment_id = url.searchParams.get('id');
+    let post_id = url.searchParams.get('id');
     let auth = checkAuthentication(cookies).user;
 	if (!auth) {
 		return json({ error: 'Unauthorized' }, { status: 401 });
 	}
     // minor check for the ID
-    if (!comment_id){
+    if (!post_id){
         return json({ error: 'Invalid Comment ID' }, { status: 400 });
     }
-    let clearcomment_url = `${VITE_API_BASE_URL_FEED_FOLLOW_POSTS_COMMENTS}/${comment_id}`;
+    let clearcomment_url = `${VITE_API_BASE_URL_FEED_FOLLOW_POSTS_COMMENTS}/${post_id}`;
     try {
         let response = await fetch(clearcomment_url, {
             method: 'DELETE',

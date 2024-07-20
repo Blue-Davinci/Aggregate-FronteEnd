@@ -9,8 +9,10 @@
 	export let username;
 	export let comments = [];
 	export let postID = '';
+
 	let organizedComments = [];
-	//console.log("CommentList POST ID: ", postID);
+	let isSaving = false;
+	console.log("CommentList POST ID: ", comments);
 
 	onMount(() => {
 		organizedComments = organizeComments(comments);
@@ -50,6 +52,8 @@
 	};
 
 	const handleAddComment = async (event) => {
+		//set is saving to true
+		isSaving = true;
 		const newComment = event.detail;
 		///console.log("Our cNew Comment: ", newComment);
 		// Ensure newComment has the correct structure
@@ -81,6 +85,8 @@
 
 		comments = [...comments, structuredComment];
 		organizedComments = organizeComments(comments);
+		// set is saving back to false
+		isSaving = false;
 	};
 </script>
 
@@ -93,9 +99,9 @@
 	</div>
 {/if}
 
-<CommentInput {postID} on:addcomment={handleAddComment} />
+<CommentInput {postID} on:addcomment={handleAddComment} {isSaving}/>
 <ul class="mt-4 space-y-4">
 	{#each organizedComments as comment}
-		<CommentItem {postID} {comment} onAddComment={handleAddComment} />
+		<CommentItem {postID} {comment} onAddComment={handleAddComment} {isSaving} />
 	{/each}
 </ul>

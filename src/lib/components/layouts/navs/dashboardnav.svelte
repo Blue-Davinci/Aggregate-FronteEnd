@@ -52,12 +52,12 @@
 		}
 	}
 
-	async function handleClearCommentNotification(notificationID) {
-		let response = await clearCommentNotificationDataService(notificationID);
+	async function handleClearCommentNotification(notificationPostID) {
+		let response = await clearCommentNotificationDataService(notificationPostID);
 		if (!response.error) {
 			// if successful and no error, then we remove the particular ID just
 			// incase there is no re-hydration after a user navigates back.
-			notifications.CommentNotification = notifications.CommentNotification.filter(notification => notification.id !== notificationID);
+			notifications.CommentNotification = notifications.CommentNotification.filter(notification => notification.post_id !== notificationPostID);
 			console.log('Comment notification cleared');
 		} else {
 			console.log('We got an error clearing the notification: ', response.error);
@@ -219,10 +219,10 @@
 								{/each}
 							{/if}
 							{#if notifications.CommentNotification && notifications.CommentNotification.length > 0}
-								{#each notifications.CommentNotification as { id, post_id, notification_type, comment_snippet }, index}
+								{#each notifications.CommentNotification as { post_id, notification_type, comment_snippet }, index}
 									<a
 										href={`/dashboard/${post_id}`}
-										on:click={handleClearCommentNotification(id)}
+										on:click={handleClearCommentNotification(post_id)}
 										class="dark:black block flex items-center px-5 py-3 text-sm text-black transition-colors duration-200 ease-in-out hover:bg-gray-300 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-gray-100 {index !==
 										notifications.CommentNotification.length - 1
 											? 'border-b'
