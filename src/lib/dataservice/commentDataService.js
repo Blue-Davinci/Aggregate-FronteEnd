@@ -98,12 +98,40 @@ const clearCommentNotificationDataService = async(notificationPostID)=>{
     }
 
 }
-function updatePostComment(updatedComment){
-    console.log("Editing the comment: ....: ", updatedComment);
-    return {
-        success: true,
-        status: 200,
-        data: {message: "Comment Updated"}
+const updatePostComment = async(updatedComment) => {
+    //console.log("Editing the comment: ....: ", updatedComment);
+    if (!updatedComment.id || !updatedComment.version || !updatedComment.comment_text){
+        return {
+            success: false,
+            status: 400,
+            error: {message: "Invalid Comment Data"}
+        }
+    }
+    let url = `/api/comments`;
+    try{
+        let response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedComment)
+        });
+        if (response.ok){
+            let data = await response.json();
+            return data
+        }else{
+            let errorData = await response.json();
+            console.log("Update comment DS Error Data: ", errorData);
+            return errorData.error
+        }
+    }catch(err){
+        console.log("Error: ", err);
+        return {
+            success: false,
+            status: 500,
+            error: {message: "Internal Server Error"}
+        }
+    
     }
 }
 export{

@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
-import {commentSchema} from '$lib/utilities/auth.js';
+import {commentSchema, updateCommentSchema} from '$lib/utilities/auth.js';
 import {VITE_API_BASE_URL_FEED_FOLLOW_POSTS_COMMENTS} from '$env/static/private';
-import { redirect, fail } from '@sveltejs/kit';
+import { redirect} from '@sveltejs/kit';
 import { checkAuthentication } from '$lib/utilities/auth.js';
 
 
@@ -34,6 +34,7 @@ export const GET = async ({ cookies, url }) => {
         }
     }catch(err){
         console.log("End Point Error: ", err);
+        return json({ error: 'An unexpected error occurred' }, { status: 500 });
     }
 
 }
@@ -50,9 +51,12 @@ export const POST = async ({ cookies, request}) => {
        commentSchema.parse(commentData);
     } catch (err) {
         const fieldErrors = err.flatten();
-        return fail(400, {
-            description: 'an error occurred while processing your request',
-            error: fieldErrors
+        return json({
+            status: 400,
+            body: {
+                description: 'An error occurred while processing your request',
+                error: fieldErrors
+            }
         });
     }
     // now we ready the data for the endpoint, this is because our comment data
@@ -83,5 +87,50 @@ export const POST = async ({ cookies, request}) => {
         }
     }catch(err){
         console.log("End Point Error: ", err);
+        return json({ error: 'An unexpected error occurred' }, { status: 500 });
+    }
+}
+
+export const PATCH = async ({ cookies, request}) => {
+    let auth = checkAuthentication(cookies).user;
+    console.log(">>> SERVER Update Comment Data");
+    if (!auth){
+        return redirect (303, `/login?redirectTo=/dashboard`);
+    }
+    // get our data
+    let commentData = await request.json();
+    //console.log(">>> SERVER Update Comment Data: ", commentData);
+    // perform validation just incase
+    try {
+       updateCommentSchema.parse(commentData);
+    } catch (err) {
+        const fieldErrors = err.flatten();
+        console.log(">>> SERVER Update Comment Error Data: ", fieldErrors);
+        return json({
+            status: 400,
+            error: fieldErrors // Assuming fieldErrors is structured in a way that's meaningful to the client
+        });
+    }
+    // send the data for an update
+    let comments_url = `${VITE_API_BASE_URL_FEED_FOLLOW_POSTS_COMMENTS}`; 
+    try{
+        let response = await fetch(comments_url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `ApiKey ${auth}`
+            },
+            body: JSON.stringify(commentData)
+        });
+        if (response.ok){
+            let data = await response.json();
+            return json(data);
+        } else{
+            let errorData = await response.json();
+            return json({error: errorData.error}, {status: response.status});
+        }
+    }catch(err){
+        console.log("End Point Error: ", err);
+        return json({ error: 'An unexpected error occurred' }, { status: 500 });
     }
 }

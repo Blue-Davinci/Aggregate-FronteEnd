@@ -1,18 +1,21 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
+	import { Label } from '$lib/components/ui/label';
+	import { Textarea } from '$lib/components/ui/textarea';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import EmojiSelector from '$lib/components/layouts/comments/emojiselector.svelte';
 
-	export let isSaving; //holds the state of the comment saving
+	export let isSaving;
 	export let parentCommentId = '00000000-0000-0000-0000-000000000000';
 	export let postID = '';
-	console.log('Psot Id: ', postID);
 	const dispatch = createEventDispatcher();
 	let commentText = '';
+	let showEmojiPicker = false;
+
 	const addComment = () => {
-		// check if there is really a comment, if not we return
 		if (commentText.trim() === '') return;
 
 		const comment = {
-			post_id: postID, // Use dynamic post_id if needed
+			post_id: postID,
 			parent_comment_id: parentCommentId,
 			comment_text: commentText,
 			created_at: new Date().toISOString()
@@ -21,17 +24,60 @@
 		dispatch('addcomment', comment);
 		commentText = '';
 	};
+
+	function onEmoji(event) {
+		commentText += event.detail.emoji;
+		showEmojiPicker = false;
+	}
+
+	function toggleEmojiPicker() {
+		showEmojiPicker = !showEmojiPicker;
+	}
+
+	function handleClickOutside(event) {
+		if (
+			showEmojiPicker &&
+			!event.target.closest('.emoji-picker-container') &&
+			!event.target.closest('.emoji-toggle-button')
+		) {
+			showEmojiPicker = false;
+		}
+	}
+
+	onMount(() => {
+		document.addEventListener('click', handleClickOutside);
+		return () => {
+			document.removeEventListener('click', handleClickOutside);
+		};
+	});
 </script>
 
 <svelte:head>
 	<link rel="stylesheet" href="/loader-button.css" />
 </svelte:head>
+
 <div class="my-4">
-	<textarea
-		bind:value={commentText}
-		placeholder="Add a comment..."
-		class="w-full rounded-md border p-2 dark:bg-gray-800 dark:text-gray-200"
-	></textarea>
+	<div class="relative w-full">
+		<Label for="comment">Your comment</Label>
+		<Textarea
+			id="comment"
+			bind:value={commentText}
+			placeholder="Add a comment..."
+			class="w-full rounded-md border mt-1 p-2 dark:bg-gray-800 dark:text-gray-200"
+		></Textarea>
+		<button
+			type="button"
+			class="emoji-toggle-button absolute right-2 top-5"
+			on:click={toggleEmojiPicker}
+		>
+			&#x1F642; <!-- Emoji icon -->
+		</button>
+		{#if showEmojiPicker}
+			<div class="emoji-picker-container absolute right-1 top-10">
+				<EmojiSelector on:emoji={onEmoji} />
+			</div>
+		{/if}
+	</div>
 	<button
 		disabled={isSaving}
 		on:click={addComment}
