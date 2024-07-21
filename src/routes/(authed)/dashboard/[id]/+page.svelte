@@ -4,9 +4,14 @@
   import { Unplug } from 'lucide-svelte';
   export let data;
 
+
   let isError = !data || data.error || !data.rss_post;
   let username = data?.props?.username;
   console.log('Error Data: ', isError?? data.error);
+  // we need to know if going back will take us to the dashboard or the favorites
+  // so we can set the back_url accordingly
+  const urlParams = new URLSearchParams(window.location.search);
+  const redirectTo = urlParams.get('redirectTo') ?? '/dashboard';
 </script>
 
 <svelte:head>
@@ -14,7 +19,7 @@
     <link rel="stylesheet" href="/loader.css" />
 </svelte:head>
 
-<Goback />
+<Goback back_url={redirectTo} />
 
 {#if isError}
   <div class="flex flex-col items-center justify-center h-screen text-center">

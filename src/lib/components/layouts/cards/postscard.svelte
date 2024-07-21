@@ -15,8 +15,14 @@
 	// confetti
 	import { tick } from 'svelte';
 	import { Confetti } from 'svelte-confetti';
+
+	//isFromFavorite is just a flag, if true, we send the user back to the
+	//favorites page, else we send them back to the dashboard
+	export let isFromFavorite = false;
 	export let rsspost;
+
 	let post = rsspost.feed;
+	let back_url = isFromFavorite ? `/dashboard/${post.id}?redirectTo=/dashboard/favorites`: `/dashboard/${post.id}`;
 	//console.log("Post on client follow: ", post)
 	let defaultimgurl = 'https://media.themoviedb.org/t/p/original/svYyAWAH3RThMmHcCaJZ97jnTtT.jpg';
 	let imageUrl;
@@ -118,7 +124,7 @@
 				Feed: {itemTitle.slice(0, 50)}...
 			</Card.Title>
 			<a
-				href={`/dashboard/${post.id}`}
+				href={back_url}
 				on:click={handleCardClick}
 				class="overflow-hidden rounded-lg"
 			>

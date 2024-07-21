@@ -19,7 +19,7 @@
 </div>
 <div class="feeds-container" in:fly={{ x: 200, duration: 1000 }} out:fade>
 	{#each posts as rsspost (rsspost.feed.id)}
-		<PostsCard {rsspost} />
+		<PostsCard {rsspost} isFromFavorite={true}/>
 	{/each}
 </div>
 
