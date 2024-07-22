@@ -37,6 +37,7 @@
 		"embla-carousel-autoplay": "^8.1.6",
 		"embla-carousel-svelte": "^8.1.6",
 		"emoji-picker-element": "^1.21.3",
+		"jspdf": "^2.5.1",
 		"lodash": "^4.17.21",
 		"lucide-svelte": "^0.397.0",
 		"mode-watcher": "^0.3.1",
