@@ -135,10 +135,15 @@ Add notes about how to use the system.
     - Ability to search for and filter all followed feed posts
     - Ability to favorite and unfavorite feeds posts
     - Ability to view detailed info for the feed posts which supports HTML content as well as videos
-    - Ability to add comments and reply to comments from other people in posts.
+    - Support for comments with the following features:
+        - Supports emojis
+        - Create your own comments and reply to others
+        - Ability to edit and delete your comments
+        - Notifications for any post a user favorited or from any reply to a user's comment.
     - Ability to view your followed feeds
     - Ability to access your favorite posts
     - Ability to add new feeds for people to view and follow as well, including setting their visibility.
+    - Ability to **download** the posts for registered users into <b>*pdf*, *json*</b> and <b>*markdown*</b> formats.
     - *Ratings for best followed feeds. <b>(In the Pipeline)</b>*
 6. Admin Dashboard + Permissions: God Mode <b>*(In the pipeline)*</b>
 7. Logout: *And awaaaaaaaay, you go*.
