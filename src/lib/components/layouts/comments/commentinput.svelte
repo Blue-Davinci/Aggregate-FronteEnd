@@ -67,7 +67,7 @@
 		></Textarea>
 		<button
 			type="button"
-			class="emoji-toggle-button absolute right-2 top-5"
+			class="emoji-toggle-button absolute right-2 top-6"
 			on:click={toggleEmojiPicker}
 		>
 			&#x1F642; <!-- Emoji icon -->

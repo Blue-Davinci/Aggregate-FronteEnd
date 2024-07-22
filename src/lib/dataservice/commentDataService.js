@@ -134,9 +134,42 @@ const updatePostComment = async(updatedComment) => {
     
     }
 }
+
+const deletePostComment = async(commentID) => {
+    console.log("Deleting the comment: ....: ", commentID);
+    if (!commentID){
+        return {
+            success: false,
+            status: 400,
+            error: {message: "Invalid Comment ID"}
+        }
+    }
+    let url = `/api/comments?id=${commentID}`;
+    try {
+        let response = await fetch(url, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            let data = await response.json();
+            return data
+        } else {
+            let errorData = await response.json();
+            return errorData.error
+        }
+    } catch (err) {
+        console.log('Error: ', err);
+        return {
+            success: false,
+            status: 500,
+            error: {message: "Internal Server Error"}
+        }
+    }
+
+}
 export{
     getCommentsForPost,
     savePostComment,
     updatePostComment,
-    clearCommentNotificationDataService
+    clearCommentNotificationDataService,
+    deletePostComment
 }

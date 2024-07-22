@@ -1,17 +1,20 @@
 <script>
+  import {onMount} from 'svelte';
   import Goback from '$lib/components/layouts/general/goback.svelte';
   import Postcomponent from '$lib/components/layouts/post/postcomponent.svelte';
   import { Unplug } from 'lucide-svelte';
   export let data;
 
-
+  let redirectTo = '/dashboard'; 
   let isError = !data || data.error || !data.rss_post;
   let username = data?.props?.username;
   console.log('Error Data: ', isError?? data.error);
   // we need to know if going back will take us to the dashboard or the favorites
   // so we can set the back_url accordingly
-  const urlParams = new URLSearchParams(window.location.search);
-  const redirectTo = urlParams.get('redirectTo') ?? '/dashboard';
+  onMount(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    redirectTo = urlParams.get('redirectTo') ?? '/dashboard';
+  });
 </script>
 
 <svelte:head>

@@ -93,7 +93,6 @@ export const POST = async ({ cookies, request}) => {
 
 export const PATCH = async ({ cookies, request}) => {
     let auth = checkAuthentication(cookies).user;
-    console.log(">>> SERVER Update Comment Data");
     if (!auth){
         return redirect (303, `/login?redirectTo=/dashboard`);
     }
@@ -133,4 +132,39 @@ export const PATCH = async ({ cookies, request}) => {
         console.log("End Point Error: ", err);
         return json({ error: 'An unexpected error occurred' }, { status: 500 });
     }
+}
+
+export const DELETE = async ({ cookies, url }) => {
+    let comment_id = url.searchParams.get('id');
+    let auth = checkAuthentication(cookies).user;
+	if (!auth) {
+		return redirect (303, `/login?redirectTo=/dashboard`);
+	}
+    // minor check for the ID
+    if (!comment_id){
+        return json({ error: 'Invalid Comment data' }, { status: 400 });
+    }
+
+        // send the data for an update
+        let comments_url = `${VITE_API_BASE_URL_FEED_FOLLOW_POSTS_COMMENTS}/${comment_id}`;
+        try{
+            let response = await fetch(comments_url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `ApiKey ${auth}`
+                },
+                body: JSON.stringify({comment_id: comment_id})  
+            });
+            if (response.ok){
+                let data = await response.json();
+                return json(data);
+            } else{
+                let errorData = await response.json();
+                return json({error: errorData.error}, {status: response.status});
+            }
+        }catch(err){
+            console.log("End Point Error: ", err);
+            return json({ error: 'An unexpected error occurred' }, { status: 500 });
+        }
 }
