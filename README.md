@@ -130,7 +130,10 @@ Add notes about how to use the system.
     - Supports password recovery/reset
     - Supports SMTP server and token authentication
     - Supports user account activation
-    - User Account Manager: panel for a user to update their details including name,password, avatar <b>*(in the pipeline)*</b>
+    - User Account Manager: panel for a user to update their:
+        - Avatar/ Profile picture 
+        - Username
+        - Password <b>*(in the pipeline)*</b>
 5. Dashboard: This only appears after login and is a main page. It contains posts that have been followed by the user and:
     - Ability to search for and filter all followed feed posts
     - Ability to favorite and unfavorite feeds posts
