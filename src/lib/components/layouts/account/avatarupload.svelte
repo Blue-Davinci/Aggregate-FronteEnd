@@ -9,12 +9,23 @@
 	let file = null;
 	let previewUrl = userImage;
 
+	const suggestions = [
+		"https://i.ibb.co/DpZrFFw/154-156-161-192.png",
+		"https://i.ibb.co/LpSF3QQ/102-211-145-1.png",
+		"https://i.ibb.co/x7pg896/defaultrobot1.png"
+	];
+
 	const handleFileChange = (event) => {
 		const selectedFile = event.target.files[0];
 		if (selectedFile) {
 			file = selectedFile;
 			previewUrl = URL.createObjectURL(selectedFile);
 		}
+	};
+
+	const handleSuggestionClick = (url) => {
+		previewUrl = url;
+		file = null; // Clear the file input if a suggestion is chosen
 	};
 
 	function enhanceForm() {
@@ -65,6 +76,20 @@
 			class="mb-4 rounded-lg border p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:focus:ring-blue-400"
 		/>
 		<ValidationMessage error={form?.error?.file} />
+
+		<div class="flex space-x-4 mb-4">
+			{#each suggestions as suggestion}
+				<button
+					type="button"
+					on:click={() => handleSuggestionClick(suggestion)}
+					on:keydown={(event) => event.key === 'Enter' && handleSuggestionClick(suggestion)}
+					class="h-16 w-16 rounded-full border-2 border-gray-300 object-cover shadow-md cursor-pointer transition-transform hover:scale-105 focus:outline-none"
+				>
+					<img src={suggestion} alt="Suggested Avatar" class="h-full w-full rounded-full object-cover"/>
+				</button>
+			{/each}
+		</div>
+
 		<button
 			type="submit"
 			disabled={isLoading}
