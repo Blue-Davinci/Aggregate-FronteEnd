@@ -32,6 +32,7 @@
 	"type": "module",
 	"dependencies": {
 		"bits-ui": "^0.21.12",
+		"cloudinary": "^2.3.0",
 		"clsx": "^2.1.1",
 		"cmdk-sv": "^0.0.17",
 		"embla-carousel-autoplay": "^8.1.6",

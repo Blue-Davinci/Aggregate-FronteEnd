@@ -81,7 +81,7 @@
 </svelte:head>
 <PageHeader title={pageInfo.title} message={pageInfo.message} icon={pageInfo.icon} />
 
-<DashboardNav {notifications} />
+<DashboardNav {notifications} avatar={data.props.userimage} />
 
 <div class="search-container mt-5 flex items-center gap-4">
 	<div class="flex-1">

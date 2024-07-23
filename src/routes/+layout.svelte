@@ -14,6 +14,7 @@
 	export let data;
 	$: isAuthenticated = data.props.user;
 	$: username = toTitleCase(data.props.username);
+	$: userImage = data.props.userimage;
 	//$:console.log("| isAuthenticated:",isAuthenticated);
 	onMount(() => {
 		const btn = document.getElementById('btn');
@@ -51,7 +52,7 @@
 		<i class="bx bx-menu" id="btn"></i>
 	</div>
 	<div class="user">
-		<img src="/user.jpg" alt="user" class="user-img" />
+		<img src={userImage} alt="user" class="user-img" />
 		<div>
 			<p class="bold">
 				{#if username}

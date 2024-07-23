@@ -1,7 +1,11 @@
 <script>
 	export let error;
-</script>
 
+	$: console.log("111-- Error: ", error);
+</script>
+<svelte:head>
+<link rel="stylesheet" href="/auth.css" />
+</svelte:head>
 {#if error && error !== undefined}
 	<ul class="error-list">
 		{#if typeof error === 'string'}

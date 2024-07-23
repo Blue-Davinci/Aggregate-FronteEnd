@@ -10,7 +10,7 @@ export  const handle =  async({ event, resolve }) =>{
 	const safelistPaths = ['/login', '/signup'];
 	const requestedPath = event.url.pathname;
 	let credentials = checkAuthentication(event.cookies);
-	console.log("Credentials Hook: ", credentials);
+	console.log("Credentials Hook: ", credentials.user);
 	//console.log("Enumeration: ", !credentials.status && !credentials.user)
 	// Attempt to get the client address directly
 	let clientAddress;
@@ -45,11 +45,15 @@ export  const handle =  async({ event, resolve }) =>{
 			redirect(303, `/`);
 		}
 		// proceed with writting the locals
-		// what we will do is simply set the locals to true rather than do write the
+		// what we will do is simply set the locals to true rather than do anything.
+		// we also set the user's name and their img data.
 		event.locals.user = true;
-		event.locals.username = credentials.username;
+		//console.log("Creds: ", credentials.userinfo);
+		event.locals.username = credentials.userinfo.name;
+		event.locals.userimg = credentials.userinfo.user_img;
 	}
 	console.log('[H.S.J] Event Locals User:', event.locals.user);
+	console.log('[H.S.J] Event Locals User:', event.locals.userimg);
 	const response = await resolve(event);
 
 	return response;

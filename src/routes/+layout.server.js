@@ -7,11 +7,13 @@
 export const load =  async({locals}) =>{
     let user = locals.user;
     let username = locals.username
+    let userimage = locals.userimg;
     console.log("[L.S.J] Root User:",user);
     return{
         props: {
             user,
-            username
+            username,
+            userimage
         }
     }
 }; 
