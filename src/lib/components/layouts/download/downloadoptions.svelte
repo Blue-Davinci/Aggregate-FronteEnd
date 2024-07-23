@@ -142,15 +142,9 @@
 				{/if}
 			</Button>
 		</div>
-		<Dialog.Footer>
-            <Button
-            class="px-4 py-2 rounded-full bg-gray-300 text-gray-800 hover:bg-gray-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
-            type="button"
-            on:click={() => (isOpen = false)}
-        >
-            Close
-        </Button>
-    
+		<Dialog.Footer class="flex items-center justify-between px-4 py-2 border-t border-gray-200 dark:border-gray-700">
+			<img src="/agglogo.png" alt="Aggregate Logo" class="h-8 w-8 mr-2" />
+			<span class="text-lg font-semibold text-gray-700 dark:text-gray-300">Aggregate</span>
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

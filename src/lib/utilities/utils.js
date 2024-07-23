@@ -118,41 +118,109 @@ async function fetchImageAsBase64(url) {
 
 // Function to convert post data to PDF content
 async function convertPostToPDFContent(post, doc) {
-	doc.setFontSize(14);
-	doc.text(`${post.info.Channel.Title}`, 70, 20);
-	doc.text(`${post.info.Channel.Link}`, 70, 30);
-	doc.text(`Description:`, 10, 40);
-	let descriptionLines = doc.splitTextToSize(post.info.Channel.Description, 180);
-	doc.text(descriptionLines, 10, 50);
+    const margin = 10;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    let yPosition = margin + 20;
 
-	let yPosition = 60 + descriptionLines.length * 10;
-	for (const item of post.info.Channel.Item) {
-		if (item.ImageURL) {
-			console.log(`Fetching image: ${item.ImageURL}`);
-			const imageBase64 = await fetchImageAsBase64(item.ImageURL);
-			if (imageBase64) {
-				doc.addImage(imageBase64, 'JPEG', 50, yPosition, 100, 60);
-				yPosition += 60;
-			} else {
-				doc.text('Image not available', 50, yPosition);
-				yPosition += 10;
-			}
-		}
-		yPosition += 20;
-		doc.text(`Item Title: ${item.Title}`, 10, yPosition);
-		yPosition += 10;
-		doc.text(`Item Link: ${item.Link}`, 10, yPosition);
-		yPosition += 10;
-		doc.text(`Published on: ${item.PubDate}`, 10, yPosition);
-		yPosition += 10;
-		doc.text(`Updated on: ${post.info.updated_at}`, 10, yPosition);
-		yPosition += 10;
-		doc.text('Description:', 10, yPosition);
-		let itemDescriptionLines = doc.splitTextToSize(item.Description, 180);
-		doc.text(itemDescriptionLines, 10, yPosition + 10);
+    // Function to add a border around the page
+    function addPageBorder() {
+        doc.setDrawColor(0, 0, 0);
+        doc.setLineWidth(0.5);
+        doc.rect(margin, margin, pageWidth - 2 * margin, pageHeight - 2 * margin);
+    }
 
-		yPosition += 20 + itemDescriptionLines.length * 10;
-	}
+    // Function to check and handle page overflow
+    function checkPageOverflow(additionalHeight = 20) {
+        if (yPosition + additionalHeight > pageHeight - margin) {
+            doc.addPage();
+            yPosition = margin;
+            addPageBorder();
+        }
+    }
+
+    // Add initial border
+    addPageBorder();
+
+    // Channel Title
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(40);
+    let titleLines = doc.splitTextToSize(post.info.Channel.Title, pageWidth - 2 * margin - 20);
+    doc.text(titleLines, margin + 10, yPosition);
+    yPosition += titleLines.length * 4 + 5;
+
+    // Channel Link
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(0, 0, 255);
+    let linkLines = doc.splitTextToSize(post.info.Channel.Link, pageWidth - 2 * margin - 20);
+    doc.textWithLink(linkLines.join('\n'), margin + 10, yPosition, { url: post.info.Channel.Link });
+    yPosition += linkLines.length * 4 + 5;
+
+    // Description
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0);
+    doc.text("Description:", margin + 10, yPosition);
+    yPosition += 10;
+    doc.setFont("helvetica", "normal");
+    let descriptionLines = doc.splitTextToSize(post.info.Channel.Description, pageWidth - 2 * margin - 20);
+    doc.text(descriptionLines, margin + 10, yPosition);
+    yPosition += descriptionLines.length * 4 + 5;
+
+    // Iterate over items
+    for (const item of post.info.Channel.Item) {
+        checkPageOverflow(60); // Check if space is enough before adding new item
+
+        doc.setFontSize(14);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(40);
+        let itemTitleLines = doc.splitTextToSize(`Item Title: ${item.Title}`, pageWidth - 2 * margin - 20);
+        doc.text(itemTitleLines, margin + 10, yPosition);
+        yPosition += itemTitleLines.length * 5 + 5;
+
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(0);
+        let itemLinkLines = doc.splitTextToSize(item.Link, pageWidth - 2 * margin - 20);
+        doc.textWithLink(itemLinkLines.join('\n'), margin + 10, yPosition, { url: item.Link });
+        yPosition += itemLinkLines.length * 5 + 5;
+
+        doc.text(`Published on: ${item.PubDate}`, margin + 10, yPosition);
+        yPosition += 10;
+        doc.text(`Updated on: ${post.info.updated_at}`, margin + 10, yPosition);
+        yPosition += 10;
+
+        if (item.ImageURL) {
+            checkPageOverflow(70); // Check if space is enough for the image
+
+            const imageBase64 = await fetchImageAsBase64(item.ImageURL);
+            if (imageBase64) {
+                doc.addImage(imageBase64, 'JPEG', margin + 10, yPosition, pageWidth - 2 * margin - 20, 60);
+                yPosition += 60;
+            } else {
+                doc.text('Image not available', margin + 10, yPosition);
+                yPosition += 10;
+            }
+        }
+
+        yPosition += 10;
+        doc.setFont("helvetica", "bold");
+        doc.text('Description:', margin + 10, yPosition);
+        yPosition += 10;
+        doc.setFont("helvetica", "normal");
+        let itemDescriptionLines = doc.splitTextToSize(item.Description, pageWidth - 2 * margin - 20);
+
+        for (let i = 0; i < itemDescriptionLines.length; i++) {
+            checkPageOverflow(10); // Check if space is enough for each line of the description
+            doc.text(itemDescriptionLines[i], margin + 10, yPosition);
+            yPosition += 10;
+        }
+
+        yPosition += 10;
+        checkPageOverflow();
+    }
 }
 
 function convertToMarkdown(post) {
