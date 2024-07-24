@@ -13,10 +13,7 @@ export  const handle =  async({ event, resolve }) =>{
 	console.log("Credentials Hook: ", credentials.user);
 	//console.log("Enumeration: ", !credentials.status && !credentials.user)
 	// Attempt to get the client address directly
-	let clientAddress;
-	if (typeof event?.getClientAddress === 'function') {
-		clientAddress = event.getClientAddress();
-	}
+	let clientAddress = event.getClientAddress();
 
 	// Fallback to checking the 'X-Forwarded-For' header if direct access fails
 	if (!clientAddress) {
@@ -41,7 +38,7 @@ export  const handle =  async({ event, resolve }) =>{
 		// otherwise if logged in and trying to access safelisted paths eg login or signup then
 		// we redirect them to the home page
 		if (isSafelist) {
-			console.log("Redirecting! Autheneticated user but trying to acces login");
+			console.log("Redirecting! Autheneticated user but trying to acces safelisted path");
 			redirect(303, `/`);
 		}
 		// proceed with writting the locals
@@ -53,7 +50,6 @@ export  const handle =  async({ event, resolve }) =>{
 		event.locals.userimg = credentials.userinfo.user_img;
 	}
 	console.log('[H.S.J] Event Locals User:', event.locals.user);
-	console.log('[H.S.J] Event Locals User:', event.locals.userimg);
 	const response = await resolve(event);
 
 	return response;
