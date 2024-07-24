@@ -6,7 +6,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { addFeedFollow, unfollowFollowedFeed } from '$lib/dataservice/feedfollowDataService';
 	import { setToast } from '$lib/utilities/utils';
-	// confetti
+	import { goto } from '$app/navigation';
 	import { tick } from 'svelte';
 	import { Confetti } from 'svelte-confetti';
 
@@ -17,8 +17,12 @@
 	let imageUrl;
 	$: isFollowed = feeds.is_followed;
 	let isHidden = feed.is_hidden;
+	let feed_url = `/feeds/${feed.id}`;
 
-	//$: console.log('Is Hidden: ', feed.is_hidden);
+	function handleCardClick() {
+		// handle card click logic
+	}
+
 	async function followFeed() {
 		if (!user) {
 			setToast(false, 'You must be logged in to follow a feed.');
@@ -38,7 +42,7 @@
 			setToast(false, 'An error occurred while following the feed.');
 		}
 	}
-	//
+
 	async function unfollowFeed() {
 		if (!user) {
 			setToast(false, 'You must be logged in to unfollow a feed!.');
@@ -48,7 +52,6 @@
 			setToast(false, 'Feed is not followed');
 			return;
 		}
-		console.log('Unfollowing feed: ', feed.id, ' || Follow ID', feeds.follow_id);
 		try {
 			const data = await unfollowFollowedFeed(feeds.follow_id);
 			if (data?.error) {
@@ -122,7 +125,13 @@
 					</Tooltip.Content>
 				</Tooltip.Root>
 			{/if}
-			<img src={imageUrl} alt="Feed" class="feed-image rounded-full object-cover" />
+			<a
+				href={feed_url} data-sveltekit-preload-data="hover"
+				on:click={handleCardClick}
+				class="overflow-hidden rounded-lg"
+			>
+				<img src={imageUrl} alt="Feed" class="feed-image" />
+			</a>
 			<Card.Title class="mt-2 text-center text-xl font-semibold">{feed.name}</Card.Title>
 		</div>
 		<div class="content-section flex flex-grow flex-col p-4">
@@ -153,26 +162,25 @@
 							on:click={toggleFollow}
 						>
 							<Star class="h-4 w-4" />
-							{#if active}
-								<Confetti x={[-0.5, 0.5]} y={[0.25, 1]} />
+							{#if isFollowed}
+								<span class="ml-2">Unfollow</span>
+							{:else}
+								<span class="ml-2">Follow</span>
 							{/if}
-							{isFollowed ? 'Unfollow feed' : 'Follow feed'}
+							{#if active}
+							<Confetti x={[-0.5, 0.5]} y={[0.25, 1]} />
+							{/if}
 						</Toggle>
 					</Tooltip.Trigger>
 					<Tooltip.Content>
-						<p class="text-xs">{isFollowed ? 'Unfollow feed' : 'Follow feed'}</p>
+						{#if !isFollowed}
+							<span>Follow Feed</span>
+						{:else}
+							<span>Unfollow Feed</span>
+						{/if}
 					</Tooltip.Content>
 				</Tooltip.Root>
 			</div>
 		</div>
 	</Card.Root>
 </div>
-
-<style>
-	.hidden-tag {
-		background-color: transparent;
-		border-radius: 50%;
-		padding: 4px;
-		transition: all 0.3s ease;
-	}
-</style>

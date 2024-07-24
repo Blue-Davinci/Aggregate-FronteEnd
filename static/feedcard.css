@@ -14,13 +14,18 @@
 .feed-image {
 	width: 128px;
 	height: 128px;
-	padding: 2px;
 	object-fit: cover;
+	border-radius: 50%;
+	padding: 2px;
+	margin: 0 auto; /* Center the image horizontally */
 }
 
 .top-section {
 	background-color: #f3f4f6; /* Light background color */
 	color: #1f2937; /* Dark text color */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .dark .top-section {
@@ -48,11 +53,17 @@
 	color: #ccc;
 }
 
-/* New styles added */
 .description {
 	flex-grow: 1;
 }
 
 .button-container {
 	margin-top: auto;
+}
+
+.hidden-tag {
+	background-color: transparent;
+	border-radius: 50%;
+	padding: 4px;
+	transition: all 0.3s ease;
 }

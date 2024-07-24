@@ -39,19 +39,20 @@
 			<div class="tinyloader"></div>
 		</div>
 	{:else if feeds && feeds.length > 0}
-		{#each feeds as { feed, follow_count } (feed.id)}
-			<div
-				class="flex items-center border-b border-gray-200 py-3 transition duration-300 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700"
-			>
-				<img src={feed.img_url} alt={feed.name} class="mr-4 h-12 w-12 rounded-full" />
-				<div class="flex-grow">
-					<h3 class="break-all text-lg font-semibold text-gray-900 dark:text-gray-100">
-						{feed.name}
-					</h3>
-					<small class="text-sm text-gray-500 dark:text-gray-300">{follow_count} follower(s)</small>
-				</div>
-			</div>
-		{/each}
+	{#each feeds as { feed, follow_count } (feed.id)}
+    <a
+      href={`/feeds/${feed.id}`}
+      class="flex items-center border-b border-gray-200 py-3 transition duration-300 hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700"
+    >
+      <img src={feed.img_url} alt={feed.name} class="mr-4 h-12 w-12 rounded-full" />
+      <div class="flex-grow">
+        <h3 class="break-all text-lg font-semibold text-gray-900 dark:text-gray-100">
+          {feed.name}
+        </h3>
+        <small class="text-sm text-gray-500 dark:text-gray-300">{follow_count} follower(s)</small>
+      </div>
+    </a>
+  {/each}
 	{:else}
 		<div class="flex flex-col items-center justify-center h-full text-center text-gray-600 dark:text-gray-300">
 			<HeartCrack class="w-12 h-12 mb-2" />

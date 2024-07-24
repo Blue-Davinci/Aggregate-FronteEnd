@@ -14,7 +14,7 @@
 	export let data;
 	$: isAuthenticated = data.props.user;
 	$: username = data.props.username.length > 9 ? toTitleCase(data.props.username).slice(0, 9) + '...' : toTitleCase(data.props.username);
-	$: userImage = data.props.userimage;
+	$: userImage = data?.props?.userimage ?? "/agglogo.jpg";
 	//$:console.log("| isAuthenticated:",isAuthenticated);
 	onMount(() => {
 		const btn = document.getElementById('btn');
