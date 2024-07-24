@@ -96,6 +96,13 @@ npm install
 .env.production
 ```
 
+8. We use `cloudinary`, found [documented here](https://cloudinary.com/documentation/node_image_and_video_upload), for hosting the User avatars. So create a file called `.env` on the root (where the above env.dev... are) and add your key + secret
+as Shown below:
+```bash
+CLOUDINARY_API_KEY=<cloudinary api key xxxxxx>
+CLOUDINARY_API_SECRET=<cloudinary api secret yyyyy>
+```
+
 8. After a succesful setup+startup of the Aggregate backend API - above- proceed and start the development server by running:
 ```bash
 npm run dev
@@ -201,6 +208,7 @@ docker compose up --build
 - [Shad-CN Svelte](https://www.shadcn-svelte.com/) - Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.
 - [Svelte-Toast](https://zerodevx.github.io/svelte-toast/) - Toast notification library for Svelte
 - [Svelte-Confetti](https://mitcheljager.github.io/svelte-confetti/) - Add a burst of fun to your Svelte applications with customizable confetti components. Open Source and easy to integrate.
+- [RoboHash](https://robohash.org/) - Robohash is a easy web service that makes it easy to provide unique, robot/alien/monster/whatever images for any text.
 - [Lucid-Svelte](https://lucide.dev/) - Beautiful & consistent icons
 - [Box-Icons](https://boxicons.com/) - High Quality Web Icons
 Simple Open Source icons carefully crafted for designers & developers. Made by the community.
