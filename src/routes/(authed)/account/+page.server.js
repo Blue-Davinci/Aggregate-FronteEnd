@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { redirect} from '@sveltejs/kit';
-import { checkAuthentication, updateAuthentication } from '$lib/utilities/auth.js';
+import { checkAuthentication, updateAuthentication, nameSchema } from '$lib/utilities/auth.js';
 import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } from '$env/static/private';
 import { fail } from '@sveltejs/kit';
 import { updateUserInformation } from '$lib/dataservice/userAccountDataService.js';
@@ -12,10 +12,68 @@ cloudinary.config({
 });
 
 export const actions = {
+    username: async ({ request, fetch, cookies }) => {
+        console.log("updating username")
+        let auth = checkAuthentication(cookies).user;
+        if (!auth){
+            return redirect (303, `/login?redirectTo=/account`);
+        }
+        let updateInfo = await request.formData();
+        // perform validation
+                // get the new name and the old name
+                let newName = updateInfo.get('newname');
+                let oldName = updateInfo.get('currentname');
+                console.log("New and old names: ", newName, oldName);
+        try{
+            nameSchema.parse(newName);
+        }catch(err){
+            const fieldErrors = err.flatten();
+            console.log("Error: ", fieldErrors);
+            
+            return fail (400,{
+				description: "an error occurred while processing your request",
+				error: {
+                    newname: fieldErrors.formErrors
+                },
+			});
+        }
+        // check if the new name is the same as the old name
+        if(oldName === newName){
+            return fail(500, {
+                error: {
+                        newname: ['please provide a new name']
+                }
+            });
+        }
+        // send the new name to the endpoint
+        let result = await updateUserInformation(fetch,{ "name": newName }, auth);
+        console.log("Success, result: ", result);
+        if (!result.error) {
+            // if no error then we proceed to save the new object
+            let result = updateAuthentication(cookies, "name", newName );
+            if (!result){
+                console.log("Error updating cookie");
+                return fail(500, {
+                    error: {
+                            name: ['an error occurred while processing your request']
+                    }
+                });
+            }
+            return result;
+        }else{
+            return fail(500, {
+                error: {
+                        name: ['an error occurred while processing your request']
+                }
+            });
+        }
+        
+    },
+
 	upload: async ({ request, fetch, cookies }) => {
         let auth = checkAuthentication(cookies).user;
         if (!auth){
-            return redirect (303, `/login?redirectTo=/dashboard`);
+            return redirect (303, `/login?redirectTo=/account`);
         }
 		const data = await request.formData();
 		const file = data.get('file');

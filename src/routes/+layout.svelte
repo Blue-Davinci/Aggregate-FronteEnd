@@ -13,7 +13,7 @@
 	// get the current authentication state
 	export let data;
 	$: isAuthenticated = data.props.user;
-	$: username = toTitleCase(data.props.username);
+	$: username = data.props.username.length > 9 ? toTitleCase(data.props.username).slice(0, 9) + '...' : toTitleCase(data.props.username);
 	$: userImage = data.props.userimage;
 	//$:console.log("| isAuthenticated:",isAuthenticated);
 	onMount(() => {

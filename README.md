@@ -208,6 +208,8 @@ Simple Open Source icons carefully crafted for designers & developers. Made by t
 
 <hr />
 
+![User Account Screenshot](./images/useraccount.png)
+
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@Blue-Davinci](https://github.com/Blue-Davinci) - Idea & Initial work

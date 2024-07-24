@@ -20,6 +20,12 @@ const passwordSchema = z.object({
 		.trim()
 });
 
+const nameSchema = z
+.string({ required_error: 'name is required' })
+.min(3, { message: 'name too short, be more creative?' })
+.max(32, { message: 'Password must be less than 32 characters' })
+.trim()
+
 const updateCommentSchema = z.object({
 	id: z
 		.string({ required_error: 'Comment ID is required' })
@@ -159,11 +165,11 @@ function updateAuthentication(cookies, key, value) {
 			return false;
 		}
 		let userInfo = cookieInfo.userinfo;
-		//console.log('Cookie info before Update: ', cookieInfo, 'Key: ', key, 'Value: ', value);
-		//console.log('User Info before update: ', userInfo);
+		console.log('Cookie info before Update: ', cookieInfo, 'Key: ', key, 'Value: ', value);
 		let apikey = {token : cookieInfo.user, expiry : cookieInfo.authexpiry};
 		if (Object.prototype.hasOwnProperty.call(userInfo, key)) {
 			userInfo[key] = value;
+			console.log('User Info before update: ', userInfo);
 			// call saveAuthentication to save the updated user info
             // NOTE: we set the last parameter to true to indicate that we are updating the profile
 			saveAuthentication(cookies, apikey, userInfo, true);
@@ -243,5 +249,6 @@ export {
 	signupSchema,
 	emailSchema,
 	updateCommentSchema,
-	commentSchema
+	commentSchema,
+	nameSchema
 };
