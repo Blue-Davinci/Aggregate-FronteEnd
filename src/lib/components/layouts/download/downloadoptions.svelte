@@ -74,7 +74,7 @@
 		<span>Download</span>
 	</Button>
 
-	<Dialog.Content class="dialog-content rounded-lg p-6 shadow-md">
+	<Dialog.Content class="downloaddialog-content rounded-lg p-6 shadow-md">
 		<Dialog.Header>
 			<Dialog.Title>Download The Post</Dialog.Title>
 			<Dialog.Description>Choose an option to proceed with the download</Dialog.Description>
@@ -150,7 +150,7 @@
 </Dialog.Root>
 
 <style>
-	:global(.dialog-content) {
+	:global(.downloaddialog-content) {
 		max-height: 50vh; /* Limit the height to 50% of the viewport height */
 		overflow-y: auto; /* Add vertical scroll if content overflows */
 	}

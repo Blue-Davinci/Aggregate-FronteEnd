@@ -2,6 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { clearCommentNotificationDataService } from '$lib/dataservice/commentDataService';
 	import { fly, slide } from 'svelte/transition';
+	import {UserCog, LogOut} from 'lucide-svelte';
 	import {
 		BellDot,
 		MessageSquareQuote,
@@ -272,26 +273,22 @@
 							aria-labelledby="user-menu-button"
 							tabindex="-1"
 						>
-							<a
-								href="/account"
-								class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900"
-								role="menuitem"
-								tabindex="-1"
-								id="user-menu-item-0">Your Profile</a
-							>
-							<a
-								href="#a"
-								class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900"
-								tabindex="-1"
-								id="user-menu-item-1">Settings</a
-							>
-							<a
-								href="/logout"
-								class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900"
-								role="menuitem"
-								tabindex="-1"
-								id="user-menu-item-2">Log out</a
-							>
+						<a
+						href="/account"
+						class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+						role="menuitem"
+						tabindex="-1"
+						id="user-menu-item-0"
+					>
+						<UserCog class="h-5 w-5 mr-2" />Your Profile
+					</a>
+					<a
+						href="/logout"
+						class="flex items-center border-t block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+						role="menuitem"
+						tabindex="-1"
+						id="user-menu-item-2"
+					><LogOut class="h-5 w-5 mr-2 text-red-500"/>Log out</a>
 						</div>
 					{/if}
 				</div>
