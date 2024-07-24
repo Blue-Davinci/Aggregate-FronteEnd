@@ -48,6 +48,7 @@ export const actions = {
                 // if no error then we proceed to save the new object
                 let result = updateAuthentication(cookies, "user_img", imageURL );
                 if (!result){
+                    console.log("Error updating cookie");
                     return fail(500, {
                         error: {
                                 file: ['an error occurred while processing your request']
@@ -56,10 +57,12 @@ export const actions = {
                 }
 				return {
 					status: 200,
-					avatarUrl: imageURL
+					data : {
+                        avatarUrl: imageURL
+                    }
 				};
 			} else {
-                
+                console.log("Error updating user info");
 				return fail(500, {
                     error: {
                             file: ['an error occurred while processing your request']
@@ -67,7 +70,7 @@ export const actions = {
                 });
 			}
 		} catch (err) {
-            console.log("Error: ", err);
+            console.log("Avatar Upload Error: ", err);
             return fail(500, {
                 error: {
                         file: ['an error occurred while processing your request']
