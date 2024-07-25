@@ -1,56 +1,45 @@
 <script>
 	import FeedsCard from '$lib/components/layouts/cards/feedscard.svelte';
 	import TopFeeds from '$lib/components/layouts/panels/topfeeds.svelte';
+	import TopCreators from '$lib/components/layouts/panels/topcreators.svelte';
 	import PageHeader from '$lib/components/layouts/general/pageheader.svelte';
 	import SearchInput from '$lib/components/layouts/search-options/searchinput.svelte';
 	import Tinyloader from '$lib/components/layouts/general/tinyloader.svelte';
 	import { getFeedsWithFollows } from '$lib/dataservice/feedfollowDataService.js';
-	import { fly, slide } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 	import { LucideNewspaper } from 'lucide-svelte';
 	import Pagination from '$lib/components/layouts/general/pagination.svelte';
 
 	export let data;
 	$: feed_follows = data?.feeds ?? {};
-	//loader
 	let isFetching = false;
-	//console.log("Front End Data: ", feed_follows);
 	let user = data?.props?.user ?? false;
 	let pageInfo = {
 		title: 'Feeds',
 		message: 'Explore the latest feeds from the community.',
 		icon: LucideNewspaper
 	};
-	// Page details
 	let currentPage = data.metadata.current_page;
 	let pageSize = data.metadata.page_size;
 	let totalRecords = data.metadata.total_records;
 	let totalPages = Math.ceil(totalRecords / pageSize);
-
-	// Search query:
 	let searchQuery = '';
 
-	// This will get our data per page using the same function
-	// that we used to get the initial data
 	async function fetchData(page) {
 		isFetching = true;
-		console.log("Page: ", page, "Search Term: ", searchQuery);
 		let response = await getFeedsWithFollows({}, page, pageSize, searchQuery);
 		data = response;
 		isFetching = false;
 	}
 
-	// This acts as our event reciever for a page change from the
-	// pagination component, when the page changes, we invoke fetchData
 	function handlePageChange(event) {
 		currentPage = event.detail.page;
 		fetchData(currentPage, '');
 	}
 
-	// This function, like handlePageChange, acts as an event reciever
-	// for the search input component, when the search input changes.
 	function handleSearch(event) {
 		searchQuery = event.detail.query;
-		// console.log('Search Query: ', searchQuery);
 		fetchData(currentPage, searchQuery);
 	}
 </script>
@@ -60,27 +49,28 @@
 	<link rel="stylesheet" href="/loader-tiny.css" />
 </svelte:head>
 
-<!-- Include PageHeader with icon prop -->
 <PageHeader title={pageInfo.title} message={pageInfo.message} icon={pageInfo.icon} />
 
-<!-- Search Input Component For users-->
-<div class="search-container">
+<div class="mb-4">
 	<SearchInput on:search={handleSearch} />
 </div>
 
 {#if isFetching}
     <Tinyloader message="Getting your feeds..." />
 {/if}
-<!-- Feeds Container -->
-<div class="feeds-layout" in:fly={{ y: 200, duration: 1000 }} out:slide={{ duration: 600 }}>
-	<div class="feeds-container">
+
+<div class="flex flex-wrap"  in:fly={{ y: 140, duration: 800 }} out:fade={{ duration: 400 }}>
+	<div class="w-full lg:w-3/4">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
 			{#each feed_follows as feeds (feeds.feed.id)}
-				<FeedsCard {feeds} {user} /> <!-- Set width to 1/2 for 2 per row -->
+				<FeedsCard {feeds} {user} />
 			{/each}
+		</div>
+		<Pagination {totalPages} {pageSize} {totalRecords} on:page-change={handlePageChange}/>
 	</div>
 
-	<!-- Top Feeds Sidebar -->
-	<TopFeeds {user}/>
+	<div class="w-full lg:w-1/4 flex flex-col gap-4">
+		<TopCreators {user} />
+		<TopFeeds {user} />
+	</div>
 </div>
-<!-- Pagination Component -->
-<Pagination {totalPages} {pageSize} {totalRecords} on:page-change={handlePageChange} />

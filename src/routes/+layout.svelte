@@ -24,9 +24,6 @@
 			sidebar.classList.toggle('active');
 		};
 	});
-	function logout() {
-		console.log('logging out');
-	}
 </script>
 
 <svelte:head>
