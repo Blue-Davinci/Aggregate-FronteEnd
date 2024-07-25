@@ -1,4 +1,5 @@
 <script>
+  import SamplePosts from '$lib/components/layouts/samples/sampleposts.svelte';
   import Goback from '$lib/components/layouts/general/goback.svelte';
   import Sharecomponent from '$lib/components/layouts/general/sharecomponent.svelte';
   import { onMount } from 'svelte';
@@ -8,7 +9,6 @@
   let back_url = "/feeds";
   export let feedData = data.feed;
   let animateImage = false;
-
   onMount(() => {
     animateImage = true;
   });
@@ -28,11 +28,23 @@
 
   .animated-image {
     animation: fadeInUp 0.8s ease-in-out;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
   }
 
   /* Smooth fade effect for image */
   .fade-transition {
     transition: opacity 0.5s ease-in-out;
+  }
+
+  /* Image placeholder for better UX */
+  .image-placeholder {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    width: 20rem;
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9999px;
   }
 </style>
 
@@ -44,7 +56,9 @@
       <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">{feedData.feed.name}</h1>
       <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">{new Date(feedData.feed.created_at).toLocaleDateString()}</p>
       {#if animateImage}
-        <img class="animated-image w-20 h-20 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full object-cover border-4 border-gray-300 dark:border-gray-700 mb-4 fade-transition" src={feedData.feed.img_url} alt="Feed">
+        <div class="image-placeholder">
+          <img class="animated-image w-20 h-20 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full object-cover border-4 border-gray-300 dark:border-gray-700 fade-transition" src={feedData.feed.img_url} alt="Feed" on:load={() => { animateImage = true; }} on:error={() => { animateImage = false; }} />
+        </div>
       {/if}
       <p class="text-lg text-gray-700 dark:text-gray-300 text-center mb-4">{feedData.feed.feed_description}</p>
       <a href={feedData.feed.url} class="text-blue-500 hover:underline mb-2" target="_blank">Visit Feed</a>
@@ -52,6 +66,7 @@
         channelTitle={feedData.name}
         imgURL={feedData.url}
       />
+      <SamplePosts feedID={feedData.feed.id} />
     </div>
     <div class="flex flex-col md:flex-row items-center md:justify-between px-6 py-4 border-t border-gray-200 dark:border-gray-700">
       <div class="flex items-center mb-4 md:mb-0">

@@ -59,7 +59,7 @@
     <Tinyloader message="Getting your feeds..." />
 {/if}
 
-<div class="flex flex-wrap"  in:fly={{ y: 140, duration: 800 }} out:fade={{ duration: 400 }}>
+<div class="flex flex-wrap"  in:fly={{ y: 50, duration: 700 }} out:fade={{ duration: 400 }}>
 	<div class="w-full lg:w-3/4">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
 			{#each feed_follows as feeds (feeds.feed.id)}
