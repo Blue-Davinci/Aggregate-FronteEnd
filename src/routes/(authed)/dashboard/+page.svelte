@@ -43,15 +43,19 @@
 		isFetching = true;
 		//console.log('Page: ', page, 'Search Term: ', searchQuery);
 		let notificationsCopy = notifications ?? [];
+		let props = data?.props ?? {};
 		let response = await getFollowedPostsDataService({}, page, pageSize, searchQuery, feedID);
+		console.log("Data before: ", data);
 		// We do this to standadize the data as recieved from the server
 		// during (page.server.js) load.
 		data = {
+			props : props,
 			posts: response.data,
 			notifications: {
 				notifications: notificationsCopy
 			},
 		};
+		console.log("Data after: ", data);
 		isFetching = false;
 	}
 
@@ -81,7 +85,7 @@
 </svelte:head>
 <PageHeader title={pageInfo.title} message={pageInfo.message} icon={pageInfo.icon} />
 
-<DashboardNav {notifications} avatar={data.props.userimage} />
+<DashboardNav {notifications} avatar={data?.props?.userimage ?? "/user.jpg"} />
 
 <div class="search-container mt-5 flex items-center gap-4">
 	<div class="flex-1">
