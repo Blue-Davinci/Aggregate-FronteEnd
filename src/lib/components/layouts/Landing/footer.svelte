@@ -29,8 +29,9 @@
           <div class="address">
             <img src="/icon-location.png" alt="icon location" />
             <p>
-              The aggregate project is located in Nairobi, Kenya
-              and operates under <b>ALX Africa.</b>
+              The aggregate project is located in a place near you
+              and operates under <b>Me.</b> Terms & conditions apply.
+              Not suitable for people under 18 years of age.
             </p>
           </div>
         </div>

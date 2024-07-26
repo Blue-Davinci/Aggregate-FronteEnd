@@ -13,8 +13,8 @@
 	let feeds = [];
 	async function fetchFeedsSearchInfo() {
 		isFetching = true;
-		const data = await getFeedSearchOptions();
-		feeds = data.feeds;
+		let data = await getFeedSearchOptions();
+		feeds = data?.feeds ?? [];
 		isFetching = false;
 	}
 

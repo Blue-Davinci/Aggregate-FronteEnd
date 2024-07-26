@@ -7,46 +7,16 @@
 
   export let data;
   let back_url = "/feeds";
+  //console.log("Feed View Data:", data);
   export let feedData = data.feed;
   let animateImage = false;
   onMount(() => {
     animateImage = true;
   });
+  
 </script>
 
-<style>
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
-  .animated-image {
-    animation: fadeInUp 0.8s ease-in-out;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-  }
-
-  /* Smooth fade effect for image */
-  .fade-transition {
-    transition: opacity 0.5s ease-in-out;
-  }
-
-  /* Image placeholder for better UX */
-  .image-placeholder {
-    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-    width: 20rem;
-    height: 20rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 9999px;
-  }
-</style>
 
 <Goback {back_url} />
 
@@ -82,3 +52,37 @@
     </div>
   </div>
 </div>
+
+<style>
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animated-image {
+    animation: fadeInUp 0.8s ease-in-out;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  }
+
+  /* Smooth fade effect for image */
+  .fade-transition {
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  /* Image placeholder for better UX */
+  .image-placeholder {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    width: 20rem;
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9999px;
+  }
+</style>

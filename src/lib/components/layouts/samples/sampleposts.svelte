@@ -5,6 +5,7 @@
 	import { getSampleRSSPostsForFeed } from '$lib/dataservice/samplesDataService';
 	export let feedID;
 
+	const wordLimit = 120;
 	let rssPosts = [];
 	let isLoading = true;
 
@@ -37,7 +38,7 @@
 
 	function format(str) {
 		let convertedStr = str.replace(/<\/?[^>]+(>|$)/g, '');
-		return convertedStr.slice(0, 20) + '...';
+		return convertedStr.slice(0, wordLimit) + '...';
 	}
 </script>
 
@@ -72,9 +73,9 @@
 						{#if post.Channel.Item[0].isHTMLDescription}
 							<div class="mb-2 text-sm text-gray-600 dark:text-gray-400">{format(post.Channel.Item[0].Description)}</div>
 						{:else}
-							<p class="mb-2 text-sm text-gray-600 dark:text-gray-400">{post.Channel.Item[0].Description.slice(0, 20) + '...'}</p>
+							<p class="mb-2 text-sm text-gray-600 dark:text-gray-400">{post.Channel.Item[0].Description.slice(0, wordLimit) + '...'}</p>
 						{/if}
-						<a href={"/dashboard"} class="text-blue-500 hover:underline" target="_blank"
+						<a href={`/dashboard/${post.id}`} class="text-blue-500 hover:underline" target="_blank"
 							>Read More</a
 						>
 					</div>

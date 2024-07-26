@@ -46,13 +46,14 @@
 	function handleCardClick() {
 		const postData = {
 			info: post,
-			htmlstatus: isHTMLDescription
+			htmlstatus: isHTMLDescription,
+			isFollowed: rsspost.isFollowed
 		};
 		saveSessionData('rssFeed', postData);
 		goto(`/dashboard/${post.id}`);
 	}
 	function favoritePost() {
-		console.log('Post: ', post.id, '|| Feed: ', post.feed_id);
+		//console.log('Post: ', post.id, '|| Feed: ', post.feed_id);
 		try {
 			const data = addFavoritePost(post.id, post.feed_id);
 			if (data?.error) {

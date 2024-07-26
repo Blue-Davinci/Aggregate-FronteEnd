@@ -1,5 +1,6 @@
 <script>
   import {onMount} from 'svelte';
+  import { fly, fade } from 'svelte/transition';
   import Goback from '$lib/components/layouts/general/goback.svelte';
   import Postcomponent from '$lib/components/layouts/post/postcomponent.svelte';
   import { Unplug } from 'lucide-svelte';
@@ -24,6 +25,7 @@
 
 <Goback back_url={redirectTo} />
 
+<div in:fly={{ y: 200, duration: 800 }} out:fade>
 {#if isError}
   <div class="flex flex-col items-center justify-center h-screen text-center">
     <Unplug class="w-24 h-24 text-gray-500 dark:text-gray-300" />
@@ -34,3 +36,4 @@
 {:else}
   <Postcomponent fetchedData={data.rss_post} username={username}/>
 {/if}
+</div>

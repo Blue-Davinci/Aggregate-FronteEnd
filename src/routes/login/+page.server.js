@@ -2,17 +2,27 @@ import {fail, redirect} from '@sveltejs/kit';
 import {VITE_API_BASE_URL_LOGIN} from '$env/static/private';
 import  {registrationSchema, saveAuthentication} from '$lib/utilities/auth.js';
 
+// we set the default redirection path to the dashboard page
+let redirectTo = '/dashboard';
+
+// we capture the url path for redirection purposes
+export const load = async({url}) =>{
+    const urlpath = url.searchParams.get('redirectTo');
+    redirectTo =  urlpath ? urlpath: '/dashboard';
+    return {
+        status: 200,
+        redirectTo: redirectTo
+    };
+}
 // successful authentication redirects the user back to the page they have come back
 // from or to the dashboard page (about page for the debugging)
-function successfulAuth(url){
-    const urlpath = url.searchParams.get('redirectTo');
-    const redirectTo =  urlpath ? urlpath: '/dashboard';
+function successfulAuth(){
     console.log("[page.server.js LOGIN Url Path: ", redirectTo);
     return redirect(303, redirectTo);
 }
 // use actions to get the input and pass it to our endpoint
 export const actions ={
-    login: async({fetch, request, url, cookies})=>{
+    login: async({fetch, request, cookies})=>{
         // retrieve our login url
         const login_url = `${VITE_API_BASE_URL_LOGIN}`;
         // fetch login data from frontend
@@ -46,7 +56,7 @@ export const actions ={
             //save authentication for the user
             let isSuccesfulAuth = saveAuthentication(cookies, result.api_key, result.user);
             if (isSuccesfulAuth){
-                successfulAuth(url);
+                successfulAuth();
             }else{
                 return fail (res.status,{
                     description: "an error occurred while processing your request",

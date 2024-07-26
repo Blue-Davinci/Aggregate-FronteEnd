@@ -2,6 +2,7 @@
 import { redirect } from '@sveltejs/kit';
 import { checkAuthentication } from '$lib/utilities/auth.js';
 import {VITE_API_BASE_URL_FEED_FOLLOW_POSTS} from '$env/static/private';
+
 export const load = async({params, cookies}) =>{
     const postId = params.id;
     let auth = checkAuthentication(cookies).user;

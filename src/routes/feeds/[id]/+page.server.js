@@ -1,13 +1,10 @@
 import { redirect } from '@sveltejs/kit';
-import { checkAuthentication } from '$lib/utilities/auth.js';
+//import { checkAuthentication } from '$lib/utilities/auth.js';
 import {VITE_API_BASE_URL_FEEDS} from '$env/static/private';
 
-export const load = async({params, cookies}) =>{
+export const load = async({params}) =>{
     const feedID = params.id;
-    let auth = checkAuthentication(cookies).user;
-    if (!auth) {
-         return redirect(303, `/login?redirectTo=/feeds/${feedID}`);
-    }
+
     //console.log("Params in [id]: ", feedID);
     // do a quick check on if it actually exists, if not we redirect to the dashboard
     if (!feedID) {

@@ -126,7 +126,7 @@
 				</Tooltip.Root>
 			{/if}
 			<a
-				href={feed_url} data-sveltekit-preload-data="hover"
+				href={feed_url} data-sveltekit-preload-data
 				on:click={handleCardClick}
 				class="overflow-hidden rounded-lg"
 			>
