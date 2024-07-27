@@ -137,7 +137,7 @@ npm run dev
 <b>The basics of the app includes:</b>
 
 1. Homepage: This is the first page for users `http://localhost:5173` and contains the landing page shown as the first image in this readme. 
-    - Theme support a smooth Dark  as well as Light themes
+    - The app supports a smooth Dark  as well as Light themes
 2. Feeds: This contains all the feeds that a user can create, follow, hide, manage and more.
     - Ability to follow and unfollow feeds
     - You can search and filter all feeds
