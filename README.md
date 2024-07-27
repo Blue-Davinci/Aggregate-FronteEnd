@@ -217,7 +217,7 @@ Simple Open Source icons carefully crafted for designers & developers. Made by t
 
 <hr />
 
-![User Account Screenshot](./images/useraccount.png)
+![Feed View](./images/feedview.png)
 
 ## ✍️ Authors <a name = "authors"></a>
 
