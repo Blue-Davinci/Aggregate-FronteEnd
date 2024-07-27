@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import {encrypt, decrypt} from '$lib/utilities/encryption.js';
 
 const tokenSchema = z
 	.string({ required_error: 'A Token is required' })
@@ -153,7 +154,7 @@ function checkAuthentication(cookies) {
 	if (!user || user === null) {
 		return { status: false };
 	} else {
-		return { status: true, user: user, authexpiry:authexpiry, userinfo: parsedUserInfo };
+		return { status: true, user: decrypt(user), authexpiry:authexpiry, userinfo: parsedUserInfo };
 	}
 }
 
@@ -194,7 +195,7 @@ function saveAuthentication(cookies, apikey, user, isProfileUpdate = false) {
 		// save a special auth cookie for the user
         // we check if the user is updating their profile, if so we skip this step
 		if (!isProfileUpdate) {
-			cookies.set('authtoken', apikey.token, {
+			cookies.set('authtoken', encrypt(apikey.token), {
 				path: '/',
 				expires: new Date(apikey.expiry)
 			});
