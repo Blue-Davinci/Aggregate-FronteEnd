@@ -6,8 +6,10 @@
   import { fade } from 'svelte/transition';
 
   export let data;
+
+  let user = data.props;
   let back_url = "/feeds";
-  console.log("Feed View Data:", data);
+  //console.log("Feed View Data:", data);
   export let feedData = data.feed;
   let animateImage = false;
   onMount(() => {

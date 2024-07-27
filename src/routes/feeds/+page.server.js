@@ -6,11 +6,11 @@ import { getFeedsWithFollows } from '$lib/dataservice/feedfollowDataService.js';
 // after loading this data, for each feed, if the user follows the feed we add the boolean
 // true e.g feed.id = xxxx, feed.followed = true
 // that way, on the frontend we can also show whether a feed is followed or not
-export const load = async ({ fetch}) => {
-	// otherwise we use
-    //let response2 = await getAllFeeds({ fetch }, feed_url)
-    //console.log("-- Respomse 2: ", response2);
-	let response = await getFeedsWithFollows({ fetch },0,0,'');
+export const load = async ({ fetch, url}) => {
+    // we will use this as a search option to filter feeds, if a user is redirected
+    // here with a searchOption parameter, we will use it to filter feeds
+    let searchOption = url.searchParams.get('searchOption') ?? '';
+	let response = await getFeedsWithFollows({ fetch },0,0,searchOption);
     if(response.error){
         console.log("----- Error: ", response.error);
         error(response.status, {

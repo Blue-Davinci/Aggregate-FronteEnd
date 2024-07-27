@@ -14,8 +14,9 @@
 	let post;
 	let htmlstatus;
 	let isLoading = true;
-	let isFollowed = true;
+	let isFollowed = false;
 	let data = {};
+	let channelTitleSplit;
 	$: postcomments = data?.comments ?? [];
 
 	onMount(() => {
@@ -33,6 +34,7 @@
 			};
 			saveSessionData('rssFeed', post);
 			fetchPostComments(post.info.id);
+			channelTitleSplit = post.info.Channel.Title.split(' ')[0];
 		} catch (err) {
 			console.log('Error: ', err);
 		} finally {
@@ -68,7 +70,7 @@
 		{#if !isFollowed}
 			<div class="mb-6 p-4 rounded-lg border border-red-500 bg-gradient-to-r from-red-100 to-red-200 dark:from-red-800 dark:to-red-900 text-red-700 dark:text-red-300 flex items-center justify-between animate-pulse">
 				<p class="font-semibold">You are not following this feed. Follow to get the latest updates!</p>
-				<a href={`/feeds/${post.info.feed_id}`} class="ml-4 px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-300">
+				<a href={`/feeds?searchOption=${channelTitleSplit}`} class="ml-4 px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-300">
 					Follow Now
 				</a>
 			</div>
