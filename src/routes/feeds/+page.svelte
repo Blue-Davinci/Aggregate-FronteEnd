@@ -67,7 +67,7 @@
 	<Tinyloader message="Getting your feeds..." />
   {/if}
   
-  <div in:fly={{ y: 50, duration: 700 }} out:fade={{ duration: 400 }}>
+  <div in:fly={{ y: 100, duration: 700 }} out:fade={{ duration: 400 }}>
 	{#if feed_follows.length === 0}
 	  {#if searchQuery}
 		<div class="flex flex-col items-center justify-center text-center mt-8">

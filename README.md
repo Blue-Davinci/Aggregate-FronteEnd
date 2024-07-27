@@ -128,10 +128,11 @@ Add notes about how to use the system.
     - Ability to follow and unfollow feeds
     - You can search and filter all feeds
     - Ability To Hide any feed that a registered user has added 
-    <b>(this feed will only be accessible by the user alone)</b>
+    <b>(this feed will only be accessible by the user who created the feed only)</b>
     - Feed manager to manager added feeds including updating them <b>*(in the pipeline)*</b>
     - View the currently top followed feeds
-    - View the top users who've added feeds <b>*(In the pipeline)<b>
+    - View the top users who've added feeds including their unique scores calculated by our backend algorithm.
+    - Ability to share the feed with other users.
 3. About: This contains the project's about information,
 4. Login & Signup: They contain the links for a user to login and also create an account.
     - Supports password recovery/reset
@@ -145,6 +146,8 @@ Add notes about how to use the system.
     - Ability to search for and filter all followed feed posts
     - Ability to favorite and unfavorite feeds posts
     - Ability to view detailed info for the feed posts which supports HTML content as well as videos
+    - Ability to **share** the posts with other users. If a user doesn't follow a post's feed, they will
+        Be alerted and provided an option to go and follow the feed.
     - Support for comments with the following features:
         - Supports emojis
         - Create your own comments and reply to others
