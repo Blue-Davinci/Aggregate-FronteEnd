@@ -118,22 +118,20 @@ npm run dev
 
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
-
 <b>The basics of the app includes:</b>
 
 1. Homepage: This is the first page for users `http://localhost:5173` and contains the landing page shown as the first image in this readme. 
-    - Theme support boasting a smooth Dark and Light themes
-2. Feeds: This is located at  `http://localhost:5173/feeds` and contains all the feeds that a user can follow.
+    - Theme support a smooth Dark  as well as Light themes
+2. Feeds: This contains all the feeds that a user can create, follow, hide, manage and more.
     - Ability to follow and unfollow feeds
     - You can search and filter all feeds
     - Ability To Hide any feed that a registered user has added 
     <b>(this feed will only be accessible by the user who created the feed only)</b>
-    - Feed manager to manager added feeds including updating them <b>*(in the pipeline)*</b>
+    - Feed manager to manage added/created feeds including updating them.
     - View the currently top followed feeds
     - View the top users who've added feeds including their unique scores calculated by our backend algorithm.
-    - Ability to share the feed with other users.
-3. About: This contains the project's about information,
+    - Ability to share the feed with other users (linked in, pinterest, twitter, facebook and direct to clip).
+3. About: No one knows what it means, but it’s provocative… it gets the people going!
 4. Login & Signup: They contain the links for a user to login and also create an account.
     - Supports password recovery/reset
     - Supports SMTP server and token authentication
