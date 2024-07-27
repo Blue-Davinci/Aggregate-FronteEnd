@@ -1,12 +1,20 @@
 <script>
+  	import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
   import {onMount} from 'svelte';
   import { fly, fade } from 'svelte/transition';
   import Goback from '$lib/components/layouts/general/goback.svelte';
   import Postcomponent from '$lib/components/layouts/post/postcomponent.svelte';
   import { Unplug } from 'lucide-svelte';
+
   export let data;
+  let pagemetadata = data?.props?.metadata ?? {};
 
   let redirectTo = '/dashboard'; 
+  let pageInfo = {
+		title: 'Post View',
+		message: 'Dive into the latest community insights and updates.',
+		icon: null
+	};
   let isError = !data || data.error || !data.rss_post;
   let username = data?.props?.username;
   console.log('Error Data: ', isError?? data.error);
@@ -19,10 +27,10 @@
 </script>
 
 <svelte:head>
-    <title>Posts • Aggregate</title>
     <link rel="stylesheet" href="/loader.css" />
 </svelte:head>
 
+<Metamanager {pagemetadata} {pageInfo} />
 <Goback back_url={redirectTo} />
 
 <div in:fly={{ y: 200, duration: 800 }} out:fade>

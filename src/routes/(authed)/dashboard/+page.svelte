@@ -1,4 +1,5 @@
 <script>
+	import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
 	import DashboardNav from '$lib/components/layouts/navs/dashboardnav.svelte';
 	import FeedsComboBox from '$lib/components/layouts/search-options/feedscombobox.svelte';
 	import Tinyloader from '$lib/components/layouts/general/tinyloader.svelte';
@@ -13,6 +14,7 @@
 	import SearchInput from '$lib/components/layouts/search-options/searchinput.svelte';
 
 	export let data;
+	let pagemetadata = data?.props?.metadata ?? {};
 	export let form = undefined;
 	//loader
 	let isFetching = false;
@@ -23,12 +25,12 @@
 	// Page details
 	let currentPage = data?.posts?.metadata.current_page ?? 1;
 	let pageSize = data?.posts?.metadata.page_size ?? 1;
-	let totalRecords = data?.posts?.metadata.total_records?? 1;
+	let totalRecords = data?.posts?.metadata.total_records ?? 1;
 	let totalPages = Math.ceil(totalRecords / pageSize);
 	// loading
 	let isLoading = false;
 	let pageInfo = {
-		title: 'Aggregate Dashboard',
+		title: 'Dashboard',
 		message:
 			'Your one-stop hub for aggregating, exploring, and interacting with the latest RSS feeds. Discover, like, favorite, share, and follow the content that matters most to you.',
 		icon: LayoutDashboard
@@ -45,17 +47,17 @@
 		let notificationsCopy = notifications ?? [];
 		let props = data?.props ?? {};
 		let response = await getFollowedPostsDataService({}, page, pageSize, searchQuery, feedID);
-		console.log("Data before: ", data);
+		console.log('Data before: ', data);
 		// We do this to standadize the data as recieved from the server
 		// during (page.server.js) load.
 		data = {
-			props : props,
+			props: props,
 			posts: response.data,
 			notifications: {
 				notifications: notificationsCopy
-			},
+			}
 		};
-		console.log("Data after: ", data);
+		console.log('Data after: ', data);
 		isFetching = false;
 	}
 
@@ -77,15 +79,17 @@
 		fetchData(currentPage);
 		// You can now use the selectedFeedId as needed
 	}
+
 </script>
 
 <svelte:head>
-	<title>Dashboard • Aggregate</title>
 	<link rel="stylesheet" href="/auth.css" />
 </svelte:head>
+<Metamanager {pagemetadata} {pageInfo} />
+
 <PageHeader title={pageInfo.title} message={pageInfo.message} icon={pageInfo.icon} />
 
-<DashboardNav {notifications} avatar={data?.props?.userimage ?? "/user.jpg"} />
+<DashboardNav {notifications} avatar={data?.props?.userimage ?? '/user.jpg'} />
 
 <div class="search-container mt-5 flex items-center gap-4">
 	<div class="flex-1">
@@ -96,7 +100,7 @@
 	</div>
 </div>
 {#if isFetching}
-	<Tinyloader message="Fetching Posts..."/>
+	<Tinyloader message="Fetching Posts..." />
 {:else}
 	{#if posts.length > 0}
 		<div

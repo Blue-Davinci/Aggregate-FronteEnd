@@ -1,16 +1,26 @@
 <script>
+  	import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
   import {Separator} from '$lib/components/ui/separator';
   import { Github, Twitter, Linkedin, Undo2 } from 'lucide-svelte/icons';
   import { fly, slide, fade } from 'svelte/transition';
   import { page } from '$app/stores';
 
+  export let data;
+  let pagemetadata = data?.props?.metadata ?? {};
+
   let params = $page.url.searchParams.get('redirectTo')? $page.url.searchParams.get('redirectTo'): '/';
   //console.log("Params: ", params);
+  let pageInfo = {
+    title: 'About',
+    message: 'Learn more about our mission and the team behind Aggregate.',
+    icon: null
+};
 </script>
 <svelte:head>
-  <title>About • Aggregate</title>
   <link rel="stylesheet" href="/about.css" />
 </svelte:head>
+
+<Metamanager {pagemetadata} {pageInfo} />
 
 <a href={params} class="mt-10 flex items-center text-white bg-blue-500 hover:bg-blue-700 transition-colors duration-300 px-4 py-2 rounded-md">
   <Undo2 class="mr-2 h-5 w-5" />

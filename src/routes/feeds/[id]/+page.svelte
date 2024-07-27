@@ -1,4 +1,5 @@
 <script>
+  	import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
   import SamplePosts from '$lib/components/layouts/samples/sampleposts.svelte';
   import Goback from '$lib/components/layouts/general/goback.svelte';
   import Sharecomponent from '$lib/components/layouts/general/sharecomponent.svelte';
@@ -6,6 +7,13 @@
   import { fade } from 'svelte/transition';
 
   export let data;
+  let pagemetadata = data?.props?.metadata ?? {};
+
+  let pageInfo = {
+		title: 'Feed View',
+		message: 'Explore the latest feeds from the community.',
+		icon: null
+	};
 
   let user = data.props;
   let back_url = "/feeds";
@@ -18,7 +26,7 @@
   
 </script>
 
-
+<Metamanager {pagemetadata} {pageInfo} />
 
 <Goback {back_url} />
 
@@ -38,7 +46,7 @@
         channelTitle={feedData.name}
         imgURL={feedData.url}
       />
-      <SamplePosts feedID={feedData.feed.id} />
+      <SamplePosts feedID={feedData.feed.id} {user} />
     </div>
     <div class="flex flex-col md:flex-row items-center md:justify-between px-6 py-4 border-t border-gray-200 dark:border-gray-700">
       <div class="flex items-center mb-4 md:mb-0">
