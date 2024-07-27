@@ -98,12 +98,28 @@ npm install
 
 8. We use `cloudinary`, found [documented here](https://cloudinary.com/documentation/node_image_and_video_upload), for hosting the User avatars. So create a file called `.env` on the root (where the above env.dev... are) and add your key + secret
 as Shown below:
+
 ```bash
 CLOUDINARY_API_KEY=<cloudinary api key xxxxxx>
 CLOUDINARY_API_SECRET=<cloudinary api secret yyyyy>
 ```
 
-8. After a succesful setup+startup of the Aggregate backend API - above- proceed and start the development server by running:
+- You also need to add an **encryption key and IV** in the above file which will be used in encrypting the user api_keys. You can generate both the **IV** and **Encryption key** via the `generator.js` in `lib\utilities\encryption.js`
+- For a **quick generation** you can use the `javascript debugger terminal` by first navigating to the directory:
+
+```bash
+cd src/lib/utilities
+```
+
+- Then **execute** the file by running:
+
+```bash
+node encryption.js
+```
+
+- You will find a `.env` file in the same directory. You can open and copy the data to the root `.env`, which should have your `cloudinary secrets`, or change it with the `Admin dashboard` *(in the pipeline)*
+
+8. After a succesful setup+startup of the **Aggregate backend API - above**- proceed and start the development server by running:
 ```bash
 npm run dev
 ```
