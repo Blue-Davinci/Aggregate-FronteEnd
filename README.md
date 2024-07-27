@@ -28,7 +28,7 @@ Unify, Simplify, <b>Aggregate!</b>
 - [About](#about)
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
-- [Usage](#usage)
+- [Usage And Features](#usage)
 - [Built Using](#built_using)
 - [TODO](./TODO.md)
 - [Contributing](../CONTRIBUTING.md)
@@ -132,7 +132,7 @@ npm run dev
 
 <hr />
 
-## 🎈 Usage <a name="usage"></a>
+## 🎈 Usage And Features <a name="usage"></a>
 
 <b>The basics of the app includes:</b>
 
