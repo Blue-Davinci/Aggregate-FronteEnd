@@ -1,6 +1,6 @@
 <script>
 	import { getTopFeedCreators } from '$lib/dataservice/getTopStatsDataService.js';
-	import { GitBranchPlus, HeartCrack } from 'lucide-svelte';
+	import { GitBranchPlus, HeartCrack, Trophy, Medal } from 'lucide-svelte';
 	import { fly, slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
 
@@ -36,18 +36,24 @@
 		</div>
 	{:else if creators && creators.length > 0}
 		{#each creators as creator, index (index)}
-			<div class="flex items-center p-4 mb-4 rounded-lg bg-white dark:bg-gray-900 shadow transition-transform transform hover:-translate-y-1 hover:shadow-lg">
+			<div class="flex items-center p-4 mb-4 rounded-lg shadow transition-transform transform hover:-translate-y-1 hover:shadow-lg 
+				{index === 0 ? 'bg-yellow-100 dark:bg-yellow-800 text-gray-900 dark:text-gray-100' : 'bg-white dark:bg-gray-900'}">
+				{#if index === 0}
+					<Trophy class="w-8 h-8 text-yellow-500 dark:text-yellow-300 mr-4" />
+				{:else}
+					<Medal class="w-6 h-6 text-teal-500 dark:text-teal-300 mr-4" />
+				{/if}
 				<img src={creator.user.user_img} alt={creator.user.name} class="h-16 w-16 rounded-full mr-4 border border-gray-300 dark:border-gray-700 shadow-md" />
 				<div class="flex-grow">
-					<h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{creator.user.name}</h3>
-					<p class="text-sm text-gray-600 dark:text-gray-300">Feeds Created: {creator.created_feeds}</p>
-					<p class="text-sm text-gray-600 dark:text-gray-300 flex items-center">
+					<h3 class="text-lg font-semibold {index === 0 ? 'text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'}">{creator.user.name}</h3>
+					<p class="text-sm {index === 0 ? 'text-gray-800 dark:text-gray-200' : 'text-gray-600 dark:text-gray-300'}">Feeds Created: {creator.created_feeds}</p>
+					<p class="text-sm flex items-center {index === 0 ? 'text-gray-800 dark:text-gray-200' : 'text-gray-600 dark:text-gray-300'}">
 						<span class="text-sm">Score:</span>
 						<span class="text-sm font-extrabold text-indigo-500 ml-2 p-1 bg-indigo-100 dark:bg-indigo-900 rounded-md shadow">{creator.creator_score.toFixed(2)}</span>
 					</p>
 				</div>
 			</div>
-        {/each}
+		{/each}
 	{:else}
 		<div class="flex flex-col items-center justify-center h-full text-center text-gray-600 dark:text-gray-300">
 			<HeartCrack class="w-12 h-12 mb-2" />
