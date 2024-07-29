@@ -50,6 +50,7 @@
 			// we set this as true as we know the post is from a followed feed!
 			isFollowed: rsspost?.isFollowed !== false
 		};
+		console.log("Rss Post Is Followed: ", rsspost.isFollowed);
 		saveSessionData('rssFeed', postData);
 		goto(`/dashboard/${post.id}`);
 	}
