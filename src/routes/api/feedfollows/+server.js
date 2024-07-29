@@ -13,7 +13,8 @@ export const GET = async ({ cookies, url }) => {
 	let params = {
 		name: url.searchParams.get('name'),
 		page: url.searchParams.get('page'),
-		page_size: url.searchParams.get('page_size')
+		page_size: url.searchParams.get('page_size'),
+		feed_type: url.searchParams.get('feed_type')
 	};
 	// This will hod our URL
 	let feedfollow_url;

@@ -1,6 +1,5 @@
 <script>
 	import { onMount, createEventDispatcher } from 'svelte';
-	import Tinyloader from '$lib/components/layouts/general/tinyloader.svelte';
 	import { getFeedSearchOptions } from '$lib/dataservice/searchOptionsDataService';
 	import * as Command from '$lib/components/ui/command';
 	import * as Popover from '$lib/components/ui/popover';

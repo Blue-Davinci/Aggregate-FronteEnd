@@ -49,12 +49,13 @@ async function unfollowFollowedFeed(data) {
 	}
 }
 
-async function getFeedsWithFollows({ fetch: customFetch } = {}, page = 0, page_size = 0, name = '') {
+async function getFeedsWithFollows({ fetch: customFetch } = {}, page = 0, page_size = 0, name = '', feed_type='') {
     let url = '/api/feedfollows';
     let params = {
         name: name,
         page: page,
-        page_size: page_size
+        page_size: page_size,
+		feed_type: feed_type
     };
     let fetchFunc = customFetch || fetch; // Use custom fetch if provided, else use global fetch
     let endpoint_url = buildFeedFollowUrl(url, params);

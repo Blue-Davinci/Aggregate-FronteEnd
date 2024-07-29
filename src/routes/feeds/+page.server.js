@@ -10,7 +10,7 @@ export const load = async ({ fetch, url}) => {
     // we will use this as a search option to filter feeds, if a user is redirected
     // here with a searchOption parameter, we will use it to filter feeds
     let searchOption = url.searchParams.get('searchOption') ?? '';
-	let response = await getFeedsWithFollows({ fetch },0,0,searchOption);
+	let response = await getFeedsWithFollows({ fetch },0,0,searchOption, '');
     if(response.error){
         console.log("----- Error: ", response.error);
         error(response.status, {

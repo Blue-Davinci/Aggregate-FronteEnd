@@ -7,6 +7,7 @@
 	import SearchInput from '$lib/components/layouts/search-options/searchinput.svelte';
 	import Tinyloader from '$lib/components/layouts/general/tinyloader.svelte';
 	import { getFeedsWithFollows } from '$lib/dataservice/feedfollowDataService.js';
+	import Feedtypecombobox from '$lib/components/layouts/search-options/feedtypecombobox.svelte';
 	import { page } from '$app/stores';
 	import { fade, fly } from 'svelte/transition';
 	import { Newspaper, Search, FilePlus } from 'lucide-svelte';
@@ -28,10 +29,13 @@
 	let totalRecords = data.metadata.total_records;
 	let totalPages = Math.ceil(totalRecords / pageSize);
 	let searchQuery = $page.url.searchParams.get('searchOption') ?? '';
+	// this will just let the ui know if it's a search/filter to display the right message incase
+	// of an empty result
+	let searchFilter = ''; 
 
-	async function fetchData(page, query = '') {
+	async function fetchData(page, query = '', feed_type = '') {
 		isFetching = true;
-		let response = await getFeedsWithFollows({}, page, pageSize, query);
+		let response = await getFeedsWithFollows({}, page, pageSize, query, feed_type);
 		data = response;
 		feed_follows = response.feeds ?? [];
 		isFetching = false;
@@ -53,6 +57,15 @@
 		currentPage = 1;
 		fetchData(currentPage, '');
 	}
+
+	function handleFeedTypeSelect(event){
+		const { feed_id, feed_type } = event.detail;
+		// set our searchfilter to the feed type
+		searchFilter = feed_type;
+        console.log("Selected Feed Type:", feed_type);
+		currentPage = 1
+		fetchData(currentPage, searchQuery, feed_type);
+	}
 </script>
 
 <svelte:head>
@@ -64,8 +77,13 @@
 
 <PageHeader title={pageInfo.title} message={pageInfo.message} icon={pageInfo.icon} />
 
-<div class="mb-4">
-	<SearchInput on:search={handleSearch} />
+<div class="search-container mt-5 flex items-center gap-4">
+	<div class="flex-1">
+		<SearchInput on:search={handleSearch} />
+	</div>
+	<div class="mb-4 w-[200px]">
+		<Feedtypecombobox on:select={handleFeedTypeSelect} />
+	</div>
 </div>
 
 {#if isFetching}
@@ -74,11 +92,11 @@
 
 <div in:fly={{ y: 100, duration: 700 }} out:fade={{ duration: 400 }}>
 	{#if feed_follows.length === 0}
-		{#if searchQuery}
+		{#if searchQuery || searchFilter}
 			<div class="mt-8 flex flex-col items-center justify-center text-center">
 				<Search class="mb-4 h-16 w-16 text-gray-500" />
 				<p class="text-xl text-gray-700 dark:text-gray-300">
-					No feeds matching your search query. Try different keywords or
+					No feeds matching your search query or filter. Try different keywords or
 					<a
 						href="#feeds"
 						on:click|preventDefault={handleResetSearch}
