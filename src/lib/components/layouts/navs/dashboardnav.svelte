@@ -16,7 +16,7 @@
 	export let notifications;
 	export let avatar;
 	console.log("Avatar: ", avatar);
-	//console.log("Notifications:", notifications);
+	//$: console.log("In child Notifications:", notifications);
 
 	let total_notifications = notifications
 		? Object.values(notifications).reduce((total, current) => total + current.length, 0)
