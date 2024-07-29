@@ -1,8 +1,16 @@
 <script>
+	import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { setToast } from '$lib/utilities/utils.js';
 	export let data;
+
+	let pagemetadata = data?.props?.metadata ?? {};
+    let pageInfo = {
+        title: 'Account Activation',
+        message: 'Welcome aboard! Activate your account and let the fun begin!',
+        icon: null
+    };
 
 	let user;
     let isLoading= true;
@@ -17,9 +25,11 @@
 	});
 </script>
 <svelte:head>
-	<title>Activation • Aggregate</title>
 	<link rel="stylesheet" href="/loader.css" />
 </svelte:head>
+
+<Metamanager {pagemetadata} {pageInfo} />
+
 {#if isLoading}
 <div class="saving-container">
     <span class="loader"></span>

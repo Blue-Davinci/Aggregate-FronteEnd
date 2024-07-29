@@ -77,7 +77,6 @@
 		feedID = event.detail;
 		console.log('Feed ID:', feedID);
 		fetchData(currentPage);
-		// You can now use the selectedFeedId as needed
 	}
 
 </script>
@@ -99,6 +98,7 @@
 		<FeedsComboBox on:select={handleFeedSelect} />
 	</div>
 </div>
+
 {#if isFetching}
 	<Tinyloader message="Fetching Posts..." />
 {:else}
@@ -113,28 +113,29 @@
 			{/each}
 		</div>
 	{:else}
-		<div class="flex h-full flex-col items-center justify-center text-center">
+		<div class="flex h-full flex-col items-center justify-center text-center mt-10">
 			{#if searchQuery !== ''}
-				<Bird />
-				<p class="mt-2 text-lg">No items found for your search. Try a different keyword!</p>
+				<Bird class="text-blue-500 w-20 h-20" />
+				<p class="mt-2 text-lg font-semibold">No items found for your search. Try a different keyword!</p>
 			{:else if feedID !== ''}
-				<MessageCircleX />
-				<p class="mt-2 text-lg">
+				<MessageCircleX class="text-red-500 w-20 h-20" />
+				<p class="mt-2 text-lg font-semibold">
 					Seems like your filter is too exclusive for our feeds. Maybe loosen the tie a bit?
 				</p>
 			{:else}
-				<Squirrel />
-				<p class="mt-2 text-lg">
+				<Squirrel class="text-yellow-500 w-20 h-20" />
+				<p class="mt-2 text-lg font-semibold">
 					No posts here! Looks like your feed is on a diet. Head over to the <a
 						href="/feeds"
-						class="text-blue-500">Feeds</a
-					> and follow some feeds to fatten it up!
+						class="text-blue-500 underline">Feeds</a> and follow some feeds to fatten it up!
 				</p>
 			{/if}
 		</div>
 	{/if}
 
-	<FAB {form} {isLoading} />
+	{#if posts.length > 0}
+		<Pagination {totalPages} {pageSize} {totalRecords} on:page-change={handlePageChange} />
+	{/if}
 
-	<Pagination {totalPages} {pageSize} {totalRecords} on:page-change={handlePageChange} />
+	<FAB {form} {isLoading} />
 {/if}

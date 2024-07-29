@@ -1,5 +1,6 @@
 <script>
 	import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
+	import {onMount} from 'svelte';
 	import FeedsCard from '$lib/components/layouts/cards/feedscard.svelte';
 	import TopFeeds from '$lib/components/layouts/panels/topfeeds.svelte';
 	import TopCreators from '$lib/components/layouts/panels/topcreators.svelte';
@@ -29,6 +30,7 @@
 	let totalRecords = data.metadata.total_records;
 	let totalPages = Math.ceil(totalRecords / pageSize);
 	let searchQuery = $page.url.searchParams.get('searchOption') ?? '';
+	console.log("Search Query: ", searchQuery);
 	// this will just let the ui know if it's a search/filter to display the right message incase
 	// of an empty result
 	let searchFilter = ''; 
@@ -66,6 +68,7 @@
 		currentPage = 1
 		fetchData(currentPage, searchQuery, feed_type);
 	}
+
 </script>
 
 <svelte:head>
@@ -79,7 +82,7 @@
 
 <div class="search-container mt-5 flex items-center gap-4">
 	<div class="flex-1">
-		<SearchInput on:search={handleSearch} />
+		<SearchInput on:search={handleSearch} {searchQuery} />
 	</div>
 	<div class="mb-4 w-[200px]">
 		<Feedtypecombobox on:select={handleFeedTypeSelect} />

@@ -1,5 +1,5 @@
 <script>
-  	import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
+  import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
   import SamplePosts from '$lib/components/layouts/samples/sampleposts.svelte';
   import Goback from '$lib/components/layouts/general/goback.svelte';
   import Sharecomponent from '$lib/components/layouts/general/sharecomponent.svelte';

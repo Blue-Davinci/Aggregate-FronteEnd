@@ -48,7 +48,7 @@
 			info: post,
 			htmlstatus: isHTMLDescription,
 			// we set this as true as we know the post is from a followed feed!
-			isFollowed: true
+			isFollowed: rsspost?.isFollowed !== false
 		};
 		saveSessionData('rssFeed', postData);
 		goto(`/dashboard/${post.id}`);

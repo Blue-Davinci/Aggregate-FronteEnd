@@ -4,9 +4,14 @@
     import { Input } from '$lib/components/ui/input';
     import { Search } from 'lucide-svelte';
     import lodash from 'lodash';
+
+    export let searchQuery = '';
+
+    //console.log('--Search Query:', searchQuery);
+
     const { debounce } = lodash;
   
-    let searchTerm = '';
+    let searchTerm = searchQuery;
     const dispatch = createEventDispatcher();
   
     const handleInput = debounce((event) => {

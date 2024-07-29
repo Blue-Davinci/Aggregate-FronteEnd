@@ -1,4 +1,5 @@
 <script>
+	import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
     import {setToast} from '$lib/utilities/utils.js'
 	import { onMount } from 'svelte';
     import {goto} from '$app/navigation';
@@ -6,6 +7,14 @@
     export let form;
 	export let data;
 	let isLoading = true;
+
+	let pagemetadata = data?.props?.metadata ?? {};
+    let pageInfo = {
+        title: 'Password Update',
+        message: 'Time for a fresh start! Update your password and keep your account secure.',
+        icon: null
+    };
+
 	onMount(() => {
 		isLoading = false;
 	});
@@ -22,10 +31,12 @@
 </script>
 
 <svelte:head>
-	<title>Password Update • Groovy</title>
 	<link rel="stylesheet" href="/auth.css" />
 	<link rel="stylesheet" href="/loader.css" />
 </svelte:head>
+
+<Metamanager {pagemetadata} {pageInfo} />
+
 <div>
 	{#if data && !data?.error}
 		<PasswordResetForm {form} {data} />
