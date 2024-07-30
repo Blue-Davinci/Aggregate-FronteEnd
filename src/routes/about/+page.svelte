@@ -16,10 +16,6 @@
   };
 </script>
 
-<svelte:head>
-  <link rel="stylesheet" href="/about.css" />
-</svelte:head>
-
 <Goback/>
 
 <Metamanager {pagemetadata} {pageInfo} />

@@ -1,33 +1,26 @@
- .about-section {
-    padding: 4rem 2rem;
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
-
-  .about-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-  }
-
-  .about-description {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 2rem;
-    color: var(--text-color);
-  }
-
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .social-icons a {
-    transition: color 0.3s ease, transform 0.3s ease;
-  }
-
-  .social-icons a:hover {
-    color: var(--primary-color);
+  50% {
     transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #f9c, 0 0 20px #f9c, 0 0 25px #f9c, 0 0 30px #f9c, 0 0 35px #f9c;
+  }
+  50% {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #f9c, 0 0 40px #f9c, 0 0 50px #f9c, 0 0 60px #f9c, 0 0 70px #f9c;
+  }
+  100% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #f9c, 0 0 20px #f9c, 0 0 25px #f9c, 0 0 30px #f9c, 0 0 35px #f9c;
+  }
+}
+
+.pulse-glow {
+  animation: pulse 2s infinite, glow 2s infinite;
+}
