@@ -16,7 +16,6 @@
 	};
 
   let user = data.props;
-  let back_url = "/feeds";
   //console.log("Feed View Data:", data);
   export let feedData = data.feed;
   let animateImage = false;
@@ -28,7 +27,7 @@
 
 <Metamanager {pagemetadata} {pageInfo} />
 
-<Goback {back_url} />
+<Goback/>
 
 <div class="flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 min-h-screen">
   <div class="max-w-4xl w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">

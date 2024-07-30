@@ -18,12 +18,6 @@
   let isError = !data || data.error || !data.rss_post;
   let username = data?.props?.username;
   console.log('Error Data: ', isError?? data.error);
-  // we need to know if going back will take us to the dashboard or the favorites
-  // so we can set the back_url accordingly
-  onMount(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    redirectTo = urlParams.get('redirectTo') ?? '/dashboard';
-  });
 </script>
 
 <svelte:head>
@@ -31,7 +25,7 @@
 </svelte:head>
 
 <Metamanager {pagemetadata} {pageInfo} />
-<Goback back_url={redirectTo} />
+<Goback />
 
 <div in:fly={{ y: 200, duration: 800 }} out:fade>
 {#if isError}
