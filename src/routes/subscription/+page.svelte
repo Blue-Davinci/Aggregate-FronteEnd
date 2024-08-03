@@ -15,7 +15,7 @@
     };
 
     const plans = data.plans;
-    console.log(plans);
+    //console.log(plans);
     
 </script>
 
@@ -24,7 +24,7 @@
 <PageHeader title={pageInfo.title} message={pageInfo.message} icon={pageInfo.icon} />
 
 <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 sm:px-6 lg:px-8"
-in:fly={{ y: 100, duration: 700 }} out:slide={{ duration: 600 }}
+in:fly={{ y: 100, duration: 700 }} out:fade={{ duration: 400 }}
 >
     <div class="max-w-7xl w-full space-y-8">
         <h1 class="text-4xl font-extrabold text-center text-white">Choose Your Plan</h1>
