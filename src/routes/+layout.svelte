@@ -74,21 +74,28 @@
 		  <i class="bx bxs-home"></i>
 		  <span class="nav-item">Home</span>
 		</a>
-		<span class="tooltip">Home</span>
+		<span class="tooltip z-[1]">Home</span>
 	  </li>
 	  <li>
 		<a href="/feeds" data-sveltekit-preload-data>
 		  <i class="bx bx-news"></i>
 		  <span class="nav-item">Feeds</span>
 		</a>
-		<span class="tooltip">Feeds</span>
+		<span class="tooltip z-[1]">Feeds</span>
 	  </li>
 	  <li>
 		<a href="/about">
 		  <i class="bx bxs-news"></i>
 		  <span class="nav-item">About</span>
 		</a>
-		<span class="tooltip">About</span>
+		<span class="tooltip z-[1]">About</span>
+	  </li>
+	  <li>
+		<a href="/subscription" data-sveltekit-preload-data>
+		  <i class="bx bxs-cart-download"></i>
+		  <span class="nav-item">Subscription</span>
+		</a>
+		<span class="tooltip z-[1]">Subscription</span>
 	  </li>
 	  {#if isAuthenticated}
 	  <Separator />
@@ -97,7 +104,7 @@
 			<i class="bx bxs-grid-alt"></i>
 			<span class="nav-item">Dashboard</span>
 		  </a>
-		  <span class="tooltip">Dashboard</span>
+		  <span class="tooltip z-[1]">Dashboard</span>
 		</li>
 	  {/if}
 	  <Separator />
@@ -109,14 +116,14 @@
 			  <i class="bx bxs-log-in-circle"></i>
 			  <span class="nav-item">Login</span>
 			</a>
-			<span class="tooltip">Login</span>
+			<span class="tooltip z-[1]">Login</span>
 		  </li>
 		  <li>
 			<a href="/signup">
 			  <i class="bx bxs-user-plus"></i>
 			  <span class="nav-item">Signup</span>
 			</a>
-			<span class="tooltip">Signup</span>
+			<span class="tooltip z-[1]">Signup</span>
 		  </li>
 		{:else}
 		  <li>

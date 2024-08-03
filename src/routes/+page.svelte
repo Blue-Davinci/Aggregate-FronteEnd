@@ -28,6 +28,7 @@
 </svelte:head>
 <Metamanager {pagemetadata} {pageInfo} />
 <div in:fly={{ x: -200, duration: 1000 }} out:slide={{ duration: 400 }}><LandingNav /></div>
+
 <div in:fly={{ x: 200, duration: 1000 }} out:fade>
 	<div id="intro"><Intro /></div>
 	<div id="productivity"><Productivity /></div>

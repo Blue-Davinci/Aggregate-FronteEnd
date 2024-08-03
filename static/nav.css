@@ -128,15 +128,18 @@
 
 .sidebar ul li .tooltip {
     position: absolute;
-    left: 130%; /* Adjust this value to position the tooltip right of the icon */
-    top: 0; /* Align with the top of the icon */
-    transform: translate(0, -50%); /* Adjust vertically centered to the icon */
+    left: 130%; /* Position the tooltip right of the icon */
+    top: 50%; /* Center vertically relative to the icon */
+    transform: translateY(-50%); /* Center the tooltip vertically */
     transition: opacity 0.2s ease; /* Smooth transition for showing tooltip */
     opacity: 0; /* Hide tooltip by default */
-    box-shadow: 0 0.5rem 0.8rem hsla(0, 88%, 25%, 0.2);
-    border-radius: .6rem;
-    padding: .4rem 1.2rem;
+    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.15); /* Neutral shadow */
+    background-color: rgba(255, 255, 255, 0.9); /* Light semi-transparent background */
+    color: #333; /* Dark text color for contrast */
+    border-radius: 0.6rem;
+    padding: 0.4rem 1.2rem;
     line-height: 1.8rem;
+    pointer-events: none; /* Ensure tooltips don't interfere with mouse events */
 }
 
 .sidebar ul li:hover .tooltip{
