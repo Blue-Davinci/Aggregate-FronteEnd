@@ -197,12 +197,16 @@ function saveAuthentication(cookies, apikey, user, isProfileUpdate = false) {
 		if (!isProfileUpdate) {
 			cookies.set('authtoken', encrypt(apikey.token), {
 				path: '/',
-				expires: new Date(apikey.expiry)
+				expires: new Date(apikey.expiry),
+				secure: true,
+			sameSite: 'None'
 			});
 
             cookies.set('authexpiry', apikey.expiry, {
                 path: '/',
-				expires: new Date(apikey.expiry)
+				expires: new Date(apikey.expiry),
+				secure: true,
+			sameSite: 'None'
         })
 		}
 		// we serialize the user object and save it as a cookie
@@ -212,7 +216,9 @@ function saveAuthentication(cookies, apikey, user, isProfileUpdate = false) {
 		cookies.set('user', serializedUser, {
 			// Corrected the placement of the closing parenthesis
 			path: '/',
-			expires: new Date(apikey.expiry)
+			expires: new Date(apikey.expiry),
+			secure: true,
+			sameSite: 'None'
 		});
 		return true;
 	} catch (err) {

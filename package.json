@@ -36,6 +36,7 @@
 		"cloudinary": "^2.3.0",
 		"clsx": "^2.1.1",
 		"cmdk-sv": "^0.0.17",
+		"dotenv": "^16.4.5",
 		"embla-carousel-autoplay": "^8.1.6",
 		"embla-carousel-svelte": "^8.1.6",
 		"emoji-picker-element": "^1.21.3",

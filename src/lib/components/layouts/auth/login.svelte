@@ -1,12 +1,12 @@
 <script>
-	import {goto} from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { Button } from '$lib/components/ui/button';
 	import { Label } from '$lib/components/ui/label';
 	import { Input } from '$lib/components/ui/input';
 	import { enhance } from '$app/forms';
-    import {setToast} from '$lib/utilities/utils'
+	import { setToast } from '$lib/utilities/utils';
 	import ValidationMessage from '$lib/components/layouts/auth/authvalidation_message.svelte';
-	import {toTitleCase} from '$lib/utilities/utils'
+	import { toTitleCase } from '$lib/utilities/utils';
 	// error
 	export let form;
 	//<UserAuthForm />
@@ -21,20 +21,22 @@
 		}, 3000);
 	}
 	// we make a reactive function that will check for a rejection specific
-    // error message and display it. Since we know an invalid credential error
-    // will be a string, we will just check if our form.error is a string, if it is
-    // we output the message as a fail toast
-    function invalidLogin(){
-        if (form.error && typeof form.error === 'string') {
-            console.log("wrong password");
-            setToast(false, form.error, 3000);
-        }
-    }
-    $: if (form) invalidLogin();
-    
+	// error message and display it. Since we know an invalid credential error
+	// will be a string, we will just check if our form.error is a string, if it is
+	// we output the message as a fail toast
+	function invalidLogin() {
+		if (form.error && typeof form.error === 'string') {
+			console.log('wrong password');
+			setToast(false, form.error, 3000);
+		}
+	}
+	$: if (form) invalidLogin();
+
 	function enhanceForm() {
 		isLoading = true;
 		return async ({ result, update }) => {
+			console.log(result);
+
 			try {
 				if (result.type === 'redirect') {
 					const urlParams = new URLSearchParams(window.location.search);
@@ -42,6 +44,10 @@
 					setToast(true, `Succesfully Logged In. Welcome, ${username}`, 3000);
 					await update();
 					await goto(result.location);
+				}
+				// Check if result.message contains "Cross-site"
+				if (result.message && result.message.includes('Cross-site')) {
+					setToast(false, 'We could not proceed with your login.', 3000);
 				}
 				await update();
 			} catch (err) {
@@ -130,8 +136,10 @@
 						{/if}
 					</div>
 				</form>
-				<p class="text-center text-sm mt-4">
-					<a href="/reset" class="text-indigo-600 hover:underline dark:text-indigo-400">Forgot password?</a>
+				<p class="mt-4 text-center text-sm">
+					<a href="/reset" class="text-indigo-600 hover:underline dark:text-indigo-400"
+						>Forgot password?</a
+					>
 				</p>
 			</div>
 			<p class="px-8 text-center text-sm text-muted-foreground">
