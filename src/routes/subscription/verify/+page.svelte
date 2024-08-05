@@ -1,6 +1,5 @@
 <script>
     import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
-    import { PawPrint, MonitorX } from 'lucide-svelte';
     import Transactionsuccessful from '$lib/components/layouts/subscription/transactionsuccessful.svelte';
     import Transactionfailed from '$lib/components/layouts/subscription/transactionfailed.svelte';
     export let data;
@@ -31,6 +30,3 @@
     </div>
 </div>
 
-<style>
-
-</style>

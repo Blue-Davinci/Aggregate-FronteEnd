@@ -23,6 +23,7 @@
 		try {
 			let response = await initializeSubscription(plan.id, plan.amount);
 			if (response.error) {
+				let message = response.error.transaction ? response.error.transaction.message : response.error.message;
 				setToast(false, response.message, 3000);
 				isSaving = false; // Reset isSaving in case of error
 				return;

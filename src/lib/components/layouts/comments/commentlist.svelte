@@ -65,6 +65,7 @@
 		let response = await saveNewPostComment(newComment);
 		if (response.error) {
 			setToast(false, response.error, 3000);
+			isSaving = false;
 			return;
 		} else {
 			setToast(true, 'Your comment has been saved', 2000);

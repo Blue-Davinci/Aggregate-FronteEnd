@@ -172,8 +172,15 @@ npm run dev
     - Ability to add new feeds for people to view and follow as well, including setting their visibility.
     - Ability to **download** the posts for registered users into <b>*pdf*, *json*</b> and <b>*markdown*</b> formats.
     - *Ratings for best followed feeds. <b>(In the Pipeline)</b>*
-6. Admin Dashboard + Permissions: God Mode <b>*(In the pipeline)*</b>
-7. Logout: *And awaaaaaaaay, you go*.
+6. Payment: A feature that allows users to subscribe and transact within the app based on available subscription plans.
+    - Users have certain limitations imposed which can only be lifted if on a subscription plan.
+    - Users can choose between all of the available sibscription plans
+    - Admins can add/delete/update subscription plans
+    - **Mobile Money** payment  options are also available.
+    - Users can view/search and see statistics of their previous transactions as well as subscription statuses.
+![Transaction History Screenshot](./images/transactionhistory.png)
+7. Admin Dashboard + Permissions: God Mode <b>*(In the pipeline)*</b>
+8. Logout: *And awaaaaaaaay, you go*.
 
 <hr />
 

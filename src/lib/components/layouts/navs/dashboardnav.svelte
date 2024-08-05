@@ -2,7 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { clearCommentNotificationDataService } from '$lib/dataservice/commentDataService';
 	import { fly, slide } from 'svelte/transition';
-	import {UserCog, LogOut} from 'lucide-svelte';
+	import {UserCog, LogOut, Wallet} from 'lucide-svelte';
 	import {
 		BellDot,
 		MessageSquareQuote,
@@ -154,6 +154,11 @@
 							class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
 							><FolderKanban class="mr-2 h-5 w-5" />Feed Manager</a
 						>
+						<a
+						href="/dashboard/transactionhistory"
+						class="flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+						><Wallet class="mr-2 h-5 w-5" />My Transactions</a
+					>
 					</div>
 				</div>
 			</div>

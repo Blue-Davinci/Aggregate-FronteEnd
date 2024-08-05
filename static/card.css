@@ -20,7 +20,7 @@
 
 .feed-card {
     display: flex;
-    transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     flex-direction: column;
     justify-content: space-between;
     height: 700px; /* Fixed height for uniformity */
@@ -35,6 +35,7 @@
 .feed-card:hover {
     box-shadow: 0 0 3px #00c6a7;
     border-color: #00c6a7;
+    transform: scale(1.03); /* Slightly smaller scale for a more subtle effect */
 }
 
 .custom-card-content {

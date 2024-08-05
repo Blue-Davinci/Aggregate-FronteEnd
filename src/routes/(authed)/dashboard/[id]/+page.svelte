@@ -1,6 +1,5 @@
 <script>
-  	import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
-  import {onMount} from 'svelte';
+  import Metamanager from '$lib/components/layouts/metatags/metamanager.svelte';
   import { fly, fade } from 'svelte/transition';
   import Goback from '$lib/components/layouts/general/goback.svelte';
   import Postcomponent from '$lib/components/layouts/post/postcomponent.svelte';
@@ -9,7 +8,6 @@
   export let data;
   let pagemetadata = data?.props?.metadata ?? {};
 
-  let redirectTo = '/dashboard'; 
   let pageInfo = {
 		title: 'Post View',
 		message: 'Dive into the latest community insights and updates.',
