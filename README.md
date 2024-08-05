@@ -178,7 +178,6 @@ npm run dev
     - Admins can add/delete/update subscription plans
     - **Mobile Money** payment  options are also available.
     - Users can view/search and see statistics of their previous transactions as well as subscription statuses.
-![Transaction History Screenshot](./images/transactionhistory.png)
 7. Admin Dashboard + Permissions: God Mode <b>*(In the pipeline)*</b>
 8. Logout: *And awaaaaaaaay, you go*.
 
