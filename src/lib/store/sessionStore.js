@@ -10,7 +10,6 @@ function clearSessionData(title){
 }
 
 function getSessionPostData(dataItem){
-    console.log("getting session data for: ", 'rssFeed');
     try {
         const savedFeed = sessionStorage.getItem(dataItem);
         if (savedFeed) {
