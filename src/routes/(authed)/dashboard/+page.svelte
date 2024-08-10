@@ -3,6 +3,7 @@
 	import DashboardNav from '$lib/components/layouts/navs/dashboardnav.svelte';
 	import FeedsComboBox from '$lib/components/layouts/search-options/feedscombobox.svelte';
 	import Tinyloader from '$lib/components/layouts/general/tinyloader.svelte';
+	import Challengedtransaction from '$lib/components/layouts/subscription/challengedtransaction.svelte';
 	import { Bird, Squirrel, MessageCircleX } from 'lucide-svelte';
 	import PageHeader from '$lib/components/layouts/general/pageheader.svelte';
 	import Pagination from '$lib/components/layouts/general/pagination.svelte';
@@ -95,7 +96,7 @@
 	  <FeedsComboBox on:select={handleFeedSelect} />
 	</div>
   </div>
-  
+  <Challengedtransaction />
   {#if isFetching}
 	<Tinyloader message="Fetching Posts..." />
   {:else}

@@ -16,7 +16,7 @@ export const GET = async({cookies}) => {
                 'Content-Type': 'application/json',
                 Authorization: `ApiKey ${auth}`
             }
-        })
+        });
         if (response.ok){
             let data = await response.json();
             return json(data);
@@ -25,6 +25,6 @@ export const GET = async({cookies}) => {
             return json({error: data.error}, {status: response.status});
         }
     }catch(err){
-        console.log("End Point Error: ", err);
+        console.log("Feed Search Option End Point Error: ", err);
     }
 }

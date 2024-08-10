@@ -13,6 +13,7 @@
     const toggleExpand = (index) => {
       expandedIndex = (expandedIndex === index ? null : index);
     };
+    //console.log('Subscriptions: ', subscriptions);
   
     $: {
       // Calculate statistics when subscriptions change

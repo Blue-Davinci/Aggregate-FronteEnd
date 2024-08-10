@@ -36,7 +36,31 @@ const initializeSubscription = async (plan_id, amount) => {
     };
 }
 
+const getChallengedTransaction = async () => {
+    let url = `/api/challengedsubscriptions`;
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (!response.ok) {
+        let data = await response.json();
+        return {
+            success: false,
+            status: response.status,
+            error: data.error
+        }
+    }
+    return {
+        success: true,
+        status: response.status,
+        data: await response.json(),
+    };
+}
+
 
 export {
-    initializeSubscription
+    initializeSubscription,
+    getChallengedTransaction
 }

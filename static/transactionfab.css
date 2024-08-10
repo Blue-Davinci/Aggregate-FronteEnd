@@ -1,0 +1,44 @@
+.transaction-fab {
+    transition: width 0.5s ease, padding 0.5s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 4rem; /* 16px x 4 = 64px */
+    padding: 0 0.5rem; /* 8px on each side */
+  }
+
+  .transaction-fab:hover {
+    width: 16rem; /* Expand to fit the text, adjust as needed */
+    padding: 0 1rem; /* Increase padding slightly for aesthetics */
+  }
+
+  .transaction-fab:hover .transaction-fab-text {
+    display: inline-block;
+  }
+
+  .transaction-fab-text {
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .transaction-fab:hover .transaction-fab-text {
+    opacity: 1;
+  }
+
+  /* Ensure the text fades out smoothly when hovering ends */
+  .transaction-fab:not(:hover) .transaction-fab-text {
+    opacity: 0;
+    display: none;
+  }
+
+  .animate-bounce {
+    animation: bounce 1s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
