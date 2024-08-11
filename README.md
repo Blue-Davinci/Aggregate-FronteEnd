@@ -174,10 +174,13 @@ npm run dev
     - *Ratings for best followed feeds. <b>(In the Pipeline)</b>*
 6. Payment: A feature that allows users to subscribe and transact within the app based on available subscription plans.
     - Users have certain limitations imposed which can only be lifted if on a subscription plan.
-    - Users can choose between all of the available sibscription plans
+    - Users can choose between all of the available subscription plans
     - Admins can add/delete/update subscription plans
     - **Mobile Money** payment  options are also available.
     - Users can view/search and see statistics of their previous transactions as well as subscription statuses.
+    - Challenged transactions, if encountered, appear on a navigation to the  dashboard allowing a user to resolve, hide of completely cancel them
+    - Users can **cancel** their subscriptions at anytime. Cancelled subscriptions are valid as long as they have not expired
+
 7. Admin Dashboard + Permissions: God Mode <b>*(In the pipeline)*</b>
 8. Logout: *And awaaaaaaaay, you go*.
 
@@ -231,6 +234,7 @@ docker compose up --build
 - [Shad-CN Svelte](https://www.shadcn-svelte.com/) - Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.
 - [Svelte-Toast](https://zerodevx.github.io/svelte-toast/) - Toast notification library for Svelte
 - [Svelte-Confetti](https://mitcheljager.github.io/svelte-confetti/) - Add a burst of fun to your Svelte applications with customizable confetti components. Open Source and easy to integrate.
+- [Paystack](https://paystack.com/) - Give your customers the gift of modern, frictionless, painless payments. Integrate Paystack once and let your customers pay you however they want.
 - [RoboHash](https://robohash.org/) - Robohash is a easy web service that makes it easy to provide unique, robot/alien/monster/whatever images for any text.
 - [Lucid-Svelte](https://lucide.dev/) - Beautiful & consistent icons
 - [Box-Icons](https://boxicons.com/) - High Quality Web Icons
