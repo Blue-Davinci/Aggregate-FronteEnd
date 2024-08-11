@@ -13,7 +13,7 @@ const initializeSubscription = async (plan_id, amount) => {
             error: {message: "Invalid Subscription Data"}
         }
     }
-    let url = `/api/init_subscription`;
+    let url = `/api/subscription`;
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -59,8 +59,33 @@ const getChallengedTransaction = async () => {
     };
 }
 
+const cancelSubscription = async (subscription_id) => {
+    let url = `/api/subscription`;
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({subscription_id})
+    });
+    if (!response.ok) {
+        let data = await response.json();
+        return {
+            success: false,
+            status: response.status,
+            error: data.error
+        }
+    }
+    return {
+        success: true,
+        status: response.status,
+        data: await response.json(),
+    };
+}
+
 
 export {
     initializeSubscription,
-    getChallengedTransaction
+    getChallengedTransaction,
+    cancelSubscription
 }

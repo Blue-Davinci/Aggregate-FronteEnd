@@ -256,6 +256,8 @@ Simple Open Source icons carefully crafted for designers & developers. Made by t
 ## 💡 Inspiration
 The inspiration for Aggregate comes from my personal struggle with managing and consuming content from multiple websites. As an avid reader and tech enthusiast, I found it challenging to stay updated with the latest news, articles, and blog posts. This project became an opportunity to solve a real problem I faced while learning new technologies and honing my development skills.
 
+<hr />
+
 🎩✨ Hat tip to:
 - [Official Svelte](https://learn.svelte.dev/tutorial/welcome-to-svelte)
 - [HuntaByte](https://www.youtube.com/@huntabyte)
