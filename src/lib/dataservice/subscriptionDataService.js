@@ -83,9 +83,33 @@ const cancelSubscription = async (subscription_id) => {
     };
 }
 
+const cancelChallengedTransaction = async (challenged_transaction_id) => {
+    let url = `/api/challengedsubscriptions`;
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({challenged_transaction_id})
+    });
+    if (!response.ok) {
+        let data = await response.json();
+        return {
+            success: false,
+            status: response.status,
+            error: data.error
+        }
+    }
+    return {
+        success: true,
+        status: response.status,
+        data: await response.json(),
+    };
+}
 
 export {
     initializeSubscription,
     getChallengedTransaction,
-    cancelSubscription
+    cancelSubscription,
+    cancelChallengedTransaction
 }

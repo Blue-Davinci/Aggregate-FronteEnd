@@ -96,7 +96,7 @@
 	  <FeedsComboBox on:select={handleFeedSelect} />
 	</div>
   </div>
-  <Challengedtransaction />
+  <Challengedtransaction username={data.props.username}/>
   {#if isFetching}
 	<Tinyloader message="Fetching Posts..." />
   {:else}
