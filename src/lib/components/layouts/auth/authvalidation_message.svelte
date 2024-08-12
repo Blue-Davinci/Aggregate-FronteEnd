@@ -1,7 +1,5 @@
 <script>
 	export let error;
-
-	$: console.log("111-- Error: ", error);
 </script>
 <svelte:head>
 <link rel="stylesheet" href="/auth.css" />

@@ -37,7 +37,7 @@ async function getTopFeedCreators(){
         });
         if (response.ok){
             const data = await response.json();
-            console.log("Recieved data: ", data);
+            //console.log("Recieved data: ", data);
             return data;
         }else{
             const errorData = await response.json();

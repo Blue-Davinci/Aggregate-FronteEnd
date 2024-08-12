@@ -15,7 +15,7 @@
       isFetching = true;
       let data = await getFeedTypesSearchOptions();
       feeds = data?.feed_types ?? [];
-      console.log("Feed Types Data:", feeds);
+      //console.log("Feed Types Data:", feeds);
       isFetching = false;
     }
   

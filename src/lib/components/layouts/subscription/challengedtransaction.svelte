@@ -24,8 +24,8 @@
 			return;
 		}
 		const data = response.data.challenged_transactions;
-		console.log('Fetching challenged transactions: ', response.data);
-		console.log('Challenged transactions: ', data);
+		//console.log('Fetching challenged transactions: ', response.data);
+		//console.log('Challenged transactions: ', data);
 
 		// Check if data is not empty and contains the expected structure
 		if (

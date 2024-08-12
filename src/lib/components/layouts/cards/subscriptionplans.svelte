@@ -2,7 +2,7 @@
 	import { initializeSubscription } from '$lib/dataservice/subscriptionDataService';
 	import { setToast } from '$lib/utilities/utils';
 	export let plan;
-  	export let user;
+	export let user;
 
 	let isSaving = false;
 
@@ -23,7 +23,9 @@
 		try {
 			let response = await initializeSubscription(plan.id, plan.amount);
 			if (response.error) {
-				let message = response.error.transaction ? response.error.transaction.message : response.error.message;
+				let message = response.error.transaction
+					? response.error.transaction.message
+					: response.error.message;
 				setToast(false, response.message, 3000);
 				isSaving = false; // Reset isSaving in case of error
 				return;
@@ -62,7 +64,7 @@
 >
 	<button
 		type="button"
-		class="relative h-48 w-full cursor-pointer object-cover focus:outline-none"
+		class="relative h-80 w-full cursor-pointer object-cover focus:outline-none"
 		on:click={handlePurchase}
 		style="background-image: url('{plan.image}'); background-size: cover; background-position: center;"
 	>
@@ -105,30 +107,39 @@
 			</ul>
 		</div>
 		<div class="mt-4">
-			<button
-				class="flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-teal-400 px-5 py-3 text-lg font-medium text-white shadow-md transition duration-300 hover:from-blue-600 hover:to-teal-500 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 dark:from-blue-600 dark:to-teal-500 dark:hover:from-blue-700 dark:hover:to-teal-600"
-				on:click={handlePurchase}
-				disabled={isSaving}
-			>
-				{#if isSaving}
-					<svg
-						width="20"
-						height="20"
-						fill="currentColor"
-						class="mr-2 animate-spin"
-						viewBox="0 0 1792 1792"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"
+			{#if plan.amount !== 0}
+				<button
+					class="flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-blue-500 to-teal-400 px-5 py-3 text-lg font-medium text-white shadow-md transition duration-300 hover:from-blue-600 hover:to-teal-500 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 dark:from-blue-600 dark:to-teal-500 dark:hover:from-blue-700 dark:hover:to-teal-600"
+					on:click={handlePurchase}
+					disabled={isSaving}
+				>
+					{#if isSaving}
+						<svg
+							width="20"
+							height="20"
+							fill="currentColor"
+							class="mr-2 animate-spin"
+							viewBox="0 0 1792 1792"
+							xmlns="http://www.w3.org/2000/svg"
 						>
-						</path>
-					</svg>
-					Processing...
-				{:else}
-					Buy Now
-				{/if}
-			</button>
+							<path
+								d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"
+							>
+							</path>
+						</svg>
+						Processing...
+					{:else}
+						Buy Now
+					{/if}
+				</button>
+			{:else}
+				<button
+					class="flex w-full items-center justify-center rounded-lg bg-gray-200 px-5 py-3 text-lg font-medium text-gray-700 shadow-md transition duration-300 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+					disabled
+				>
+					Already Free
+				</button>
+			{/if}
 		</div>
 	</div>
 </div>

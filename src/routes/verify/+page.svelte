@@ -17,7 +17,7 @@
 	onMount(() => {
 		if (data.user) {
 			user = data.user.name;
-			console.log('Verification: ', data);
+			//console.log('Verification: ', data);
 			setToast(true, `You have succesfully Activated your account, ${user}.`, 3000);
 			goto('/login');
 		}

@@ -30,7 +30,7 @@
 	let totalRecords = data.metadata.total_records;
 	let totalPages = Math.ceil(totalRecords / pageSize);
 	let searchQuery = $page.url.searchParams.get('searchOption') ?? '';
-	console.log("Search Query: ", searchQuery);
+	//console.log("Search Query: ", searchQuery);
 	// this will just let the ui know if it's a search/filter to display the right message incase
 	// of an empty result
 	let searchFilter = ''; 

@@ -26,12 +26,15 @@
 		isLoading = true;
 		return async ({ result, update }) => {
 			try {
+				console.log(result);
 				if (result.type === 'redirect') {
-					const urlParams = new URLSearchParams(window.location.search);
-					const redirectTo = urlParams.get('redirectTo') ?? '/movies';
+					//const redirectTo ='/signup/resend-activation?email='+email;
 					setToast(true, `Signup was Successful. Welcome ${name}, please check your email for further instructions.`, 3000);
 					await update();
-					await goto(result.location);
+					//await goto(result.location);
+				}else{
+					setToast(false, result.data.description);
+					await update();
 				}
 				await update();
 			} catch (err) {
