@@ -10,3 +10,4 @@ This document outlines the tasks and features that are planned or need to be imp
 6.~~ **Add a comment System:** Add a comment system for every post.~~
 ~~7. **Impliment A Payment Gateway:** Add a stripe paywall for no of feeds a user can add, set as hidden, follow?~~
 8. **Implement Admin Panel:** Currently in development.
+~~9. **Implement Roles:** Add permissions for users including admins, moderators and regular users~~

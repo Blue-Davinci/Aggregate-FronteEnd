@@ -181,7 +181,15 @@ npm run dev
     - Challenged transactions, if encountered, appear on a navigation to the  dashboard allowing a user to resolve, hide of completely cancel them
     - Users can **cancel** their subscriptions at anytime. Cancelled subscriptions are valid as long as they have not expired
 
-7. Admin Dashboard + Permissions: God Mode <b>*(In the pipeline)*</b>
+7. Admin Dashboard + Permissions: ability to manage and and perform administration operations
+    - Can view full system statistics including user, financial, content and debug information
+    - View charts and information on subscriptions including total sales, profits etc
+    - Manage and view users including deleting as well as banning them
+    - Manage permissions for users, add them and remove them as well
+    - Quick operations such as making a user an admin as well as a moderator or demoting them
+    - Add subscription plans, hide them as well as update existing ones
+    - Manage susbcribers, remove suscribers, cancel subscriptions, delete subscriptions.
+    **More operations are currently in the pipeline**
 8. Logout: *And awaaaaaaaay, you go*.
 
 <hr />
