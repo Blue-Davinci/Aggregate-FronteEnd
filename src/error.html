@@ -1,42 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%sveltekit.error.message%</title>
 
-	<title>%sveltekit.error.message%</title>
-
-	<!-- Google font -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900" rel="stylesheet">
-
-	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="/error.css" />
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-gradient-to-r from-gray-100 to-gray-300 dark:from-gray-900 dark:to-gray-700 text-gray-900 dark:text-gray-100 p-0 m-0 flex flex-col min-h-screen justify-between">
+  <header class="text-center p-4">
+    <img src="https://i.ibb.co/WKxXnqw/agglogo.png" alt="Aggregate Logo" class="mx-auto w-24 h-24">
+  </header>
 
-	<div id="notfound">
-		<div class="notfound">
-			<div class="notfound-404">
-				<h1>Oops!</h1>
-			</div>
-			<h2>Status: %sveltekit.status%</h2>
-			<p>Message: %sveltekit.error.message%</p>
-			<a href="/">Go To Homepage</a>
-		</div>
-	</div>
+  <main class="flex-grow flex items-center justify-center">
+    <div class="notfound text-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-lg w-full">
+      <div class="notfound-404 mb-4">
+        <h1 class="font-extrabold bg-cover bg-center text-transparent bg-clip-text" style="background-image: url('https://i.ibb.co/W5xrrRN/bg.jpg'); font-size: 150px;">
+          Oops!
+        </h1>
+      </div>
+      <h2 class="text-2xl font-semibold uppercase mb-4 text-indigo-600 dark:text-indigo-400">Status: %sveltekit.status%</h2>
+      <p class="text-lg mb-6 text-gray-700 dark:text-gray-300">Message: %sveltekit.error.message%</p>
+      <a href="/" class="inline-block px-6 py-3 text-lg font-semibold text-white bg-blue-500 hover:bg-blue-700 active:bg-blue-800 focus:ring focus:ring-blue-300 rounded-lg shadow-md transition-all duration-300 uppercase">
+        Go To Homepage
+      </a>
+    </div>
+  </main>
 
+  <footer class="text-center p-4 text-sm text-gray-500 dark:text-gray-400">
+    &copy; 2024 Aggregate. All rights reserved.
+  </footer>
 </body>
 
 </html>

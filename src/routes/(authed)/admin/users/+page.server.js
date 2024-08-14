@@ -1,18 +1,16 @@
-import {VITE_API_BASE_URL_SUBSCRIPTIONS} from '$env/static/private';
 import { checkAuthentication } from '$lib/utilities/auth.js';
-import { error } from '@sveltejs/kit';
-import { redirect } from '@sveltejs/kit';
+import {VITE_API_BASE_URL_ADMIN_USERS} from '$env/static/private';
+import { redirect, error } from '@sveltejs/kit';
 
 // Load function to fetch data from the API
-export const load = async ({ fetch, cookies }) => {
+export const load = async ({fetch, cookies}) =>{
     const auth = checkAuthentication(cookies).user;
     if (!auth) {
-        return redirect(303, `/login?redirectTo=/dashboard/transactionhistory`);
+        return redirect(303, `/login?redirectTo=/admin/users`);
     }
-    const tranactionhistory_url = `${VITE_API_BASE_URL_SUBSCRIPTIONS}`;
-
+    const users_url = `${VITE_API_BASE_URL_ADMIN_USERS}`;
     try{
-        let response = await fetch(tranactionhistory_url, {
+        let response = await fetch(users_url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,11 +27,11 @@ export const load = async ({ fetch, cookies }) => {
                 status: response.status
             };
         }
-    }catch(err){
+    } catch(err){
         console.log('Error: ', err);
         error(500, {
-            title: 'Error Loading Transaction History',
-            message: `Something happened and we could not load any transaction history.`,
+            title: 'Error Loading Users',
+            message: `Something happened and we could not load any users.`,
             info: "It's not you, it's us. Please try again later."
         });
     }

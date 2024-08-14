@@ -16,8 +16,10 @@
 	export let data;
 	//console.log("Data: ", data);
 	$: isAuthenticated = data.props.user;
-	$: username = data.props?.username?.length > 9 ? toTitleCase(data.props.username).slice(0, 9) + '...' : toTitleCase(data.props.username);
+	$: username = data.props?.username?.length > 12 ? toTitleCase(data.props.username).slice(0, 9) + '...' : toTitleCase(data.props.username);
 	$: userImage = data?.props?.userimage ?? "/agglogo.png";
+	$: isAdmin = data.props?.userRole;
+	//$:console.log("Is admin: ", isAdmin);
   
 	onMount(() => {
 	  const btn = document.getElementById('btn');
@@ -106,6 +108,15 @@
 		  </a>
 		  <span class="tooltip z-[1]">Dashboard</span>
 		</li>
+		{#if isAdmin}
+		<li>
+			<a href="/admin" data-sveltekit-preload-data>
+			  <i class="bx bxs-spa"></i>
+			  <span class="nav-item">Administration</span>
+			</a>
+			<span class="tooltip z-[1]">Overseer</span>
+		  </li>
+		{/if}
 	  {/if}
 	  <Separator />
 	  <!-- AUTHS -->

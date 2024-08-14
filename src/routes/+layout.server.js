@@ -9,12 +9,14 @@ export const load =  async({locals, url}) =>{
     let username = locals.username
     let userimage = locals.userimg;
     let metadata = defaultMetaData(url);
+    let userRole = locals.isAdmin;
     console.log("[L.S.J] Root User:",user);
     return{
         props: {
             user,
             username,
             userimage,
+            userRole,
             metadata
         }
     }

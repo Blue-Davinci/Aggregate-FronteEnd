@@ -57,7 +57,11 @@ export const actions = {
 			if (res.ok) {
 				// get response
 				let result = await res.json();
+				// before saving the user, we will include the role field inside it as well
+				// this is to ensure that we have the role field in the user object
+				result.user.role = result.role;
 				//save authentication for the user
+				console.log('User Info: ', result.user);
 				let isSuccesfulAuth = saveAuthentication(cookies, result.api_key, result.user);
 				if (isSuccesfulAuth) {
 					successfulAuth();
