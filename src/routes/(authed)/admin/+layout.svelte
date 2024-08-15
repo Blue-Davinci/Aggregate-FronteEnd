@@ -1,5 +1,5 @@
 <script>
-  import { LayoutDashboard, Inbox, Mails, Bell, ListTodo, Users, ClipboardPlus, UserCheck, LogIn, LogOut } from 'lucide-svelte';
+  import { LayoutDashboard, Inbox, Mails, Bell, ListTodo, Users, ClipboardPlus, UserCheck, LogIn, LogOut, SquareGanttChart } from 'lucide-svelte';
   import { toTitleCase } from '$lib/utilities/utils';
 
   export let data;
@@ -52,8 +52,8 @@
           </li>
           <li>
             <a href="#a" class="relative flex flex-row items-center h-12 focus:outline-none bg-gradient-to-r from-transparent to-transparent hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 dark:hover:bg-gradient-to-r dark:hover:from-indigo-500 dark:hover:to-purple-500 text-gray-600 dark:text-gray-300 hover:text-white dark:hover:text-white border-l-4 border-transparent hover:border-pink-500 dark:hover:border-pink-300 pr-6 transition-all duration-150 ease-in-out">
-              <Mails class="w-5 h-5 ml-4 transform transition-transform duration-150" />
-              <span class="ml-2 text-sm tracking-wide truncate">Manage Users</span>
+              <SquareGanttChart class="w-5 h-5 ml-4 transform transition-transform duration-150" />
+              <span class="ml-2 text-sm tracking-wide truncate">Manage Permissions</span>
             </a>
           </li>
           <li class="px-5">
@@ -62,7 +62,7 @@
             </div>
           </li>
           <li>
-            <a href="#a" class="relative flex flex-row items-center h-12 focus:outline-none bg-gradient-to-r from-transparent to-transparent hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 dark:hover:bg-gradient-to-r dark:hover:from-indigo-500 dark:hover:to-purple-500 text-gray-600 dark:text-gray-300 hover:text-white dark:hover:text-white border-l-4 border-transparent hover:border-pink-500 dark:hover:border-pink-300 pr-6 transition-all duration-150 ease-in-out">
+            <a href="/admin/plans" class="relative flex flex-row items-center h-12 focus:outline-none bg-gradient-to-r from-transparent to-transparent hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 dark:hover:bg-gradient-to-r dark:hover:from-indigo-500 dark:hover:to-purple-500 text-gray-600 dark:text-gray-300 hover:text-white dark:hover:text-white border-l-4 border-transparent hover:border-pink-500 dark:hover:border-pink-300 pr-6 transition-all duration-150 ease-in-out">
               <ListTodo class="w-5 h-5 ml-4 transform transition-transform duration-150" />
               <span class="ml-2 text-sm tracking-wide truncate">Manage Plans</span>
             </a>

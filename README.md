@@ -230,7 +230,7 @@ docker compose up --build
 
 <hr />
 
-![Feeds Screenshot](./images/feeds.png)
+![Admin User Manager Snip](./images/admin_usermanager.png)
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
@@ -251,7 +251,7 @@ Simple Open Source icons carefully crafted for designers & developers. Made by t
 
 <hr />
 
-![Feed View](./images/feedview.png)
+![Snip Of Admin Dahsboard](./images/admin_dashboard.png)
 
 ## ✍️ Authors <a name = "authors"></a>
 

@@ -30,7 +30,7 @@
   <div class="flex flex-col items-center justify-center h-screen text-center">
     <Unplug class="w-24 h-24 text-gray-500 dark:text-gray-300" />
     <p class="mt-4 text-xl text-gray-700 dark:text-gray-200">
-      There was an error and we could not load the post.
+      There was an error and we could not load the post.!
     </p>
   </div>
 {:else}

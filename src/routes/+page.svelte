@@ -7,6 +7,7 @@
 	import Reviews from '$lib/components/layouts/Landing/reviews.svelte';
 	import Footer from '$lib/components/layouts/Landing/footer.svelte';
 
+	
 	export let data;
 	let pagemetadata = data?.props?.metadata ?? {};
 	let pageInfo = {

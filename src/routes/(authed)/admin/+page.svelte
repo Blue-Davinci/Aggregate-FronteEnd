@@ -1,5 +1,6 @@
 <script>
     import { Bar, Pie } from 'svelte-chartjs';
+    import { fly, slide, fade } from 'svelte/transition';
     import { Chart, CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
     import { onMount } from 'svelte';
   
@@ -108,7 +109,10 @@
     }
   </style>
   
-  <div class={`p-8 ${environmentClass}`}>
+  <div class={`p-8 ${environmentClass}`}
+  in:fly={{ x: 200, duration: 1000 }}
+  out:fade
+  >
     <!-- Section: System Overview -->
     <div>
       <h1 class="text-2xl font-bold mb-6 text-gray-700 dark:text-gray-300">System Overview</h1>
