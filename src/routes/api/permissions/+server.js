@@ -1,11 +1,11 @@
 import { json } from '@sveltejs/kit';
 import {redirect} from '@sveltejs/kit';
 import {checkAuthentication} from '$lib/utilities/auth.js';
-import {VITE_API_BASE_URL_ADMIN_PERMISSIONS} from '$env/static/private'; 
+import {VITE_API_BASE_URL_ADMIN_PERMISSIONS_USERS} from '$env/static/private'; 
 
 // and endpoint to Add permissions for the user
 export const POST = async({cookies, request}) => {
-    let permission_url = `${VITE_API_BASE_URL_ADMIN_PERMISSIONS}`;
+    let permission_url = `${VITE_API_BASE_URL_ADMIN_PERMISSIONS_USERS}`;
     let {user_id, permissions} = await request.json();
     let auth = checkAuthentication(cookies).user;
     if (!auth) {

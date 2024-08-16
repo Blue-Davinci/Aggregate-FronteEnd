@@ -16,14 +16,13 @@ export const load = async ({ url }) => {
 };
 // successful authentication redirects the user back to the page they have come back
 // from or to the dashboard page (about page for the debugging)
-function successfulAuth() {
-	console.log('[page.server.js LOGIN Url Path: ', redirectTo);
+/*function successfulAuth() {
+	console.log('[page.server.js] LOGIN Url Path: ', redirectTo);
 	return redirect(303, redirectTo);
-}
+}*/
 // use actions to get the input and pass it to our endpoint
 export const actions = {
 	login: async ({ fetch, request, cookies }) => {
-        console.log("Login action called");
 		// retrieve our login url
 		const login_url = `${VITE_API_BASE_URL_LOGIN}`;
 		// fetch login data from frontend
@@ -44,7 +43,6 @@ export const actions = {
 			});
 		}
 		try {
-            console.log("Sending login data to the endpoint");
 			// send the data to the endpoint
 			const res = await fetch(login_url, {
 				method: 'POST',
@@ -53,7 +51,7 @@ export const actions = {
 				},
 				body: JSON.stringify({ email, password })
 			});
-            console.log("Response from the endpoint: ", res);
+            //console.log("Response from the endpoint: ", res);
 			if (res.ok) {
 				// get response
 				let result = await res.json();
@@ -64,7 +62,9 @@ export const actions = {
 				console.log('User Info: ', result.user);
 				let isSuccesfulAuth = saveAuthentication(cookies, result.api_key, result.user);
 				if (isSuccesfulAuth) {
-					successfulAuth();
+					//successfulAuth();
+					console.log('[page.server.js] LOGIN Url Path: ', redirectTo);
+					return redirect(303, redirectTo);
 				} else {
 					return fail(res.status, {
 						description: 'an error occurred while processing your request',

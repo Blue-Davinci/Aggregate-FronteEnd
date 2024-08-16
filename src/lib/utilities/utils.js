@@ -243,6 +243,13 @@ function convertToMarkdown(post) {
 
 	return markdown;
 }
+
+function isValidPermissionFormat(input) {
+    // format permissionname:permission
+    const regex = /^[a-zA-Z0-9]+:[a-zA-Z0-9]+$/;
+    // Test the input against the regex
+    return regex.test(input);
+}
 export { 
 	setToast, 
 	checkForHTMLTags, 
@@ -251,5 +258,6 @@ export {
 	processUpdateData,
 	getChangedFields,
 	convertPostToPDFContent,
-	convertToMarkdown
+	convertToMarkdown,
+    isValidPermissionFormat
 };

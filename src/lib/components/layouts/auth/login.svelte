@@ -35,23 +35,25 @@
 	function enhanceForm() {
 		isLoading = true;
 		return async ({ result, update }) => {
-			console.log(result);
-
+			//console.log("Back from login: ", result);
+ 
 			try {
-				if (result.type === 'redirect') {
+				if (result.type === 'success') {
+					console.log("login successful, now we want to redirect..");
 					const urlParams = new URLSearchParams(window.location.search);
 					const redirectTo = urlParams.get('redirectTo') ?? '/dashboard';
 					setToast(true, `Succesfully Logged In. Welcome, ${username}`, 3000);
 					await update();
-					await goto(result.location);
+					await goto(redirectTo);
 				}
 				// Check if result.message contains "Cross-site"
 				if (result.message && result.message.includes('Cross-site')) {
 					setToast(false, 'We could not proceed with your login.', 3000);
+					await update();
 				}
 				await update();
 			} catch (err) {
-				console.log(err);
+				console.log("An error while login: ", err);
 				// Handle error
 			} finally {
 				password = '';

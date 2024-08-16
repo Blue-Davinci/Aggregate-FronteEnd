@@ -17,7 +17,7 @@
 	<div class="text-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-lg transition-transform transform hover:scale-105">
 		<div class="mb-4">
 			<h1 class="font-extrabold text-transparent bg-clip-text bg-center bg-cover leading-none" 
-			    style="background-image: url('https://i.ibb.co/W5xrrRN/bg.jpg'); font-size: 200px;">
+			    style="background-image: url('https://i.ibb.co/W5xrrRN/bg.jpg'); font-size: 150px;">
 				Oops!
 			</h1>
 		</div>
