@@ -22,7 +22,7 @@ export const load = async({fetch, cookies})=>{
         if (response.ok) {
             let data = await response.json();
             data.superUsers = superUsers;
-            console.log('Data: ', data);
+            //console.log('Data: ', data);
             return data;
         } else {
             let errorData = await response.json();

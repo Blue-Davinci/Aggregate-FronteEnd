@@ -1,39 +1,27 @@
 <script>
-    import { setToast } from '$lib/utilities/utils';
-    import { addAdministrationPermission } from "$lib/dataservice/admin/permissionsDataService";
     import { fly, fade } from 'svelte/transition';
     import { CheckCircle, XCircle, ChevronDown, ChevronUp } from 'lucide-svelte';
     import { toTitleCase } from '$lib/utilities/utils';
     export let users;
+    export let removePermission;
+    export let addPermissions;
 
-    function removePermission(user_id, permission) {
-        console.log("Removing permission: ", permission, " || ", user_id);
-    }
+    // console.log("Users: ", users);
 
     async function makeAdmin(user_id) {
         let adminPermissions = [
             "admin:read", 
             "admin:write"
         ];
-        let response = await addAdministrationPermission(user_id, adminPermissions);
-        if (response.success) {
-            users = users.map(user => {
-                if (user.id === user_id) {
-                    return {
-                        ...user,
-                        permissions: [...user.permissions, ...adminPermissions]
-                    };
-                }
-                return user;
-            });
-            setToast(true, "Success! User is now an Admin");
-        } else {
-            setToast(false, "Error! User could not be made an Admin.");
-        }
+        await addPermissions(user_id, adminPermissions);
     }
 
-    function makeModerator() {
-        console.log("Making user a moderator");
+    async function makeModerator(user_id) {
+        let modPermissions = [
+            "moderator:read", 
+            "moderator:write"
+        ];
+        await addPermissions(user_id, modPermissions);
     }
 </script>
 
@@ -66,11 +54,14 @@
                             : user.permissions.some(permission => permission.startsWith("moderator:"))
                             ? 'bg-gradient-to-r from-green-500 to-teal-600 text-white'
                             : 'bg-gray-200 text-gray-800'}`}>
-                        {user.permissions.includes("admin:read") ? 'Admin' 
-                            : user.permissions.includes("moderator:read") ? 'Moderator' 
+                        {user.permissions.some(permission => permission.startsWith("admin:")) 
+                            ? 'Admin' 
+                            : user.permissions.some(permission => permission.startsWith("moderator:")) 
+                            ? 'Moderator' 
                             : 'User'}
                     </span>
                 </td>
+                
                 <td class="px-4 py-2">{new Date(user.created_at).toLocaleDateString()}</td>
                 <td class="px-4 py-2">
                     {#if user.activated}
@@ -134,8 +125,8 @@
                                 {#if !user.permissions.includes("admin:read")}
                                     <button on:click={()=>makeAdmin(user.id)} class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 text-sm">Make Admin</button>
                                 {/if}
-                                {#if !user.permissions.includes("admin:write")}
-                                    <button on:click={()=>makeModerator()} class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 active:bg-yellow-700 text-sm">Make Moderator</button>
+                                {#if !user.permissions.includes("moderator:read")}
+                                    <button on:click={()=>makeModerator(user.id)} class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 active:bg-yellow-700 text-sm">Make Moderator</button>
                                 {/if}
                             </div>
                         </div>

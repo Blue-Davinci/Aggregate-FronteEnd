@@ -35,3 +35,22 @@ export const load = async({fetch, cookies}) =>{
         });
     }
 }
+
+
+export const actions = {
+    addplan: async({request, cookies}) => {
+        const auth = checkAuthentication(cookies).user;
+        if (!auth) {
+            return redirect(303, `/login?redirectTo=/admin/plans`);
+        }
+        const plans_url = `${VITE_API_BASE_URL_ADMIN_PLANS}`;
+        let planData = await request.formData();
+        console.log("Plan data: ", planData);
+        console.log("Plans_Url: ", plans_url);
+
+        return{
+            status: 200,
+            body: "zero"
+        }
+    }
+}

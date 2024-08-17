@@ -134,6 +134,7 @@ export const PATCH = async ({ cookies, request}) => {
     }
 }
 
+// TODO CHANGE THIS FROM JSON BODY TO URL PARAMS
 export const DELETE = async ({ cookies, url }) => {
     let comment_id = url.searchParams.get('id');
     let auth = checkAuthentication(cookies).user;

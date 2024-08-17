@@ -13,7 +13,12 @@ export const handle = async ({ event, resolve }) => {
 	console.log('Credentials Hook: ', credentials.user);
 	//console.log("Enumeration: ", !credentials.status && !credentials.user)
 	// Attempt to get the client address directly
-	let clientAddress = event.getClientAddress();
+	let clientAddress;
+	try {
+		clientAddress = event.getClientAddress();
+	} catch (error) {
+		console.error('Error determining client address:', error);
+	}
 
 	// Fallback to checking the 'X-Forwarded-For' header if direct access fails
 	if (!clientAddress) {
