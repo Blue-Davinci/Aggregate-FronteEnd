@@ -1,6 +1,6 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	import { Plus } from 'lucide-svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import { Edit } from 'lucide-svelte';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
@@ -11,31 +11,41 @@
 	import { goto } from '$app/navigation';
 
 	export let form;
-	export let isLoading;
+	export let plan;
 
 	const dispatch = createEventDispatcher();
-	let defaultImage = 'https://images.unsplash.com/photo-1720048091816-cb6d3c0333be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBheW1lbnRzfGVufDB8fDB8fHww'
+	let defaultImage =
+		'https://images.unsplash.com/photo-1720048091816-cb6d3c0333be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBheW1lbnRzfGVufDB8fDB8fHww';
 	let isOpen = false;
+	let isLoading;
 	let formData = {
 		name: '',
 		image: defaultImage,
 		description: '',
 		duration: '',
-		price: '',
+		price: 0,
 		features: [],
 		status: 'active'
 	};
+	let initialFormData = {};
+
+	function initializeFormData() {
+		if (plan) {
+			formData = {
+				...plan,
+				features: plan.features || [],
+				price: plan.amount
+			};
+			initialFormData = { ...formData };
+		}
+	}
+
+	onMount(() => {
+		initializeFormData();
+	});
 
 	function clearData() {
-		formData = {
-			name: '',
-			image: defaultImage,
-			description: '',
-			duration: '',
-			price: '',
-			features: [],
-			status: 'active'
-		};
+		initializeFormData();
 		form = undefined;
 	}
 
@@ -45,7 +55,7 @@
 			formData.image.trim() !== '' &&
 			formData.description.trim() !== '' &&
 			formData.duration.trim() !== '' &&
-			formData.price.trim() !== '' &&
+			formData.price !== '' &&
 			formData.features.length > 0
 		);
 	}
@@ -56,6 +66,7 @@
 		} else {
 			isLoading = true;
 			return async ({ result, update }) => {
+				//console.log("Enhancement: ",result);
 				if (result.type === 'redirect') {
 					await update();
 					setToast(false, 'Session expired. Please login again.', 3000);
@@ -65,12 +76,11 @@
 					return;
 				}
 
-				if (result.data?.payment_plan) {
-					//console.log('Plan added successfully: ', result.data?.payment_plan);
-					// dispatch our custom event to the parent component
-					dispatch('addPlan', result.data.payment_plan);
+				if (result.type === 'success' && result.data?.updatedPlan?.payment_plan) {
+					const paymentPlan = result.data.updatedPlan.payment_plan;
+					dispatch('updatePlan', paymentPlan);
 					await update();
-					setToast(true, 'Plan added successfully.', 3000);
+					setToast(true, 'Plan updated successfully.', 3000);
 					isLoading = false;
 					isOpen = false;
 					clearData();
@@ -94,12 +104,10 @@
 		if (event.key === 'Enter' || event.key === ',') {
 			event.preventDefault();
 			const feature = event.target.value.trim();
-			console.log('feature', feature);
 			if (feature && !formData.features.includes(feature)) {
 				formData.features = [...formData.features, feature];
-				console.log('feature', feature);
-				console.log('Form data: ', formData.features);
 				event.target.value = '';
+				formData.featuresAsString = formData.features.join(',');
 			}
 		}
 	}
@@ -112,26 +120,36 @@
 </script>
 
 <Dialog.Root bind:open={isOpen}>
-	<div class="fab-container fixed">
-		<button
-			tabindex="-1"
-			class="flex items-center rounded-full bg-blue-500 px-4 py-2 font-bold text-white shadow-lg hover:bg-blue-700"
-			on:click={() => (isOpen = true)}
-		>
-			<Plus class="h-8 w-8" />
-			<span class="ml-2">Add New Plan</span>
-		</button>
-	</div>
+	<button
+		tabindex="-1"
+		class="absolute left-2 top-2 rounded-full bg-blue-500 p-2 text-white shadow-lg transition duration-300 hover:bg-blue-600"
+		on:click={() => (isOpen = true)}
+	>
+		<Edit class="h-6 w-6" />
+	</button>
 
-	<Dialog.Content class="plan-dialog-content rounded-lg p-6 shadow-md">
+	<Dialog.Content class="update-dialog-content  max-w-sm rounded-lg bg-white p-6 shadow-md">
 		<Dialog.Header>
-			<Dialog.Title>Add New Plan</Dialog.Title>
+			<Dialog.Title>Update Plan</Dialog.Title>
 			<Dialog.Description
-				>Fill in the details of the new subscription plan and click save.</Dialog.Description
+				>Update the details of the subscription plan and click save.</Dialog.Description
 			>
 		</Dialog.Header>
 
-		<form method="post" action="?/addplan" use:enhance={enhanceForm} class="space-y-4">
+		<form method="post" action="?/updatePlan" use:enhance={enhanceForm} class="space-y-4">
+			<!-- Hidden fields for initial form data -->
+			<input type="hidden" name="original_name" value={initialFormData.name} />
+			<input type="hidden" name="original_image" value={initialFormData.image} />
+			<input type="hidden" name="original_description" value={initialFormData.description} />
+			<input type="hidden" name="original_duration" value={initialFormData.duration} />
+			<input type="hidden" name="original_price" value={initialFormData.price} />
+			<input type="hidden" name="original_features" value={initialFormData.features.join(',')} />
+			<input type="hidden" name="original_status" value={initialFormData.status} />
+			<!-- Add this hidden input to ensure features are included in the form submission -->
+			<input type="hidden" name="formfeatures" value={formData.featuresAsString} />
+
+			<input type="hidden" name="plan_id" value={plan.id} />
+
 			<div class="grid grid-cols-1 gap-4">
 				<div class="mb-4 flex justify-center">
 					{#if formData.image}
@@ -152,14 +170,26 @@
 				<!-- Plan Name -->
 				<div class="flex flex-col">
 					<Label for="name" class="mb-2 text-left">Plan Name</Label>
-					<Input id="name" name="name" disabled={isLoading} bind:value={formData.name} placeholder="cool or boring name" />
+					<Input
+						id="name"
+						name="name"
+						disabled={isLoading}
+						bind:value={formData.name}
+						placeholder="cool or boring name"
+					/>
 					<ValidationMessage error={form?.error?.name} />
 				</div>
 
 				<!-- Image URL -->
 				<div class="flex flex-col">
 					<Label for="image" class="mb-2 text-left">Image URL</Label>
-					<Input id="image" name="image" disabled={isLoading} bind:value={formData.image} placeholder="a nice image link to show off the plan" />
+					<Input
+						id="image"
+						name="image"
+						disabled={isLoading}
+						bind:value={formData.image}
+						placeholder="a nice image link to show off the plan"
+					/>
 					<ValidationMessage error={form?.error?.image} />
 				</div>
 
@@ -230,42 +260,35 @@
 					<select
 						id="status"
 						name="status"
-						disabled={isLoading}
 						bind:value={formData.status}
-						class="w-full rounded-lg border border-gray-300 bg-white p-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+						disabled={isLoading}
+						class="input-base w-full"
 					>
 						<option value="active">Active</option>
 						<option value="inactive">Inactive</option>
 					</select>
-					<ValidationMessage error={form?.error?.status} />
 				</div>
-
-				<!-- Hidden input for features -->
-				<input type="hidden" name="features" value={formData.featuresAsString} />
 			</div>
 
-			<Dialog.Footer>
-				<Button type="submit">Save Plan</Button>
-			</Dialog.Footer>
+			<div class="mt-6 flex justify-end space-x-4">
+				<Button
+					type="submit"
+					class="bg-green-500 text-white hover:bg-green-600"
+					disabled={isLoading}>Update Plan</Button
+				>
+				<Button
+					type="button"
+					class="bg-gray-300 text-black hover:bg-gray-400"
+					on:click={() => (isOpen = false)}
+					disabled={isLoading}>Cancel</Button
+				>
+			</div>
 		</form>
 	</Dialog.Content>
 </Dialog.Root>
 
 <style>
-	.fab-container {
-		bottom: 1rem;
-		right: 1rem;
-		z-index: 50;
-	}
-
-	@media (max-width: 768px) {
-		.fab-container {
-			bottom: 0.5rem;
-			right: 0.5rem;
-		}
-	}
-
-	:global(.plan-dialog-content) {
+	:global(.update-dialog-content) {
 		max-height: 80vh; /* Limit the height to 80% of the viewport height */
 		overflow-y: auto; /* Add vertical scroll if content overflows */
 	}

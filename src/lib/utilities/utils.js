@@ -91,17 +91,58 @@ function processUpdateData(formData) {
 	};
 }
 
-// This function returns an object containing the fields that have changed
-function getChangedFields(original, updated) {
-	const changes = {};
-	for (const key in original) {
-		if (original[key] !== updated[key]) {
-				changes[key] = updated[key];
-		}
-	}
-	return changes;
+function processPlanUpdateData(formData) {
+    let updatedData = {
+        id: formData.plan_id,
+        name: formData.name,
+        image: formData.image,
+        description: formData.description,
+        duration: formData.duration,
+        price: formData.price,
+        features: formData.formfeatures,
+        status: formData.status
+    };
+    let originalData = {
+        id: formData.plan_id,
+        name: formData.original_name,
+        image: formData.original_image,
+        description: formData.original_description,
+        duration: formData.original_duration,
+        price: formData.original_price,
+        features: formData.original_features,
+        status: formData.original_status,
+    };
+    return {
+        updatedData,
+        originalData
+    };
 }
 
+// This function returns an object containing the fields that have changed
+function getChangedFields(original, updated) {
+    const changes = {};
+
+    for (const key in original) {
+        if (Array.isArray(original[key]) && Array.isArray(updated[key])) {
+            // Compare arrays by value
+            if (!arraysEqual(original[key], updated[key])) {
+                changes[key] = updated[key];
+            }
+        } else if (original[key] !== updated[key]) {
+            changes[key] = updated[key];
+        }
+    }
+
+    return changes;
+}
+
+function arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+}
 // Function to fetch image data as a base64 string
 async function fetchImageAsBase64(url) {
 	try {
@@ -259,5 +300,6 @@ export {
 	getChangedFields,
 	convertPostToPDFContent,
 	convertToMarkdown,
-    isValidPermissionFormat
+    isValidPermissionFormat,
+    processPlanUpdateData
 };

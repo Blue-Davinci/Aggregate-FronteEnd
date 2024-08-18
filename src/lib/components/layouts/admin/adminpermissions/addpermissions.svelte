@@ -1,15 +1,40 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+	import { setToast } from '$lib/utilities/utils';
 	import { fly, fade } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import ValidationMessage from '$lib/components/layouts/auth/authvalidation_message.svelte';
 	import { PlusCircle } from 'lucide-svelte';
 
 	export let form;
-	export let enhanceForm;
 	export let isSaving = false;
 	export let permission = '';
 
+	const dispatch = createEventDispatcher();
+
 	//console.log("Form: ", form);
+	function enhanceForm() {
+		isSaving = true;
+		return async ({ result, update }) => {
+			console.log('Result: ', result);
+			try {
+				if (!result.data.error) {
+					const { permission_id, permission_code } = result.data.permission;
+					dispatch('addPermission',  result.data.permission);
+					setToast(true, `Successfully added the permission: ${permission_code} with code: ${permission_id}`, 2000);
+					await update();
+				} else {
+					setToast(false, `Failed to add the permissions: ${result.data.error.permission}`, 2000);
+				}
+				await update();
+			} catch (err) {
+				console.log('An error occurred while saving the permission: ', err);
+			} finally {
+				isSaving = false;
+				permission = '';
+			}
+		};
+	}
 </script>
 
 <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-gray-100">Add New Permission</h2>

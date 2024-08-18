@@ -1,19 +1,7 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail} from '@sveltejs/kit';
 import { VITE_API_BASE_URL_LOGIN } from '$env/static/private';
 import { registrationSchema, saveAuthentication } from '$lib/utilities/auth.js';
 
-// we set the default redirection path to the dashboard page
-let redirectTo = '/dashboard';
-
-// we capture the url path for redirection purposes
-export const load = async ({ url }) => {
-	const urlpath = url.searchParams.get('redirectTo');
-	redirectTo = urlpath ? urlpath : '/dashboard';
-	return {
-		status: 200,
-		redirectTo: redirectTo
-	};
-};
 // successful authentication redirects the user back to the page they have come back
 // from or to the dashboard page (about page for the debugging)
 /*function successfulAuth() {
@@ -22,11 +10,14 @@ export const load = async ({ url }) => {
 }*/
 // use actions to get the input and pass it to our endpoint
 export const actions = {
-	login: async ({ fetch, request, cookies }) => {
+	login: async ({ fetch, request, cookies}) => {
 		// retrieve our login url
 		const login_url = `${VITE_API_BASE_URL_LOGIN}`;
 		// fetch login data from frontend
 		const loginData = await request.formData();
+		// redirect to
+		let redirectTo = loginData.get('redirectTo');
+		console.log('Redirect To: ', redirectTo);
 		// parse the data
 		const email = loginData.get('email');
 		const password = loginData.get('password');
@@ -64,7 +55,10 @@ export const actions = {
 				if (isSuccesfulAuth) {
 					//successfulAuth();
 					console.log('[page.server.js] LOGIN Url Path: ', redirectTo);
-					return redirect(303, redirectTo);
+					return {
+						status: 200,
+						body: { description: 'user authenticated successfully' }
+					};
 				} else {
 					return fail(res.status, {
 						description: 'an error occurred while processing your request',

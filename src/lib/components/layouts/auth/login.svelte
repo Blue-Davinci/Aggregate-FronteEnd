@@ -7,10 +7,13 @@
 	import { setToast } from '$lib/utilities/utils';
 	import ValidationMessage from '$lib/components/layouts/auth/authvalidation_message.svelte';
 	import { toTitleCase } from '$lib/utilities/utils';
+	import { page } from '$app/stores';
+
 	// error
 	export let form;
 	//<UserAuthForm />
 	let isLoading = false;
+	let redirectTo = $page.url.searchParams.get('redirectTo');
 	//binding for the form data
 	let email = '';
 	let password = '';
@@ -35,13 +38,11 @@
 	function enhanceForm() {
 		isLoading = true;
 		return async ({ result, update }) => {
-			//console.log("Back from login: ", result);
+			console.log("Back from login: ", result);
  
 			try {
 				if (result.type === 'success') {
 					console.log("login successful, now we want to redirect..");
-					const urlParams = new URLSearchParams(window.location.search);
-					const redirectTo = urlParams.get('redirectTo') ?? '/dashboard';
 					setToast(true, `Succesfully Logged In. Welcome, ${username}`, 3000);
 					await update();
 					await goto(redirectTo);

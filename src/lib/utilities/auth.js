@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import {encrypt, decrypt} from '$lib/utilities/encryption.js';
+import { encrypt, decrypt } from '$lib/utilities/encryption.js';
 
 const tokenSchema = z
 	.string({ required_error: 'A Token is required' })
@@ -22,11 +22,36 @@ const passwordSchema = z.object({
 });
 
 const nameSchema = z
-.string({ required_error: 'name is required' })
-.min(3, { message: 'name too short, be more creative?' })
-.max(32, { message: 'Password must be less than 32 characters' })
-.trim()
+	.string({ required_error: 'name is required' })
+	.min(3, { message: 'name too short, be more creative?' })
+	.max(32, { message: 'Password must be less than 32 characters' })
+	.trim();
 
+	const paymentPlanSchema = z.object({
+		name: z
+			.string({ required_error: 'The plan name is required' })
+			.min(1, { message: 'Plan name is too short' })
+			.max(64, { message: 'Plan name is too long' }),
+		image: z
+			.string({ required_error: 'The plan image is required' })
+			.min(1, { message: 'The plan image is required' }),
+		description: z
+			.string({ required_error: 'The plan description is required' })
+			.min(5, { message: 'The plan description is too short' }),
+		duration: z
+			.string({ required_error: 'The plan duration is required' })
+			.min(3, { message: 'The plan duration is too short' }),
+		price: z
+			.number({ required_error: 'The plan price is required' })
+			.min(0, { message: 'The plan minimum price is 0' }),
+		features: z
+			.string({ required_error: 'The plan features are required' })
+			.min(5, { message: 'The plan features are too short' }),
+		status: z.enum(['active', 'inactive'], {
+			required_error: 'Status is required',
+			invalid_type_error: 'Status must be either "active" or "inactive"'
+		})
+	});
 const updateCommentSchema = z.object({
 	id: z
 		.string({ required_error: 'Comment ID is required' })
@@ -144,7 +169,7 @@ function checkAuthentication(cookies) {
 	//if the user has a cookie and it's valid we return an object {status: true, user: user}
 	//otherwise we return {status: false}
 	let user = cookies.get('authtoken');
-    let authexpiry = cookies.get('authexpiry');
+	let authexpiry = cookies.get('authexpiry');
 	// we return a parsed user object
 	let userInfo = cookies.get('user');
 	let parsedUserInfo = {};
@@ -154,7 +179,7 @@ function checkAuthentication(cookies) {
 	if (!user || user === null) {
 		return { status: false };
 	} else {
-		return { status: true, user: decrypt(user), authexpiry:authexpiry, userinfo: parsedUserInfo };
+		return { status: true, user: decrypt(user), authexpiry: authexpiry, userinfo: parsedUserInfo };
 	}
 }
 
@@ -167,12 +192,12 @@ function updateAuthentication(cookies, key, value) {
 		}
 		let userInfo = cookieInfo.userinfo;
 		console.log('Cookie info before Update: ', cookieInfo, 'Key: ', key, 'Value: ', value);
-		let apikey = {token : cookieInfo.user, expiry : cookieInfo.authexpiry};
+		let apikey = { token: cookieInfo.user, expiry: cookieInfo.authexpiry };
 		if (Object.prototype.hasOwnProperty.call(userInfo, key)) {
 			userInfo[key] = value;
 			console.log('User Info before update: ', userInfo);
 			// call saveAuthentication to save the updated user info
-            // NOTE: we set the last parameter to true to indicate that we are updating the profile
+			// NOTE: we set the last parameter to true to indicate that we are updating the profile
 			saveAuthentication(cookies, apikey, userInfo, true);
 		}
 		return true;
@@ -187,27 +212,27 @@ function updateAuthentication(cookies, key, value) {
 // This parameter is used to determine if the user is updating their profile
 // If they are, we skip the step for setting the apiKEY as it requires an expiry date
 function saveAuthentication(cookies, apikey, user, isProfileUpdate = false) {
-    //console.log("Profile Update Status: ",apikey, user, isProfileUpdate);
+	//console.log("Profile Update Status: ",apikey, user, isProfileUpdate);
 	try {
 		if (!user) {
 			return false;
 		}
 		// save a special auth cookie for the user
-        // we check if the user is updating their profile, if so we skip this step
+		// we check if the user is updating their profile, if so we skip this step
 		if (!isProfileUpdate) {
 			cookies.set('authtoken', encrypt(apikey.token), {
 				path: '/',
 				expires: new Date(apikey.expiry),
 				secure: true,
-			sameSite: 'None'
+				sameSite: 'None'
 			});
 
-            cookies.set('authexpiry', apikey.expiry, {
-                path: '/',
+			cookies.set('authexpiry', apikey.expiry, {
+				path: '/',
 				expires: new Date(apikey.expiry),
 				secure: true,
-			sameSite: 'None'
-        })
+				sameSite: 'None'
+			});
 		}
 		// we serialize the user object and save it as a cookie
 		let serializedUser = JSON.stringify(user);
@@ -257,5 +282,6 @@ export {
 	emailSchema,
 	updateCommentSchema,
 	commentSchema,
-	nameSchema
+	nameSchema,
+	paymentPlanSchema
 };

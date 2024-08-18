@@ -1,13 +1,15 @@
 <script>
     import { setToast } from '$lib/utilities/utils';
+	import { deleteAdministrationPermission } from '$lib/dataservice/admin/permissionsDataService';
 	import { Edit, Trash2, Lock, FilePenLine } from 'lucide-svelte';
 	import { fly, fade } from 'svelte/transition';
     import {updateAdministrationPermission} from '$lib/dataservice/admin/permissionsDataService';
+	import { createEventDispatcher } from 'svelte';
 
 	export let permissions;
 	export let getColorByPermission;
-	export let deletePermission;
 
+	const dispatch = createEventDispatcher();
 	let editingId = null;
 	let updatedPermissionName = '';
 
@@ -34,6 +36,20 @@
             }
 		}
 		editingId = null; // Exit editing mode
+	};
+	const deletePermission = async (id) => {
+		if (!id) {
+			setToast(false, 'Error! Permission ID is required.');
+			return;
+		}
+		let response = await deleteAdministrationPermission(id);
+		if (response.success) {
+			// dispatch the event for the update
+			dispatch('deletePermission', id);
+			setToast(true, 'Success! Permission deleted successfully.');
+		} else {
+			setToast(false, 'Error! Permission could not be deleted.');
+		}
 	};
 </script>
 
