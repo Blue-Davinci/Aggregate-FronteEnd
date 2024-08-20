@@ -13,7 +13,7 @@
 	export let form;
 	//<UserAuthForm />
 	let isLoading = false;
-	let redirectTo = $page.url.searchParams.get('redirectTo');
+	let redirectTo = $page.url.searchParams.get('redirectTo') ?? '/	';
 	//binding for the form data
 	let email = '';
 	let password = '';
