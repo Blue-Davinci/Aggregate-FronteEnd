@@ -241,6 +241,7 @@ docker compose up --build
 - [Svelte](https://svelte.dev/) - Innovative Framework for building user interfaces
 - [SvelteKit](https://kit.svelte.dev/) - Framework for building web applications with Svelte
 - [Paystack](https://paystack.com/) - Give your customers the gift of modern, frictionless, painless payments. Integrate Paystack once and let your customers pay you however they want.
+- [Cloudinary](https://cloudinary.com/) - Cloudinary is a cloud-based service that provides an end-to-end image and video management solution, including uploads, storage, manipulations, optimizations, and delivery.
 - [Zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference
 - [Shad-CN Svelte](https://www.shadcn-svelte.com/) - Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.
 - [Svelte-Toast](https://zerodevx.github.io/svelte-toast/) - Toast notification library for Svelte
