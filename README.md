@@ -188,7 +188,9 @@ npm run dev
     - Manage permissions for users, add them and remove them as well
     - Quick operations such as making a user an admin as well as a moderator or demoting them
     - Add subscription plans, hide them as well as update existing ones
-    - Manage susbcribers, remove suscribers, cancel subscriptions, delete subscriptions.
+    - Manage susbcriptions, Check all challenged transactions for subscriptions as well as cancel subscriptions.
+    - Subscription reports. Get indepth subscription statistics including churn rates, revenue, ratios of cancels and subscriptions etc
+    - Error manager. Currently supports errors relating to the scraper includind brovken/non functional Feed urls.
     **More operations are currently in the pipeline**
 8. Logout: *And awaaaaaaaay, you go*.
 
