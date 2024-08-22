@@ -1,5 +1,5 @@
 <script>
-  import { LayoutDashboard, Inbox, Mails, Bell, ListTodo, Users, ClipboardPlus, UserCheck, LogIn, LogOut, SquareGanttChart } from 'lucide-svelte';
+  import { LayoutDashboard, Inbox, ListTodo, Users, ClipboardPlus, UserCheck, TriangleAlert, LogOut, SquareGanttChart } from 'lucide-svelte';
   import { toTitleCase } from '$lib/utilities/utils';
 
   export let data;
@@ -56,6 +56,8 @@
               <span class="ml-2 text-sm tracking-wide truncate">Manage Permissions</span>
             </a>
           </li>
+
+
           <li class="px-5">
             <div class="flex flex-row items-center h-8">
               <div class="text-sm font-light tracking-wide text-gray-500 dark:text-gray-400">Subscriptions</div>
@@ -79,6 +81,19 @@
               <span class="ml-2 text-sm tracking-wide truncate">Subscription Reports</span>
             </a>
           </li>
+
+          <li class="px-5">
+            <div class="flex flex-row items-center h-8">
+              <div class="text-sm font-light tracking-wide text-gray-500 dark:text-gray-400">Errors</div>
+            </div>
+          </li>
+          <li>
+            <a href="/admin/errors" class="relative flex flex-row items-center h-12 focus:outline-none bg-gradient-to-r from-transparent to-transparent hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 dark:hover:bg-gradient-to-r dark:hover:from-indigo-500 dark:hover:to-purple-500 text-gray-600 dark:text-gray-300 hover:text-white dark:hover:text-white border-l-4 border-transparent hover:border-pink-500 dark:hover:border-pink-300 pr-6 transition-all duration-150 ease-in-out">
+              <TriangleAlert class="w-5 h-5 ml-4 transform transition-transform duration-150" />
+              <span class="ml-2 text-sm tracking-wide truncate">Scraper Errors</span>
+            </a>
+          </li>
+
           <li class="px-5">
             <div class="flex flex-row items-center h-8">
               <div class="text-sm font-light tracking-wide text-gray-500 dark:text-gray-400">Settings</div>
