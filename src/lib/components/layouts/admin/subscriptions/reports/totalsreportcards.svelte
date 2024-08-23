@@ -13,7 +13,7 @@ in:fly={{ x: 200, duration: 1000 }}
 		class="transform rounded-lg bg-purple-500 p-4 text-white shadow-lg transition-transform hover:scale-105 hover:shadow-2xl dark:bg-purple-600"
 	>
 		<div class="flex items-center justify-between">
-			<p class="font-mono text-3xl font-extrabold">{singleSubscriptionReport.total_revenue}</p>
+			<p class="font-mono text-3xl font-extrabold">{new Intl.NumberFormat().format(singleSubscriptionReport.total_revenue)}</p>
 			<DollarSign class="h-10 w-10" />
 		</div>
 		<h3 class="mt-2 text-right text-sm font-medium">Total Revenue</h3>

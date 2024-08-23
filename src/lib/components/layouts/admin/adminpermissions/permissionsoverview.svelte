@@ -37,6 +37,7 @@
 		}
 		editingId = null; // Exit editing mode
 	};
+
 	const deletePermission = async (id) => {
 		if (!id) {
 			setToast(false, 'Error! Permission ID is required.');
@@ -94,16 +95,18 @@
 
 			<div class="mt-4 flex justify-between">
 				<button
-					class="rounded-full bg-green-500 p-2 text-white shadow-lg transition duration-300 hover:bg-green-600"
+					class="rounded-full p-1 text-gray-500 transition duration-300 hover:text-green-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-green-500 dark:hover:bg-gray-700"
+					style="opacity: 0.85; color: #4CAF50;" 
 					on:click={() => editPermission(permission.permission_id, permission.permissions[0])}
 				>
-					<Edit />
+					<Edit width="16" height="16" />
 				</button>
 				<button
-					class="rounded-full bg-red-500 p-2 text-white shadow-lg transition duration-300 hover:bg-red-600"
+					class="rounded-full p-1 text-gray-500 transition duration-300 hover:text-red-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-red-500 dark:hover:bg-gray-700"
+					style="opacity: 0.85; color: #F44336;"  
 					on:click={() => deletePermission(permission.permission_id)}
 				>
-					<Trash2 />
+					<Trash2 width="16" height="16" />
 				</button>
 			</div>
 		</div>

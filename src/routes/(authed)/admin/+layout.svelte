@@ -25,7 +25,7 @@
       </div>
 
       <!-- Navigation Menu -->
-      <div class="flex-grow">
+      <div class="flex-grow overflow-y-auto">
         <ul class="flex flex-col py-4 space-y-1">
           <li class="px-5">
             <div class="flex flex-row items-center h-8">
@@ -117,7 +117,6 @@
 
     <!-- Content Area -->
     <div class="flex-1 p-6">
-      <!-- This slot will display the content of the pages -->
       <slot />
     </div>
   </div>

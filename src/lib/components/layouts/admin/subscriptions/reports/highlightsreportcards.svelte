@@ -37,8 +37,8 @@ in:fly={{ x: -200, duration: 1000 }}
 		class="transform rounded-lg bg-green-500 p-4 text-white shadow-lg transition-transform hover:scale-105 hover:shadow-2xl dark:bg-green-600"
 	>
 		<div class="flex items-center justify-between">
-			<p class="font-mono text-3xl font-extrabold">
-				{singleSubscriptionReport.average_revenue_per_user.toFixed(2)}
+			<p class="font-mono text-2xl font-extrabold">
+				{new Intl.NumberFormat().format(singleSubscriptionReport.average_revenue_per_user.toFixed(2))}
 			</p>
 			<DollarSign class="h-10 w-10" />
 		</div>
