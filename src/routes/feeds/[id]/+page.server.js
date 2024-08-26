@@ -8,7 +8,7 @@ export const load = async({params}) =>{
     //console.log("Params in [id]: ", feedID);
     // do a quick check on if it actually exists, if not we redirect to the dashboard
     if (!feedID) {
-        redirect(303, `/feeds`);
+        return redirect(303, `/feeds`);
     }
     let feeds_url = `${VITE_API_BASE_URL_FEEDS}/${feedID}`;
     const response = await fetch(feeds_url, {

@@ -1,5 +1,5 @@
 <script>
-    import {Edit, PlusCircle, CheckCircle} from 'lucide-svelte'
+    import {CheckCircle} from 'lucide-svelte'
     import { fly, fade } from 'svelte/transition';
     export let plans;
 </script>

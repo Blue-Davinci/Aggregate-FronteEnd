@@ -39,15 +39,15 @@ export const handle = async ({ event, resolve }) => {
 				'Redirecting! User is not authenticated and trying to access api: ',
 				requestedPath
 			);
-			redirect(303, `/login?redirectTo=/dashboard`);
+			return redirect(303, `/login?redirectTo=/dashboard`);
 		}
-		redirect(303, `/login?redirectTo=${requestedPath}`);
+		return redirect(303, `/login?redirectTo=${requestedPath}`);
 	} else if (credentials.status && credentials.user) {
 		// otherwise if logged in and trying to access safelisted paths eg login or signup then
 		// we redirect them to the home page
 		if (isSafelist) {
 			console.log('Redirecting! Autheneticated user but trying to acces safelisted path');
-			redirect(303, `/`);
+			return redirect(303, `/`);
 		}
 		// proceed with writting the locals
 		// what we will do is simply set the locals to true rather than do anything.

@@ -12,7 +12,7 @@ export const load = async({params, cookies}) =>{
     console.log("Params in [id]: ", postId); 
     // do a quick check on if it actually exists, if not we redirect to the dashboard
     if (!postId) {
-        redirect(303, `/dashboard`);
+       return redirect(303, `/dashboard`);
     }
 
     let rssfeedpost_url = `${VITE_API_BASE_URL_FEED_FOLLOW_POSTS}/${postId}`;

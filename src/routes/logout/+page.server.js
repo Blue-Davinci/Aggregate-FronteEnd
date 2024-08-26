@@ -5,7 +5,7 @@ export const actions = {
     default: ({cookies}) =>{
         if(deleteAuthentication(cookies)){
             console.log("logging out...")
-            redirect(303, '/feeds');
+            return redirect(303, '/feeds');
         }else{
             error(400,{
                 description: "an error occurred while processing your request",
