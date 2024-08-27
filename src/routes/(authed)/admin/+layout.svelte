@@ -3,6 +3,7 @@
   import { toTitleCase } from '$lib/utilities/utils';
 
   export let data;
+  //console.log(data);
   let user = {
     name: data.props?.username?.length > 12 ? toTitleCase(data.props.username).slice(0, 9) + '...' : toTitleCase(data.props.username),
     role: "ADMIN",

@@ -182,6 +182,7 @@ npm run dev
     - Users can **cancel** their subscriptions at anytime. Cancelled subscriptions are valid as long as they have not expired
 
 7. Admin Dashboard + Permissions: ability to manage and and perform administration operations
+    - Announcement Management. Admins can view existing announcements as well as create new ones that will be shown to all users. Admins can also remove\delete existing announcements. Each of them supports different urgencies. They also show a subset of available statistics including running, expired, inactive announcements etc.
     - Can view full system statistics including user, financial, content and debug information
     - View charts and information on subscriptions including total sales, profits etc
     - Manage and view users including deleting as well as banning them

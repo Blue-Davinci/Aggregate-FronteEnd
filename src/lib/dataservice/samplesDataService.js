@@ -10,7 +10,7 @@ async function getSampleRSSPostsForFeed(feedID){
         });
         if (response.ok){
             const data = await response.json();
-            console.log("Sample Data: ", data);
+            //console.log("Sample Data: ", data);
             return data;
         }else{
             const errorData = await response.json();

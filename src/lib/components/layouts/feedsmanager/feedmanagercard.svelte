@@ -11,7 +11,7 @@
 
   const handleUpdate = () => {
     isModalOpen = true;
-    console.log('Original Feed Detail: ', feed);
+    //console.log('Original Feed Detail: ', feed);
   };
 </script>
 

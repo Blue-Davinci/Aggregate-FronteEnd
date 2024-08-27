@@ -1,4 +1,4 @@
-import {VITE_API_BASE_URL_ANNOUNCEMENTS} from '$env/static/private';
+import {VITE_API_BASE_URL_ANNOUNCEMENTS, VITE_API_BASE_URL_ADMIN_ANNOUNCEMENTS} from '$env/static/private';
 import { checkAuthentication } from '$lib/utilities/auth.js';
 import { json, redirect } from '@sveltejs/kit';
 
@@ -73,5 +73,43 @@ export const POST = async ({ fetch, cookies, request }) => {
     }catch(err){
         console.log("End Point Error: ", err);
         return json({ error: 'Failed to post announcement' }, { status: 500 });
+    }
+}
+
+export const DELETE = async ({ fetch, cookies, url }) => {
+    let auth = checkAuthentication(cookies).user;
+    if (!auth) {
+        return redirect(303, `/login?redirectTo=/dashboard`);
+    }
+    // get announcement id from url
+    let announcement_id = url.searchParams.get('id');
+    // minor check for the ID
+    if (!announcement_id) {
+        return json({ error: 'Invalid announcement ID' }, { status: 400 });
+    }
+    // prep the url
+    let announcements_url = `${VITE_API_BASE_URL_ADMIN_ANNOUNCEMENTS}/${announcement_id}`;
+    console.log("Announcement URL: ", announcements_url);
+    // make the request to the API
+    try {
+        let response = await fetch(announcements_url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `ApiKey ${auth}`
+            }
+        });
+        // return the response
+        if (response.ok) {
+            let data = await response.json();
+            return json(data);
+        } else {
+            let errorData = await response.json();
+            console.error("Error Response Data: ", errorData);
+            return json({ error: errorData.error }, { status: response.status });
+        }
+    }catch(err){
+        console.log("End Point Error: ", err);
+        return json({ error: 'Failed to delete announcement' }, { status: 500 });
     }
 }

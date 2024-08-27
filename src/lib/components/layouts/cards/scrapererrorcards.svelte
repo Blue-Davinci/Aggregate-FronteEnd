@@ -1,5 +1,6 @@
 <script>
 	import {Separator} from '$lib/components/ui/separator'
+	import { fly, fade } from 'svelte/transition';
 	import { setToast } from '$lib/utilities/utils';
 	import { createEventDispatcher } from 'svelte';
 	import Resolve from '$lib/components/layouts/admin/errors/resolve.svelte';
@@ -40,10 +41,11 @@
 <h1 class="mb-4 text-2xl font-semibold">Scraper Error Logs</h1>
 
 {#if errorLogs.length > 0}
-	<div class="grid grid-cols-1 gap-4" >
+	<div class="grid grid-cols-1 gap-4">
 		{#each errorLogs as log}
 			<div
 				class="rounded-lg bg-white p-6 shadow dark:bg-gray-800 transition-transform duration-300 hover:scale-[1.02]"
+				in:fly={{ x: 200, duration: 1000 }} out:fade={{ duration: 300 }}
 			>
 				<div class="mb-4 flex items-center justify-between">
 					<div>
@@ -142,6 +144,7 @@
 	</div>
 {:else}
 	<div
+	in:fly={{ x: 200, duration: 1000 }} out:fade={{ duration: 300 }}
 		class="flex min-h-[300px] flex-col items-center justify-center py-10 text-gray-600 dark:text-gray-300"
 	>
 		<Cat class="mb-4 h-16 w-16" />

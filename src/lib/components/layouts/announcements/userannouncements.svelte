@@ -33,7 +33,7 @@
 		//console.log('Fetching announcements...');
 		let response = await getAnnouncementsForUser();
 		if (response.success) {
-			announcements = response.data.announcements;
+			announcements = response?.data?.announcements ?? [];
 			isModalOpen = announcements.length > 0;
 		} else {
 			console.error("Error fetching announcements:", response);

@@ -5,7 +5,7 @@
 	import Quicklinks from '$lib/components/layouts/admin/subscriptions/reports/quicklinks.svelte';
 
 	export let data;
-	let singleSubscriptionReport = data.stats.single_subscription_report;
+	let singleSubscriptionReport = data?.stats?.single_subscription_report ?? {};
 
 </script>
 

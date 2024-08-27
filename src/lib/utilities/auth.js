@@ -21,6 +21,35 @@ const passwordSchema = z.object({
 		.trim()
 });
 
+/*
+{
+    "title": "System Maintenance5",
+    "message": "The system will be down for maintenance on Saturday from 2 AM to 4 AM. Tester!",
+    "expires_at": "2024-12-31T23:59:59Z",
+    "is_active": true,
+    "urgency": "medium"
+}
+*/
+const announcementSchema = z.object({
+	title: z
+		.string({ required_error: 'Title is required' })
+		.min(1, { message: 'Title is required' })
+		.max(500, { message: 'Title must be less than 500 characters' })
+		.trim(),
+	message: z
+		.string({ required_error: 'Message is required' })
+		.min(1, { message: 'Message is required' })
+		.max(500, { message: 'Message must be less than 500 characters' })
+		.trim(),
+	expires_at: z
+        .string({ required_error: 'Expiry Date is required' })
+        .min(1, { message: 'Expiry Date is required' })
+        .refine((date) => !isNaN(Date.parse(date)), { message: 'Invalid date format' })
+        .transform((date) => new Date(date).toISOString()),
+	is_active: z.boolean({ required_error: 'Active Status is required' }),
+	urgency: z.enum(['low', 'medium', 'high'], { required_error: 'Urgency is required' })
+});
+
 const nameSchema = z
 	.string({ required_error: 'name is required' })
 	.min(3, { message: 'name too short, be more creative?' })
@@ -283,5 +312,6 @@ export {
 	updateCommentSchema,
 	commentSchema,
 	nameSchema,
-	paymentPlanSchema
+	paymentPlanSchema,
+	announcementSchema
 };

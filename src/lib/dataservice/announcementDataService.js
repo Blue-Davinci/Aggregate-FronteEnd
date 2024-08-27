@@ -83,7 +83,53 @@ const markAnnouncementAsRead = async(announcement_id) =>{
     }
 }
 
+// adminDeleteAnnouncement is an admin function responsible for deleting an
+// existing announcement by setting the ID as a param in the URL
+const adminDeleteAnnouncement = async(announcement_id) =>{
+    if(!announcement_id){
+        return {
+            success: false,
+            status: 400,
+            error: {message: "Invalid Announcement ID"}
+        }
+    }
+    let delete_announcement_url = `/api/announcements?id=${announcement_id}`;
+    try{
+        let response = await fetch(delete_announcement_url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        //console.log("Response Status: ", response.status);
+        if(response.ok){
+            let data = await response.json();
+            return {
+                success: true,
+                status: response.status,
+                data: data
+            }
+        }else{
+            let errorData = await response.json();
+            console.error("Error Response Data: ", errorData);
+            return {
+                success: false,
+                status: response.status,
+                error: errorData.error
+            }
+        }
+    }catch(err){
+        console.log("Error: ", err);
+        return {
+            success: false,
+            status: 500,
+            error: {message: "Internal Server Error"}
+        }
+    }
+}
+
 export {
     getAnnouncementsForUser,
-    markAnnouncementAsRead
+    markAnnouncementAsRead,
+    adminDeleteAnnouncement
 }

@@ -17,7 +17,7 @@
 	};
 
     $: feeds = data?.feeds || [];
-	$:console.log('>> Created Feed Data: ', feeds[0]);
+	//$:console.log('>> Created Feed Data: ', feeds[0]);
 </script>
 <svelte:head>
 	<title>Feed Manager • Aggregate</title>

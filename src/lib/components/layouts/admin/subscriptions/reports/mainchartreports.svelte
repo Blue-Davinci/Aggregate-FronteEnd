@@ -16,6 +16,7 @@
         LineController
     } from 'chart.js';
     import { onMount } from 'svelte';
+    import { Info } from 'lucide-svelte'; // Import Lucide-Svelte icon
 
     Chart.register(
         CategoryScale,
@@ -32,7 +33,7 @@
         LineController
     );
 
-    export let data;
+    export let data = {};
 
     let revenueByPlanChart,
         challengedTransactionsChart,
@@ -41,8 +42,10 @@
         newVsCancelledSubscriptionsChart,
         subscriptionsByCurrencyChart;
 
-    let singleSubscriptionReport = data.stats.single_subscription_report;
-    let multiReport = data.stats.multi_report;
+    let singleSubscriptionReport = data.stats?.single_subscription_report;
+    let multiReport = data.stats?.multi_report;
+
+    let noData = !singleSubscriptionReport && !multiReport; // Check if there's no data
 
     onMount(() => {
         if (multiReport) {
@@ -205,46 +208,52 @@
     }
 </script>
 
-<div class="space-y-6"
-in:fly={{ x: -200, duration: 1000 }}
-    out:fade
->
-    <!-- Revenue Charts Group -->
-    <div class="space-y-4">
-        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Revenue Charts</h2>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
-                <canvas bind:this={revenueByPlanChart}></canvas>
-            </div>
-            <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
-                <canvas bind:this={revenueByPaymentMethodChart}></canvas>
+{#if noData}
+    <div class="flex flex-col items-center justify-center min-h-screen space-y-4">
+        <Info class="w-16 h-16 text-gray-400 dark:text-gray-500" />
+        <p class="text-lg font-semibold text-gray-600 dark:text-gray-300">
+            No data available at the moment.
+        </p>
+    </div>
+{:else}
+    <div class="space-y-6" in:fly={{ x: -200, duration: 1000 }} out:fade>
+        <!-- Revenue Charts Group -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Revenue Charts</h2>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+                    <canvas bind:this={revenueByPlanChart}></canvas>
+                </div>
+                <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+                    <canvas bind:this={revenueByPaymentMethodChart}></canvas>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Subscription Trends Group -->
-    <div class="space-y-4">
-        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Subscription Trends</h2>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
-                <canvas bind:this={subscriptionsOverTimeChart}></canvas>
-            </div>
-            <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
-                <canvas bind:this={newVsCancelledSubscriptionsChart}></canvas>
+        <!-- Subscription Trends Group -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Subscription Trends</h2>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+                    <canvas bind:this={subscriptionsOverTimeChart}></canvas>
+                </div>
+                <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+                    <canvas bind:this={newVsCancelledSubscriptionsChart}></canvas>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Other Metrics Group -->
-    <div class="space-y-4">
-        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Other Metrics</h2>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
-                <canvas bind:this={challengedTransactionsChart}></canvas>
-            </div>
-            <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
-                <canvas bind:this={subscriptionsByCurrencyChart}></canvas>
+        <!-- Other Metrics Group -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Other Metrics</h2>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+                    <canvas bind:this={challengedTransactionsChart}></canvas>
+                </div>
+                <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+                    <canvas bind:this={subscriptionsByCurrencyChart}></canvas>
+                </div>
             </div>
         </div>
     </div>
-</div>
+{/if}

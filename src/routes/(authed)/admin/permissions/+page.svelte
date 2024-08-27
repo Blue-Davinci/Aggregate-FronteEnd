@@ -11,7 +11,7 @@
 	let isSaving = false;
 	let permissions = data.permissions ?? [];
 	let super_users = data.superUsers ?? [];
-
+	//console.log("Super........................");
 	const addNewPermission = (permission) => {
 		const { permission_id, permission_code } = permission.detail;
 		// Pre-format the new permission data
