@@ -36,8 +36,8 @@
     </div>
 </div>
 {:else}
-{#each feeds as { feed, follow_count }}
-	<FeedManagerCard {form} {feed} {follow_count} />
+{#each feeds as { feed, follow_count, rejected_feed, approval_status }}
+	<FeedManagerCard {form} {feed} {follow_count} {rejected_feed} {approval_status}/>
     <hr />
 {/each}
 {/if}
