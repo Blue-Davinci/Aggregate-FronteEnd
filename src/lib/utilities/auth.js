@@ -42,10 +42,10 @@ const announcementSchema = z.object({
 		.max(500, { message: 'Message must be less than 500 characters' })
 		.trim(),
 	expires_at: z
-        .string({ required_error: 'Expiry Date is required' })
-        .min(1, { message: 'Expiry Date is required' })
-        .refine((date) => !isNaN(Date.parse(date)), { message: 'Invalid date format' })
-        .transform((date) => new Date(date).toISOString()),
+		.string({ required_error: 'Expiry Date is required' })
+		.min(1, { message: 'Expiry Date is required' })
+		.refine((date) => !isNaN(Date.parse(date)), { message: 'Invalid date format' })
+		.transform((date) => new Date(date).toISOString()),
 	is_active: z.boolean({ required_error: 'Active Status is required' }),
 	urgency: z.enum(['low', 'medium', 'high'], { required_error: 'Urgency is required' })
 });
@@ -56,31 +56,31 @@ const nameSchema = z
 	.max(32, { message: 'Password must be less than 32 characters' })
 	.trim();
 
-	const paymentPlanSchema = z.object({
-		name: z
-			.string({ required_error: 'The plan name is required' })
-			.min(1, { message: 'Plan name is too short' })
-			.max(64, { message: 'Plan name is too long' }),
-		image: z
-			.string({ required_error: 'The plan image is required' })
-			.min(1, { message: 'The plan image is required' }),
-		description: z
-			.string({ required_error: 'The plan description is required' })
-			.min(5, { message: 'The plan description is too short' }),
-		duration: z
-			.string({ required_error: 'The plan duration is required' })
-			.min(3, { message: 'The plan duration is too short' }),
-		price: z
-			.number({ required_error: 'The plan price is required' })
-			.min(0, { message: 'The plan minimum price is 0' }),
-		features: z
-			.string({ required_error: 'The plan features are required' })
-			.min(5, { message: 'The plan features are too short' }),
-		status: z.enum(['active', 'inactive'], {
-			required_error: 'Status is required',
-			invalid_type_error: 'Status must be either "active" or "inactive"'
-		})
-	});
+const paymentPlanSchema = z.object({
+	name: z
+		.string({ required_error: 'The plan name is required' })
+		.min(1, { message: 'Plan name is too short' })
+		.max(64, { message: 'Plan name is too long' }),
+	image: z
+		.string({ required_error: 'The plan image is required' })
+		.min(1, { message: 'The plan image is required' }),
+	description: z
+		.string({ required_error: 'The plan description is required' })
+		.min(5, { message: 'The plan description is too short' }),
+	duration: z
+		.string({ required_error: 'The plan duration is required' })
+		.min(3, { message: 'The plan duration is too short' }),
+	price: z
+		.number({ required_error: 'The plan price is required' })
+		.min(0, { message: 'The plan minimum price is 0' }),
+	features: z
+		.string({ required_error: 'The plan features are required' })
+		.min(5, { message: 'The plan features are too short' }),
+	status: z.enum(['active', 'inactive'], {
+		required_error: 'Status is required',
+		invalid_type_error: 'Status must be either "active" or "inactive"'
+	})
+});
 const updateCommentSchema = z.object({
 	id: z
 		.string({ required_error: 'Comment ID is required' })
@@ -191,6 +191,43 @@ const feedSchema = z.object({
 		.max(500, { message: 'Post Description must be less than 500 characters' })
 		.trim(),
 	is_hidden: z.boolean({ required_error: 'Post Visibility is required' })
+});
+
+const adminFeedSchema = z.object({
+	name: z
+		.string()
+		.min(1, { message: 'Feed Name is required and cannot be empty' })
+		.max(500, { message: 'Feed Name must be less than 500 characters' })
+		.trim()
+		.optional(),
+
+	url: z.string().min(1, { message: 'Feed URL is required and cannot be empty' }).trim().optional(),
+
+	img_url: z
+		.string()
+		.min(1, { message: 'Image URL is required and cannot be empty' })
+		.trim()
+		.optional(),
+
+	feed_type: z
+		.string()
+		.min(1, { message: 'Feed Type is required and cannot be empty' })
+		.max(50, { message: 'Feed Type must be less than 50 characters' })
+		.trim()
+		.optional(),
+
+	feed_description: z
+		.string()
+		.min(1, { message: 'Feed Description is required and cannot be empty' })
+		.max(500, { message: 'Feed Description must be less than 500 characters' })
+		.trim()
+		.optional(),
+
+	is_hidden: z
+		.boolean({
+			required_error: 'Visibility status (is_hidden) is required'
+		})
+		.optional()
 });
 
 function checkAuthentication(cookies) {
@@ -313,5 +350,6 @@ export {
 	commentSchema,
 	nameSchema,
 	paymentPlanSchema,
-	announcementSchema
+	announcementSchema,
+	adminFeedSchema
 };

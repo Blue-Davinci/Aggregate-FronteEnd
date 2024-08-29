@@ -301,5 +301,5 @@ export {
 	convertPostToPDFContent,
 	convertToMarkdown,
     isValidPermissionFormat,
-    processPlanUpdateData
+    processPlanUpdateData,
 };

@@ -1,8 +1,11 @@
 <script>
+    import Alertconfirmationdialog from '$lib/components/layouts/general/alertconfirmationdialog.svelte';
+    import {adminUpdateFeed} from '$lib/dataservice/admin/adminFeedsDataService.js';
     import { fly, fade } from 'svelte/transition';
-    import { CheckCircle, XCircle, VenetianMask, ExternalLink } from 'lucide-svelte';
+    import {  XCircle, VenetianMask, ExternalLink } from 'lucide-svelte';
 
     export let data;
+    const dlgMessage = "Are you sure you want to approve this feed? Once approved, it will be unleashed to the wild world of users, wolves, and dogs alike!";
     
     let pendingFeeds = data?.feeds ?? [];
 
@@ -10,8 +13,13 @@
     function openFeedUrl(feedUrl) {
         window.open(feedUrl, '_blank');
     }
-</script>
 
+    async function handleApproveFeed(feed) {
+        // Call the API to approve the feed
+
+        console.log('Feed approved: ', feed);
+    }
+</script>
 <div class="space-y-4">
     {#each pendingFeeds as { feed, feed_user, approval_status, priority }}
       <div
@@ -64,11 +72,7 @@
 
           <!-- Action Buttons -->
           <div class="mt-4 flex space-x-4">
-            <button
-              class="flex items-center space-x-1 bg-green-100 text-green-600 rounded-full px-3 py-1 text-sm font-semibold hover:bg-green-200 dark:bg-green-800 dark:text-green-200 transition-transform transform hover:scale-105"
-            >
-              <CheckCircle class="w-4 h-4" /> <span>Approve</span>
-            </button>
+            <Alertconfirmationdialog on:continue={handleApproveFeed(feed)} {dlgMessage} />
             <button
               class="flex items-center space-x-1 bg-red-100 text-red-600 rounded-full px-3 py-1 text-sm font-semibold hover:bg-red-200 dark:bg-red-800 dark:text-red-200 transition-transform transform hover:scale-105"
             >
