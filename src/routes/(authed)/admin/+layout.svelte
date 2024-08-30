@@ -123,7 +123,7 @@
 					<li></li>
 					<li> 
 						<a
-							href="/admin/users"
+							href="/admin/feeds/approvals"
 							class="relative flex h-12 flex-row items-center border-l-4 border-transparent bg-gradient-to-r from-transparent to-transparent pr-6 text-gray-600 transition-all duration-150 ease-in-out hover:border-pink-500 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white focus:outline-none dark:text-gray-300 dark:hover:border-pink-300 dark:hover:bg-gradient-to-r dark:hover:from-indigo-500 dark:hover:to-purple-500 dark:hover:text-white"
 						>
 							<PackageCheck class="ml-4 h-5 w-5 transform transition-transform duration-150" />
@@ -136,7 +136,7 @@
 					</li>
 					<li>
 						<a
-							href="/admin/users"
+							href="/admin/feeds"
 							class="relative flex h-12 flex-row items-center border-l-4 border-transparent bg-gradient-to-r from-transparent to-transparent pr-6 text-gray-600 transition-all duration-150 ease-in-out hover:border-pink-500 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white focus:outline-none dark:text-gray-300 dark:hover:border-pink-300 dark:hover:bg-gradient-to-r dark:hover:from-indigo-500 dark:hover:to-purple-500 dark:hover:text-white"
 						>
 							<Rss class="ml-4 h-5 w-5 transform transition-transform duration-150" />

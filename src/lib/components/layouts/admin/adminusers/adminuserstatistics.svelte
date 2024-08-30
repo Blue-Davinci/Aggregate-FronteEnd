@@ -3,7 +3,7 @@
     import { User, Shield, CheckCircle, XCircle, AtSign, Star } from 'lucide-svelte';
     import { Separator } from '$lib/components/ui/separator';
 
-    export let users;
+    export let users = [];
 
     $:totalUsers = users.length;
     $:totalAdmins = users.filter(user => user.permissions.some(p => p.includes("admin"))).length;

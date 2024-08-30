@@ -9,6 +9,8 @@
   export let approval_status;
   export let rejected_feed;
 
+  //console.log('Feed: ', feed);
+
   let isModalOpen = false;
   let isLoading = false;
   let isExpanded = false;
@@ -25,7 +27,7 @@
 <div
   in:fly={{ y: 50, duration: 500 }}
   out:fade
-  class={`flex border-2 rounded-lg shadow-md transition-all overflow-hidden w-full max-w-4xl mx-auto my-4 relative bg-white dark:bg-gray-800 hover:scale-[1.02] ${
+  class={`flex border-2 rounded-lg shadow-md transition-all overflow-hidden w-full max-w-full mx-auto my-4 relative bg-white dark:bg-gray-800 hover:scale-[1.02] ${
     approval_status === 'pending'
       ? 'border-yellow-500 shadow-yellow-500'
       : approval_status === 'rejected'

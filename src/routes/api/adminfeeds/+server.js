@@ -16,7 +16,7 @@ export const PATCH = async ({ fetch, cookies, request, url }) => {
         return redirect(303, `/login?redirectTo=/dashboard/feedmanager`);
     }
     // get the feed id from the URL
-    let feed_id = url.query.get('id');
+    let feed_id = url.searchParams.get('id');
     // check if the UUID id is valid
     if (!feed_id) {
         return json({ error: 'Invalid feed ID' }, { status: 400 });

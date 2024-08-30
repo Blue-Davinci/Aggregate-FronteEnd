@@ -1,8 +1,8 @@
 <script>
+	import Feedmanagerstats from '$lib/components/layouts/feedsmanager/feedmanagerstats.svelte';
     import GoBack from '$lib/components/layouts/general/goback.svelte';
 	import { FolderKanban, Squirrel } from 'lucide-svelte';
     import PageHeader from '$lib/components/layouts/general/pageheader.svelte';
-	import { fly, slide } from 'svelte/transition';
 	import FeedManagerCard from '$lib/components/layouts/feedsmanager/feedmanagercard.svelte';
 
     // data for the feeds after load and form for any issues with the update action
@@ -17,7 +17,8 @@
 	};
 
     $: feeds = data?.feeds || [];
-	//$:console.log('>> Created Feed Data: ', feeds[0]);
+	$: creation_statistics = data?.creation_statistics || [];
+	//$:console.log('>> Created Feed Data: ', creation_statistics);
 </script>
 <svelte:head>
 	<title>Feed Manager • Aggregate</title>
@@ -36,6 +37,7 @@
     </div>
 </div>
 {:else}
+<Feedmanagerstats {creation_statistics} />
 {#each feeds as { feed, follow_count, rejected_feed, approval_status }}
 	<FeedManagerCard {form} {feed} {follow_count} {rejected_feed} {approval_status}/>
     <hr />
