@@ -55,6 +55,9 @@ function buildFeedFollowUrl(baseUrl, params) {
     if (params.feed_type) {
         queryParts.push(`feed_type=${encodeURIComponent(params.feed_type)}`);
     }
+    if (params.priority){
+        queryParts.push(`priority=${encodeURIComponent(params.priority)}`);
+    }
     // Only append '?' if there are query parameters
     if (queryParts.length > 0) {
         return `${baseUrl}?${queryParts.join('&')}`;

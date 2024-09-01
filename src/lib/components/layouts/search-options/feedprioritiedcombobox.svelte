@@ -1,6 +1,6 @@
 <script>
     import { onMount, createEventDispatcher } from 'svelte';
-    import { getFeedTypesSearchOptions } from '$lib/dataservice/searchOptionsDataService';
+    import { getFeedPrioritiesSearchOptions } from '$lib/dataservice/searchOptionsDataService';
     import * as Command from '$lib/components/ui/command';
     import * as Popover from '$lib/components/ui/popover';
     import { Button } from '$lib/components/ui/button';
@@ -11,16 +11,15 @@
     let isFetching = false;
     let feeds = [];
   
-    async function fetchFeedsTypeSearchInfo() {
+    async function fetchFeedsPrioritySearchInfo() {
       isFetching = true;
-      let data = await getFeedTypesSearchOptions();
-      feeds = data?.feed_types ?? [];
-      //console.log("Feed Types Data:", feeds);
+      let data = await getFeedPrioritiesSearchOptions();
+      feeds = data?.feed_priorities ?? [];
       isFetching = false;
     }
   
     onMount(() => {
-      fetchFeedsTypeSearchInfo(); // Fetch feeds when the component mounts
+      fetchFeedsPrioritySearchInfo(); // Fetch feeds when the component mounts
     });
   
     let open = false;
@@ -29,10 +28,10 @@
   
     const dispatch = createEventDispatcher();
   
-    $: selectedFeed = feeds.find((f) => f.feed_id === value)?.feed_type ?? 'Filter by feed types...';
+    $: selectedFeed = feeds.find((f) => f.feed_id === value)?.feed_priority ?? 'Filter by feed priorities...';
     $: filteredFeeds = feeds.filter(
       (f) =>
-        f.feed_type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        f.feed_priority.toLowerCase().includes(searchQuery.toLowerCase()) ||
         f.feed_id.toString().includes(searchQuery) // Convert feed_id to string for comparison
     );
   
@@ -46,14 +45,14 @@
     function handleSelect(feed, triggerId) {
       value = feed.feed_id;
       closeAndFocusTrigger(triggerId);
-      dispatch('select', { feed_id: feed.feed_id, feed_type: feed.feed_type });
+      dispatch('select', { feed_id: feed.feed_id, feed_priority: feed.feed_priority });
     }
   
     function handleReset(triggerId) {
       value = '';
       searchQuery = '';
       closeAndFocusTrigger(triggerId);
-      dispatch('select', { feed_id: '', feed_type: '' });
+      dispatch('select', { feed_id: '', feed_priority: '' });
     }
   </script>
   
@@ -64,7 +63,7 @@
   {#if isFetching}
     <div class="flex items-center space-x-2">
       <div class="tinyloader"></div>
-      <span class="text-sm">Loading filters..</span>
+      <span class="text-sm">Loading filters...</span>
     </div>
   {:else}
     <Popover.Root bind:open let:ids>
@@ -81,17 +80,17 @@
         </Button>
       </Popover.Trigger>
       <Popover.Content
-        class="w-full max-h-[300px] overflow-y-auto rounded-lg border border-gray-300 p-0 shadow-md dark:border-gray-700 md:w-[300px]"
+        class="w-full rounded-lg border border-gray-300 p-0 shadow-md dark:border-gray-700 md:w-[300px]"
       >
         <Command.Root>
           <Command.Input
-            placeholder="Search feeds..."
+            placeholder="Search priorities..."
             class="mt-2 h-9 rounded-t-lg border-b border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700"
             bind:value={searchQuery}
           />
           <Command.Empty>
             {#if filteredFeeds.length === 0}
-              <div class="p-4 text-gray-600 dark:text-gray-400">No feed found.</div>
+              <div class="p-4 text-gray-600 dark:text-gray-400">No priority found.</div>
             {/if}
           </Command.Empty>
           <Command.Group>
@@ -105,12 +104,12 @@
             </Command.Item>
             {#each filteredFeeds as feed}
               <Command.Item
-                value={feed.feed_type}
+                value={feed.feed_priority}
                 onSelect={() => handleSelect(feed, ids.trigger)}
                 class="px-4 py-2 transition duration-200 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <Check class={cn('mr-2 h-4 w-4', value !== feed.feed_id && 'text-transparent')} />
-                {feed.feed_type}
+                {feed.feed_priority}
               </Command.Item>
             {/each}
           </Command.Group>

@@ -7,7 +7,7 @@
 
     export let searchQuery = '';
 
-    //console.log('--Search Query:', searchQuery);
+    console.log('--Search Query:', searchQuery);
 
     const { debounce } = lodash;
   

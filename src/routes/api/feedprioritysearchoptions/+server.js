@@ -1,13 +1,13 @@
-import {VITE_API_BASE_URL_SEARCH_OPTIONS_FEEDS} from '$env/static/private';
-import {checkAuthentication} from '$lib/utilities/auth.js';
-import { redirect, json } from '@sveltejs/kit';
+import {VITE_API_BASE_URL_SEARCH_OPTIONS_FEED_PRIORITIES} from '$env/static/private';
+import {checkAuthentication} from '$lib/utilities/auth';
+import {json, redirect} from '@sveltejs/kit';
 
 export const GET = async({cookies}) => {
     let auth = checkAuthentication(cookies).user;
     if (!auth){
         return redirect (303, `/login?redirectTo=/dashboard`);
     }
-    let searchoption_feeds = `${VITE_API_BASE_URL_SEARCH_OPTIONS_FEEDS}`;
+    let searchoption_feeds = `${VITE_API_BASE_URL_SEARCH_OPTIONS_FEED_PRIORITIES}`;
     try{
         let response = await fetch(searchoption_feeds, {
             method: 'GET',
@@ -24,6 +24,6 @@ export const GET = async({cookies}) => {
             return json({error: data.error}, {status: response.status});
         }
     }catch(err){
-        console.log("Feed Search Option End Point Error: ", err);
+        console.log("Feed Priority Search Option End Point Error: ", err);
     }
 }
