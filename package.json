@@ -32,7 +32,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"bits-ui": "^0.21.12",
+		"bits-ui": "^0.21.13",
 		"chart.js": "^4.4.3",
 		"cloudinary": "^2.3.0",
 		"clsx": "^2.1.1",

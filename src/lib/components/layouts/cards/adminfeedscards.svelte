@@ -50,7 +50,7 @@
             in:fly={{ y: 50, duration: 500 }}
             out:fade
             class="relative mx-auto flex w-full transform flex-col rounded-lg border bg-white transition-transform hover:scale-[1.02] dark:bg-gray-800 lg:flex-row"
-            class:shadow-lg={priority === 'high'}
+            class:shadosw-lg={priority === 'high'}
             class:border-2={priority === 'high'}
             class:border-indigo-500={priority === 'high'}
             class:hover:shadow-indigo-400={priority === 'high'}

@@ -39,32 +39,29 @@ function checkForHTMLTags(str) {
 
 function buildFeedFollowUrl(baseUrl, params) {
     let queryParts = [];
-    // Check each parameter and add it to queryParts if it's not undefined or empty
+
     if (params.name) {
         queryParts.push(`name=${encodeURIComponent(params.name)}`);
     }
-    if (params.page) {
+    if (params.page && params.page > 0) {
         queryParts.push(`page=${encodeURIComponent(params.page)}`);
     }
-    if (params.page_size) {
+    if (params.page_size && params.page_size > 0) {
         queryParts.push(`page_size=${encodeURIComponent(params.page_size)}`);
     }
-	if (params.feedID) {
+    if (params.feedID) {
         queryParts.push(`feedID=${encodeURIComponent(params.feedID)}`);
     }
     if (params.feed_type) {
         queryParts.push(`feed_type=${encodeURIComponent(params.feed_type)}`);
     }
-    if (params.priority){
+    if (params.priority) {
         queryParts.push(`priority=${encodeURIComponent(params.priority)}`);
     }
-    // Only append '?' if there are query parameters
-    if (queryParts.length > 0) {
-        return `${baseUrl}?${queryParts.join('&')}`;
-    } else {
-        return baseUrl; // Return the base URL without a '?' if there are no parameters
-    }
+
+    return queryParts.length > 0 ? `${baseUrl}?${queryParts.join('&')}` : baseUrl;
 }
+
 
 // This function returns an updatedData object and an originalData object
 function processUpdateData(formData) {
