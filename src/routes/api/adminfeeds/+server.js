@@ -43,6 +43,43 @@ export const GET = async ({ fetch, cookies, url }) => {
     }
 };
 
+// DELETE a feed. This route is used to delete a feed from the system
+// The feed id is passed as a parameter in the URL
+export const DELETE = async ({ fetch, cookies, url }) => {
+	let auth = checkAuthentication(cookies).user;
+	if (!auth) {
+		return redirect(303, `/login?redirectTo=/dashboard/feedmanager`);
+	}
+	let feed_id = url.searchParams.get('id');
+	if (!feed_id) {
+		return json({ error: 'Invalid feed ID' }, { status: 400 });
+	}
+	let feed_url = `${VITE_API_BASE_URL_ADMIN_FEEDS}/${feed_id}`;
+	try {
+		let response = await fetch(feed_url, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `ApiKey ${auth}`
+			}
+		});
+		if (response.ok) {
+			let data = await response.json();
+			return json(data);
+		} else {
+			let errorData = await response.json();
+			console.log('Error Data: ', errorData);
+			return {
+				error: errorData.error,
+				status: response.status
+			};
+		}
+	} catch (err) {
+		console.log('End Point Error: ', err);
+		return json({ error: 'Failed to delete feed' }, { status: 500 });
+	}
+}
+
 // PATCH: Updates a feed. This route supports partial updates
 // so we can use it to do specific updates such as approving a feed
 // or even setting it's priority. We will not need to provide full

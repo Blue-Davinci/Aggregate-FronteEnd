@@ -108,7 +108,6 @@
 	<!-- Display feeds or 'No Feeds' message -->
 	{#if feeds.length > 0}
 		<Adminfeedscards {feeds} />
-		<Pagination {totalPages} {pageSize} {totalRecords} on:page-change={handlePageChange} />
 	{:else}
 		<div class="text-center">
 			<!-- Icon with Text based on the current state -->
@@ -118,4 +117,5 @@
 			</h2>
 		</div>
 	{/if}
+	<Pagination {totalPages} {pageSize} {totalRecords} on:page-change={handlePageChange} />
 </div>

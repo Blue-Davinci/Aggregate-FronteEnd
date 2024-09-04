@@ -1,37 +1,25 @@
-import {VITE_API_BASE_URL_ADMIN_FEEDS} from '$env/static/private';
+import { adminGetAllFeedsWithParams } from '$lib/dataservice/admin/adminFeedsDataService.js';
 import {checkAuthentication} from '$lib/utilities/auth.js';
 import { fail, redirect} from '@sveltejs/kit';
 
-export const load = async ({ fetch, cookies }) => {
+export const load = async ({ fetch, cookies, url }) => {
     const auth = checkAuthentication(cookies).user;
     if (!auth) {
         return redirect(303, `/login?redirectTo=/admin/feeds`);
     }
-    const feedApprovalsUrl = `${VITE_API_BASE_URL_ADMIN_FEEDS}`;
-    try{
-        const response = await fetch(feedApprovalsUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `ApiKey ${auth}`
-            }
+    // check for a searchOption parameter
+    let searchOption = url.searchParams.get('searchOption') ?? '';
+    // let response = await adminGetAllFeedsWithParams({}, page, pageSize, searchQuery, feedType, priority);
+    const response = await adminGetAllFeedsWithParams({ fetch }, 0, 0, searchOption, '', '');
+    if (response.error) {
+        console.log("----- Error: ", response.error);
+        fail(response.status, {
+            title: 'Error loading Feeds',
+            message: `Something happened and we Could not load any Feeds.`,
+            info: response.error
         });
-        if (response.ok) {
-            let data = await response.json();
-            return data;
-        } else {
-            let errorData = await response.json();
-            return {
-                error: errorData.error,
-                status: response.status
-            };
-        }
-    }catch(err){
-        console.log('Error: ', err);
-        fail(500, {
-            title: 'Error Loading Feed Approvals',
-            message: `Something happened and we could not load any feed approvals.`,
-            info: "It's not you, it's us. Please try again later."
-        });
+    } else {
+        //console.log(">>> Response: ", response);
+        return response.data;
     }
 }

@@ -1,4 +1,8 @@
 <script>
+        import { invalidateAll } from '$app/navigation';
+    import { setToast } from '$lib/utilities/utils';
+    import Alertdeletionconfirmdialog from '../general/alertdeletionconfirmdialog.svelte';
+    import {adminDeleteFeed} from '$lib/dataservice/admin/adminFeedsDataService.js';
 	import { fly, fade, slide } from 'svelte/transition';
     import {
 		XCircle,
@@ -31,8 +35,17 @@
 		// Logic for hiding or unhiding the feed
 	}
 
-	function handleDelete(feedId) {
+	async function handleDelete(event) {
 		// Logic for deleting the feed
+        let feedID  = event.detail;
+        let response = await adminDeleteFeed(feedID);
+        if(response.success){
+            setToast(true, 'Feed deleted successfully', 2000);  
+            invalidateAll();
+        }else{
+            let message = response.error ? response.error : 'Failed to delete feed';
+            setToast(false, message, 2000);
+        }
 	}
 
 	function handleUpdate(feedId) {
@@ -45,7 +58,6 @@
 <!-- Feeds List -->
 <div class="space-y-4">
     {#each feeds as { feed, feed_user, approval_status, follow_count, isExpanded, priority }, i}
-    {feed.is_hidden}
         <div
             in:fly={{ y: 50, duration: 500 }}
             out:fade
@@ -207,12 +219,7 @@
                         {/if}
                     </button>
 
-                    <button
-                        class="flex transform items-center space-x-1 rounded-full bg-red-100 px-3 py-1 text-sm font-semibold text-red-600 transition-transform hover:scale-105 hover:bg-red-200 dark:bg-red-800 dark:text-red-200"
-                        on:click={() => handleDelete(feed.id)}
-                    >
-                        <XCircle class="h-4 w-4" /> <span>Delete</span>
-                    </button>
+                    <Alertdeletionconfirmdialog itemID={feed.id} on:delete={handleDelete}  />
 
                     <button
                         class="flex transform items-center space-x-1 rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-600 transition-transform hover:scale-105 hover:bg-blue-200 dark:bg-blue-800 dark:text-blue-200"
