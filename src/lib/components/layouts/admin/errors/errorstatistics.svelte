@@ -47,7 +47,7 @@
 		class="transform rounded-lg bg-yellow-500 p-4 text-white shadow-lg transition-transform hover:scale-105 hover:shadow-2xl dark:bg-yellow-600"
 	>
 		<div class="flex items-center justify-between">
-			<p class="font-mono text-2xl font-extrabold">{mostCommonErrorType}</p>
+			<p class="truncate font-mono text-2x1 font-extrabold">{mostCommonErrorType}</p>
 			<AlertTriangle class="h-10 w-10" />
 		</div>
 		<h3 class="mt-2 text-right text-sm font-medium">Most Common Error Type</h3>

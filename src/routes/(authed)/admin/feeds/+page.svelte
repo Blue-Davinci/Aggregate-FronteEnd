@@ -10,6 +10,7 @@
 	import { AlertCircle, Search, Filter } from 'lucide-svelte';
 
 	export let data;
+	export let form;
 
 	let isLoading = false;
 	let searchQuery = '';
@@ -107,7 +108,7 @@
 
 	<!-- Display feeds or 'No Feeds' message -->
 	{#if feeds.length > 0}
-		<Adminfeedscards {feeds} />
+		<Adminfeedscards {feeds} {form} />
 	{:else}
 		<div class="text-center">
 			<!-- Icon with Text based on the current state -->

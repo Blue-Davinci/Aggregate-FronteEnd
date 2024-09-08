@@ -69,10 +69,10 @@ export const DELETE = async ({ fetch, cookies, url }) => {
 		} else {
 			let errorData = await response.json();
 			console.log('Error Data: ', errorData);
-			return {
+			return json({
 				error: errorData.error,
 				status: response.status
-			};
+			});
 		}
 	} catch (err) {
 		console.log('End Point Error: ', err);
@@ -125,10 +125,10 @@ export const PATCH = async ({ fetch, cookies, request, url }) => {
 			return json(data);
 		} else {
 			let errorData = await response.json();
-			return {
+			return json({
 				error: errorData.error,
 				status: response.status
-			};
+			});
 		}
 	} catch (err) {
 		console.log('End Point Error: ', err);

@@ -1,19 +1,22 @@
 <script>
-        import { invalidateAll } from '$app/navigation';
+    import Adminupdatefeedmodal from '../admin/adminfeeds/adminupdatefeedmodal.svelte';
+    import Priorityselector from '../admin/adminfeeds/priorityselector.svelte';
+    import { invalidateAll } from '$app/navigation';
     import { setToast } from '$lib/utilities/utils';
     import Alertdeletionconfirmdialog from '../general/alertdeletionconfirmdialog.svelte';
-    import {adminDeleteFeed} from '$lib/dataservice/admin/adminFeedsDataService.js';
+    import {adminDeleteFeed, adminUpdateFeed} from '$lib/dataservice/admin/adminFeedsDataService.js';
 	import { fly, fade, slide } from 'svelte/transition';
     import {
-		XCircle,
 		VenetianMask,
 		ExternalLink,
 		EyeOff,
 		Eye,
 		CheckCircle,
-		Edit,
-		Gem
+		Gem,
+        ArrowDown
 	} from 'lucide-svelte';
+
+    export let form;
     export let feeds;
     
 	function togglePanel(index) {
@@ -31,8 +34,25 @@
 		window.location.href = `/admin/feeds/approvals?feedId=${feedId}`;
 	}
 
-	function handleHideUnhide(feedId) {
-		// Logic for hiding or unhiding the feed
+    // handleHideUnhide() accepts two parameters: feedId and is_hidden
+    // feedId is the id of the feed to be hidden or unhidden
+    // is_hidden is a boolean value that determines if the feed should be hidden or unhidden
+    // if is_hidden is true the we send the object as is_hidden: false otherwise
+    // we send the object as is_hidden: true
+	async function handleHideUnhide(feedId, is_hidden) {
+        let data = {
+            is_hidden: !is_hidden
+        };
+        console.log('Data for hide/unhide: ', data, " || Feed ID: ", feedId);
+        let response = await adminUpdateFeed(feedId, data);
+        if(response.success){
+            setToast(true, 'Feed hidden/unhidden successfully', 2000);  
+            invalidateAll();
+        }else{
+            let message = response.error ? response.error : 'Failed to hide/unhide feed';
+            setToast(false, message, 2000);
+        }
+
 	}
 
 	async function handleDelete(event) {
@@ -48,10 +68,21 @@
         }
 	}
 
-	function handleUpdate(feedId) {
-		// Logic for updating the feed, e.g., navigating to update page
-		window.location.href = `/admin/feeds/update?feedId=${feedId}`;
+	function handleUpdate(event) {
+        console.log('Event Detail:', event.detail);
+        let isUpdated = event.detail;
+        if(isUpdated){
+            invalidateAll();
+        }
 	}
+
+    function handlePrioritySelect(event) {
+        console.log('Priority Selected:', event.detail);
+        let isPrioritySet = event.detail;
+        if(isPrioritySet){
+            invalidateAll();
+        }
+    }
 
 </script> 
 
@@ -65,7 +96,10 @@
             class:shadosw-lg={priority === 'high'}
             class:border-2={priority === 'high'}
             class:border-indigo-500={priority === 'high'}
+            class:bg-gray-100={priority === 'low'}
+            class:border-gray-400={priority === 'low'}
             class:hover:shadow-indigo-400={priority === 'high'}
+            
             class:opacity-50={feed.is_hidden}
             class:hover:shadow-md={priority === 'high'}
             style="padding: 0.5em;"
@@ -93,6 +127,9 @@
                 <div class="flex items-center space-x-2 text-lg font-bold">
                     {#if priority === 'high'}
                         <Gem class="h-5 w-5 text-indigo-500" /> <!-- Gem icon for high priority -->
+                    {/if}
+                    {#if priority === 'low'}
+                        <ArrowDown class="h-5 w-5 text-gray-500" /> <!-- ArrowDown icon for low priority -->
                     {/if}
                     <h3 class="flex items-center space-x-2">
                         {feed.name}
@@ -208,7 +245,7 @@
 
                     <button
                         class="flex transform items-center space-x-1 rounded-full bg-yellow-100 px-3 py-1 text-sm font-semibold text-yellow-600 transition-transform hover:scale-105 hover:bg-yellow-200 dark:bg-yellow-800 dark:text-yellow-200"
-                        on:click={() => handleHideUnhide(feed.id)}
+                        on:click={() => handleHideUnhide(feed.id, feed.is_hidden)}
                     >
                         {#if feed.is_hidden}
                             <Eye class="h-4 w-4" />
@@ -221,12 +258,8 @@
 
                     <Alertdeletionconfirmdialog itemID={feed.id} on:delete={handleDelete}  />
 
-                    <button
-                        class="flex transform items-center space-x-1 rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-600 transition-transform hover:scale-105 hover:bg-blue-200 dark:bg-blue-800 dark:text-blue-200"
-                        on:click={() => handleUpdate(feed.id)}
-                    >
-                        <Edit class="h-4 w-4" /> <span>Update</span>
-                    </button>
+                    <Adminupdatefeedmodal feed={feed} form={form} on:feedUpdated={handleUpdate} />
+                    <Priorityselector feedId={feed.id} currentPriority={priority} on:onsetpriority={handlePrioritySelect} />
                 </div>
             </div>
         {/if}

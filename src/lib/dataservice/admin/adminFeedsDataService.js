@@ -45,7 +45,7 @@ const adminGetAllFeedsWithParams = async({ fetch: customFetch } = {}, page = 0, 
 
 }
 
-
+// adminUpdateFeed() accepts feedID and feedData which we use to update a feed in the system
 const adminUpdateFeed = async (feedId, feedData) => {
     if (!feedId) {
         return {
@@ -63,18 +63,19 @@ const adminUpdateFeed = async (feedId, feedData) => {
             },
             body: JSON.stringify(feedData)
         });
-        if (response.ok) {
+        // we do it a bit differently. We read the JSON first
+        let data = await response.json();
+        if (!data.error) {
             return {
                 success: true,
                 status: response.status,
-                data: await response.json(),
+                data: data,
             };
         } else {
-            let errorData = await response.json();
             return {
                 success: false,
                 status: response.status,
-                error: errorData.error
+                error: data.error
             }
         }
     } catch (err) {
