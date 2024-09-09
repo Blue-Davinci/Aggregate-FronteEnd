@@ -66,8 +66,31 @@ async function getFeedTypesSearchOptions(){
     }
 }
 
+async function getErrorTypesSearchOptions(){
+    try{
+        let url = '/api/errortypesearchoptions';
+        const response = await fetch(url,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.ok){
+            let data = await response.json();
+            return data;
+        }else{
+            let errorData = await response.json();
+            return errorData;
+        }
+        
+    }catch(err){
+        console.log('ErrorType Search Option sendData error: ', err);
+    }
+}
+
 export{
     getFeedSearchOptions,
     getFeedTypesSearchOptions,
-    getFeedPrioritiesSearchOptions
+    getFeedPrioritiesSearchOptions,
+    getErrorTypesSearchOptions
 }
