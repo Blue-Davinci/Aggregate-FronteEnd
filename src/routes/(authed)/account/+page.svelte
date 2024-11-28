@@ -11,7 +11,7 @@
     export let form;
     let userImage = data.props.userimage;
     let currentName = data.props.username;
-
+    // page info
     let pageInfo = {
 		title: 'User Dashboard',
 		message:
